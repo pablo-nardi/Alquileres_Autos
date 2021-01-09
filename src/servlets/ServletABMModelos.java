@@ -42,7 +42,7 @@ public class ServletABMModelos extends HttpServlet {
 			case "/nuevo":
 				MapearADatos(request);
 				ml.addModelo(mod);
-				response.sendRedirect("/EjemploWebIntro_2/ABMModelos.jsp");
+				response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
 				//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
 				break;
 			case "/editar":
@@ -54,7 +54,7 @@ public class ServletABMModelos extends HttpServlet {
 				MapearADatos(request);
 				mod.setIdentificacion(Integer.parseInt(request.getParameter("txtId")));
 				ml.update(mod);
-				response.sendRedirect("/EjemploWebIntro_2/ABMModelos.jsp");
+				response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
 				
 				break;
 			case "/eliminar":
@@ -62,14 +62,14 @@ public class ServletABMModelos extends HttpServlet {
 				
 				try {
 					ml.delete(Integer.parseInt(request.getParameter("id")));
-					response.sendRedirect("/EjemploWebIntro_2/ABMModelos.jsp");
+					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
 					//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
 					break;
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					//e.printStackTrace();
-					response.sendRedirect("/EjemploWebIntro_2/prueba.jsp");
+					response.sendRedirect("/Alquileres_Autos/prueba.jsp?mensaje=NO se puede");
 				}
 				
 			}

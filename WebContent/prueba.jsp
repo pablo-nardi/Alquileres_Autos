@@ -10,17 +10,25 @@
 </head>
 <body>
 	<% Usuario user = (Usuario)session.getAttribute("usuario");
+		String mensaje = (String)request.getParameter("mensaje");
 		String desc;
 	if(user.getRol().equals("administrador")){
 		desc = "Parace que se conserva la sesion amiguito";
+		
 	}else{
 		 desc = "ola";
 	}
+	
 	%>
 
 
 	<h1>Probando variables varias</h1>
 	
 	<p>El valor obtenido es: <% out.println(desc); %></p>
+	<p>El mensaje es: <% out.println(mensaje); %>
+	
+	
+	
+	
 </body>
 </html>

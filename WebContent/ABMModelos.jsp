@@ -66,7 +66,7 @@
 	
 	<a class="form-botton-editar" href="Admin.jsp">Volver a Admin.jsp</a>
 		
-	<div class="container">
+	<div class="container-fluid">
       <div class="row">
         <h2>Modelos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
@@ -74,6 +74,7 @@
               <table class="table table-hover">
                 <thead class="thead-dark">
                   <tr>
+                    <th>Foto</th>
                   	<th>ID Modelo</th>
 					<th>Equipaje Grande</th>
 					<th>Equipaje Chico</th>
@@ -90,7 +91,8 @@
                 </thead>
                 <tbody>
                 <%for(Modelo mod : modelos) { %>
-                  <tr>
+                  <tr><!-- IMAGENES/Modelos/chev_joy.jpg -->
+                  	<td><img alt="" src="<%=mod.getFotoModelo() %>" WIDTH=80 HEIGHT=40></td>
                   	<td><%=mod.getIdentificacion() %></td>
                   	<td><%= mod.getCantEquipajeGrande() %></td>
                   	<td><%= mod.getCantEquipajeChico() %></td>
@@ -160,6 +162,10 @@
 		</select><br>
 		<label>Precio por día:</label>
 		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>" autofocus required class="form-control"><br>
+    </div>
+    <div class="col-sm-4" style="background-color:blue;">
+    	<label>Ingrese Foto: </label>
+    	<input type="file" name="foto" class="form-control">
     </div>
   </div>
 </div>

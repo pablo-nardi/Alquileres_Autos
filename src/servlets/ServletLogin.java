@@ -49,7 +49,7 @@ public class ServletLogin extends HttpServlet {
 		}
 		else {
 			//getServletContext().getRequestDispatcher("/Alquileres_Autos/login.html");
-			response.sendRedirect("/EjemploWebIntro_2/login.jsp");
+			response.sendRedirect("/Alquileres_Autos/login.jsp");
 			
 		}
 	}

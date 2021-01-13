@@ -12,10 +12,18 @@ public class Modelo {
 	
 	String denominacion,
 			transmision,
-	  aireAcondicionado;
+	  aireAcondicionado,
+	  fotoModelo;
 	
-	// Blob fotoModelo;
 	
+	
+	public String getFotoModelo() {
+		return fotoModelo;
+	}
+
+	public void setFotoModelo(String fotoModelo) {
+		this.fotoModelo = fotoModelo;
+	}
 	TipoAuto tipoAuto;
 	
 	public Modelo() {

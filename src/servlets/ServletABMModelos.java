@@ -68,8 +68,7 @@ public class ServletABMModelos extends HttpServlet {
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
-					//e.printStackTrace();
-					response.sendRedirect("/Alquileres_Autos/prueba.jsp?mensaje=NO se puede");
+					response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString()+"&path=/ABMModelos.jsp");
 				}
 				
 			}
@@ -93,6 +92,6 @@ public class ServletABMModelos extends HttpServlet {
 		mod.setTransmision(request.getParameter("selectTransmision"));
 		mod.setAireAcondicionado(request.getParameter("selectAA"));
 		mod.getTipoAuto().setId_Tipo(Integer.parseInt(request.getParameter("selectTipo")));
-		//FALTA LA FOTO
+		mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
 	}
 }

@@ -70,7 +70,7 @@ public class DatosModelos {
 					mod.setDenominacion(rs.getString("denominacion"));
 					mod.setTransmision(rs.getString("transmision"));
 					mod.setAireAcondicionado(rs.getString("aireAcondicionado"));
-					//falta la foto
+					mod.setFotoModelo(rs.getString("fotoModelo"));
 					mod.setCantPasajeros(rs.getInt("cantPasajeros"));
 					mod.setTipoAuto(dtp.getOne(rs.getInt("idTipo")));
 
@@ -103,7 +103,7 @@ public class DatosModelos {
 			stmt.setString(4, mod.getDenominacion());
 			stmt.setString(5, mod.getTransmision());
 			stmt.setString(6, mod.getAireAcondicionado());
-			stmt.setString(7, null);
+			stmt.setString(7, mod.getFotoModelo());
 			stmt.setInt(8, mod.getCantPasajeros());
 			stmt.setInt(9, mod.getTipoAuto().getId_Tipo());
 			stmt.executeUpdate();
@@ -134,7 +134,7 @@ public class DatosModelos {
 			stmt.setString(4, mod.getDenominacion());
 			stmt.setString(5, mod.getTransmision());
 			stmt.setString(6, mod.getAireAcondicionado());
-			stmt.setString(7, null);
+			stmt.setString(7, mod.getFotoModelo());
 			stmt.setInt(8, mod.getCantPasajeros());
 			stmt.setInt(9, mod.getTipoAuto().getId_Tipo());
 			stmt.setInt(10, mod.getIdentificacion());

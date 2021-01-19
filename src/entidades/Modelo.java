@@ -15,6 +15,7 @@ public class Modelo {
 	  aireAcondicionado,
 	  fotoModelo;
 	
+	TipoAuto tipoAuto;
 	
 	
 	public String getFotoModelo() {
@@ -24,7 +25,7 @@ public class Modelo {
 	public void setFotoModelo(String fotoModelo) {
 		this.fotoModelo = fotoModelo;
 	}
-	TipoAuto tipoAuto;
+	
 	
 	public Modelo() {
 		tipoAuto = new TipoAuto();

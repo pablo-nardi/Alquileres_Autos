@@ -9,12 +9,12 @@
 <title>Error en la pagina</title>
 </head>
 <body>
-	<% 	//VALIDACION DE SESION DE USUARIO
+	<% 	/*/VALIDACION DE SESION DE USUARIO
 		Usuario user = (Usuario)session.getAttribute("usuario");
 		if(!user.getRol().toLowerCase().equals("administrador")){
 		String redirectURL = "index.html";
 	    response.sendRedirect(redirectURL);
-		}
+		}*/
 	%>
 	<%
 		String mensaje = (String)request.getParameter("mensaje");

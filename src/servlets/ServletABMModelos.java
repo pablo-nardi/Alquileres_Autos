@@ -18,6 +18,8 @@ import entidades.Usuario;
 
 
 @WebServlet({"/ServletABMModelos/*", "/ServletabmModelos/*", "/Servletambmodelos/*", "/servletabmModelos/*"})
+
+
 public class ServletABMModelos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Modelo mod;
@@ -75,7 +77,7 @@ public class ServletABMModelos extends HttpServlet {
 			
 			
 		}else {
-			getServletContext().getRequestDispatcher("/index.html");
+			getServletContext().getRequestDispatcher("/login.jsp");
 		}
 	
 	}

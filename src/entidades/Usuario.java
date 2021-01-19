@@ -19,6 +19,16 @@ public class Usuario {
 			codigoPostal;
 	
 	Date 	vencUltTarjeta;
+	
+	public Localidad getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
+	}
+
+	Localidad localidad;
 
 	public String getCuil() {
 		return cuil;

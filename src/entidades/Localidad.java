@@ -3,8 +3,12 @@ package entidades;
 public class Localidad {
 	String denominacion;
 	int codigoPostal;
-	Provincia provincia = new Provincia();
+	Provincia provincia;
 
+	public Localidad() {
+		provincia = new Provincia();
+	}
+	
 	public Provincia getProvincia() {
 		return provincia;
 	}

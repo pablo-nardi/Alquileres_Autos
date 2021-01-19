@@ -47,4 +47,38 @@ public class DatosLocalidad {
 		
 		return localidades;
 	}
+
+	public Localidad getOne(int id) {
+		Localidad localidad = null;
+		DatosProvincia dp = new DatosProvincia();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM localidades where codigoPostal=?");
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+			
+			if (rs!=null && rs.next()) {
+				localidad = new Localidad();
+				localidad.setCodigoPostal(rs.getInt("codigoPostal"));
+				localidad.setDenominacion(rs.getString("denominacion"));
+				localidad.setProvincia(dp.getOne(rs.getInt("idProvincia")));
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return localidad;
+	}
+
 }

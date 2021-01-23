@@ -13,6 +13,9 @@ import entidades.*;
 
 public class DatosAutos {
 	
+	
+	
+	
 	public LinkedList<Auto> getAutosFromSucursal(int idSuc){
 	
 		LinkedList<Auto> autos = new LinkedList<>();

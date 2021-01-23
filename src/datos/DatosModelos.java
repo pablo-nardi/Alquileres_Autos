@@ -91,7 +91,7 @@ public class DatosModelos {
 		}
 		return modelos;
 	}
-	public void addModelos(Modelo mod) {
+	public void addModelos(Modelo mod) throws SQLException{
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
 		
@@ -112,18 +112,18 @@ public class DatosModelos {
 				mod.setIdentificacion(keyResultSet.getInt(1));
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(keyResultSet!=null) {keyResultSet.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
-	public void update(Modelo mod) {
+	public void update(Modelo mod) throws SQLException{
 		PreparedStatement stmt = null;
 		
 		try {
@@ -142,13 +142,13 @@ public class DatosModelos {
 			stmt.executeUpdate();
 		}
 		catch (SQLException e) {
-            e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
@@ -168,7 +168,7 @@ public class DatosModelos {
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}

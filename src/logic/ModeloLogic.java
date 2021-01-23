@@ -12,13 +12,13 @@ public class ModeloLogic {
 		public ModeloLogic() {
 			dm = new DatosModelos();
 		}
-		public void addModelo(Modelo mod) {
+		public void addModelo(Modelo mod) throws SQLException{
 			dm.addModelos(mod);
 		}
 		public LinkedList<Modelo> getAll() {
 			return dm.getAll();
 		}
-		public void update(Modelo mod) {
+		public void update(Modelo mod) throws SQLException{
 			dm.update(mod);
 		}
 		public void delete(int idModelo) throws SQLException {

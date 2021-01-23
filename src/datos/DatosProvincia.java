@@ -11,6 +11,7 @@ public class DatosProvincia {
 	public LinkedList<Provincia> getAll(){
 		LinkedList<Provincia> provincias = new LinkedList<>();
 		Provincia prov = null;
+		DatosLocalidad dl = new DatosLocalidad();
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		
@@ -24,6 +25,7 @@ public class DatosProvincia {
 					
 					prov.setIdProvincia(rs.getInt("idProvincia"));
 					prov.setDenominacion(rs.getString("denominacion"));
+					prov.setLocalidades(dl.getLocalidades(prov.getIdProvincia()));
 					
 					provincias.add(prov);
 				}
@@ -42,6 +44,7 @@ public class DatosProvincia {
 		return provincias;
 	}
 	public Provincia getOne(int id) {
+
 		Provincia prov = null;
 		
 		PreparedStatement stmt = null;
@@ -70,4 +73,69 @@ public class DatosProvincia {
 		
 		return prov;
 	}
+	public void addProvincia(Provincia prov) throws SQLException {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO provincias (denominacion) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, prov.getDenominacion());
+			stmt.executeUpdate();
+			keyResultSet = stmt.getGeneratedKeys();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				prov.setIdProvincia(keyResultSet.getInt(1));
+			}
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(keyResultSet!=null) {keyResultSet.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public void updateProvincia(Provincia prov) throws SQLException{
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE provincias SET denominacion=? WHERE idProvincia=?");
+			stmt.setString(1, prov.getDenominacion());
+			
+			stmt.executeUpdate();
+		}catch (SQLException e) {
+            throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+	public void deleteProvincia(int idProvincia)throws SQLException{
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from provincias where idProvincia=?");
+			stmt.setInt(1,idProvincia);
+			
+			stmt.executeUpdate();
+		}
+		catch (SQLException e) {
+            //e.printStackTrace();
+			throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	
+	}
 }
+

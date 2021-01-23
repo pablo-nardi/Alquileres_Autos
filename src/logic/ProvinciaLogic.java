@@ -1,4 +1,5 @@
 package logic;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 
@@ -15,4 +16,14 @@ public class ProvinciaLogic {
 	public Provincia getOne(int id) {
 		return dp.getOne(id);
 	}
+	public void addProvincia(Provincia prov) throws SQLException {
+		dp.addProvincia(prov);
+	}
+	public void updateProvincia(Provincia prov) throws SQLException {
+		dp.updateProvincia(prov);
+	}	
+	public void deleteProvincia(int idProvincia) throws SQLException {
+		dp.deleteProvincia(idProvincia);
+	}
+	
 }

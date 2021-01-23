@@ -49,8 +49,7 @@ public class DatosLocalidad {
 
 		return localidades;
 	}
-
-	public Localidad getOne(int id) {
+	public Localidad getOne(int id)throws SQLException {
 		Localidad localidad = null;
 		DatosProvincia dp = new DatosProvincia();
 		PreparedStatement stmt=null;
@@ -68,19 +67,76 @@ public class DatosLocalidad {
 				localidad.setProvincia(dp.getOne(rs.getInt("idProvincia")));
 			}			
 		}catch(Exception e) {
-			e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		
 		return localidad;
 	}
-
+	public void addLocalidad(Localidad loc) throws SQLException{
+		PreparedStatement stmt=null;
+		try {
+stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO localidades (codigoPostal, denominacion, idProvincia) VALUES (?,?,?)");
+			stmt.setInt(1, loc.getCodigoPostal());
+			stmt.setString(2, loc.getDenominacion());
+			stmt.setInt(3, loc.getProvincia().getIdProvincia());
+			stmt.executeUpdate();
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+	public void updateLocalidad(Localidad loc)throws SQLException{
+		PreparedStatement stmt = null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE localidades SET denominacion=?, idProvincia=? WHERE codigoPostal=?");
+			stmt.setString(1, loc.getDenominacion());
+			stmt.setInt(2, loc.getProvincia().getIdProvincia());
+			stmt.setInt(3, loc.getCodigoPostal());
+			
+			stmt.executeUpdate();
+		}catch (SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
+	public void deleteLocalidad(int idLoc)throws SQLException{
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from localidades where codigoPostal=?");
+			stmt.setInt(1,idLoc);
+			
+			stmt.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
 }

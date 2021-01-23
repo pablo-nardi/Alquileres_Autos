@@ -93,7 +93,7 @@ public class DatosProvincia {
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
@@ -103,6 +103,7 @@ public class DatosProvincia {
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE provincias SET denominacion=? WHERE idProvincia=?");
 			stmt.setString(1, prov.getDenominacion());
+			stmt.setInt(2, prov.getIdProvincia());
 			
 			stmt.executeUpdate();
 		}catch (SQLException e) {

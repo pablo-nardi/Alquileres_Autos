@@ -9,38 +9,79 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.*;
+import entidades.*;
+import logic.*;
+
 @WebServlet("/ServletABMProvincia/*")
 public class ServletABMProvincia extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Provincia prov = null; 
+	ProvinciaLogic pl = null; 
+	Localidad loc = null;
+	LocalidadLogic ll = null;
        
     public ServletABMProvincia() {
         super();
+        prov = new Provincia();
+        pl = new ProvinciaLogic();
+        loc = new Localidad();
+        ll = new LocalidadLogic();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
-		//try {
+		try {
 			switch(request.getPathInfo()) {
 			case "/nuevo":
-				//mapearADatos(request);
-				//ul.addUser(user);
-				response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje=hola");
+				mapearADatos(request);
+				pl.addProvincia(prov);
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
 				break;
 			case "/editar":
-				//mapearADatos(request);
-				//ul.updateUser(user);
-				response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
+				mapearADatos(request);
+				prov.setIdProvincia(Integer.parseInt(request.getParameter("txtIdProvincia")));
+				pl.updateProvincia(prov);
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
 				break;
 			case "/eliminar":
-					//ul.deleteUser(request.getParameter("id"));
-					response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
+				pl.deleteProvincia(Integer.parseInt(request.getParameter("txtIdProvincia")));
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				break;
+			case "/nuevaLocalidad":
+				mapearADatos(request);
+				ll.addLocalidad(loc);
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				break;
+			case "/editarLocalidad":
+				mapearADatos(request);
+				ll.updateLocalidad(loc);
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				break;
+			case "/eliminarLocalidad":
+				ll.deleteLocalidad(Integer.parseInt(request.getParameter("txtCodigoPostal")));
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
 			}
-		//}catch (SQLException e) {
-			//response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+		}catch (SQLException e) {
+			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+	}
+	private void mapearADatos(HttpServletRequest req) {
+		
+		if(req.getPathInfo().equals("nuevo") || req.getPathInfo().equals("editar")) {
+			prov.setDenominacion(req.getParameter("txtDenominacion"));
+		}else {
+			loc.setCodigoPostal(Integer.parseInt(req.getParameter("txtCodigoPostal")));
+			loc.setDenominacion(req.getParameter("txtLocalidad"));
+			// falta provincia
+		}
+		
+		
+		//TODO falta hacer select en jsp
+		//TODO falta cambiar el mapearadatos
 	}
 
 }

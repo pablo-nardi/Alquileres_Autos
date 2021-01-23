@@ -12,7 +12,7 @@ public class Provincia {
 		capitalCities.put("England", "London");
 		capitalCities.get("England");
 		capitalCities.remove("England");
-		capitalCities.clear(); Limpia TODO
+		capitalCities.clear(); 
 		capitalCities.size();
 		// Print keys and values
 			for (String i : capitalCities.keySet()) {

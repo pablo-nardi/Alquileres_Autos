@@ -40,42 +40,34 @@ public class ServletABMModelos extends HttpServlet {
 		
 		if(usuario.getRol().toLowerCase().equals("administrador")) {
 			
-			switch(request.getPathInfo()) {
-			case "/nuevo":
-				MapearADatos(request);
-				ml.addModelo(mod);
-				response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
-				//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
-				break;
-			case "/editar":
-				
-				//request.getRequestDispatcher("./Alquileres_Autos/ABMModelos.jsp").forward(request, response); NO
-				//Modelo mod = ml.getOne(Integer.parseInt(request.getParameter("id"))); NO
-				//request.setAttribute("modEdit", mod); NO
-				//response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp?mode=editar&id="+request.getParameter("id")); SI
-				MapearADatos(request);
-				mod.setIdentificacion(Integer.parseInt(request.getParameter("txtId")));
-				ml.update(mod);
-				response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
-				
-				break;
-			case "/eliminar":
-				
-				
-				try {
+			try {
+				switch(request.getPathInfo()) {
+				case "/nuevo":
+					MapearADatos(request);
+					ml.addModelo(mod);
+					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
+					//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
+					break;
+				case "/editar":
+					
+					//request.getRequestDispatcher("./Alquileres_Autos/ABMModelos.jsp").forward(request, response); NO
+					//Modelo mod = ml.getOne(Integer.parseInt(request.getParameter("id"))); NO
+					//request.setAttribute("modEdit", mod); NO
+					//response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp?mode=editar&id="+request.getParameter("id")); SI
+					MapearADatos(request);
+					mod.setIdentificacion(Integer.parseInt(request.getParameter("txtId")));
+					ml.update(mod);
+					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
+					
+					break;
+				case "/eliminar":
 					ml.delete(Integer.parseInt(request.getParameter("id")));
 					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
 					//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
 					break;
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
-					response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString()+"&path=/ABMModelos.jsp");
 				}
-				
-			}
-			
-			
+			} catch (SQLException e) {
+				response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}	
 		}else {
 			getServletContext().getRequestDispatcher("/login.jsp");
 		}

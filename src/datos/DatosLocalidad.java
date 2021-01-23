@@ -24,14 +24,16 @@ public class DatosLocalidad {
 			stmt.setInt(1, idProv);
 			rs = stmt.executeQuery();
 			
-			while(rs!=null&&rs.next()) {
-				local = new Localidad();
-				
-				local.setCodigoPostal(rs.getInt("codigoPostal"));
-				local.setDenominacion(rs.getString("denominacion"));
-				local.setProvincia(dp.getOne(idProv));
-				
-				localidades.add(local);
+			if(rs!=null) {
+				while(rs.next()) {
+					local = new Localidad();
+					
+					local.setCodigoPostal(rs.getInt("codigoPostal"));
+					local.setDenominacion(rs.getString("denominacion"));
+					local.setProvincia(dp.getOne(idProv));
+					
+					localidades.add(local);
+				}
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -44,7 +46,7 @@ public class DatosLocalidad {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return localidades;
 	}
 

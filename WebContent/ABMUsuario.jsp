@@ -81,7 +81,7 @@
 
 	<div class="container-fluid">
       <div class="row">
-        <h2>userelos</h2>
+        <h3>Usuarios</h3>
           <div class="col-12 col-sm-12 col-lg-12">
             <div class="table-responsive">
               <table class="table table-hover">

@@ -3,12 +3,15 @@ package entidades;
 import java.util.Date;
 
 public class Auto {
-	String patente; //disponible, en alquiler, en inspeccion, dado de baja
+	String patente; 
 	float capacidadDelTanque, kilometraje;
 	Date fecha_de_compra, fechaUtltimoServicio;
 	Estado estado;
 	Modelo modelo;
+	Sucursal sucursal;
 	
+
+
 	public enum Estado{
 		disponible,
 		alquilado,
@@ -40,7 +43,9 @@ public class Auto {
 	public Modelo getModelo() {
 		return modelo;
 	}
-	
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
 	//////// Setters //////////
 	
 	public void setPatente(String patente) {
@@ -63,6 +68,9 @@ public class Auto {
 	}
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
+	}
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
 	}
 	
 	@Override

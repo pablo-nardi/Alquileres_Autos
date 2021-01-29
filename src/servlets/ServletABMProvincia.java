@@ -34,7 +34,6 @@ public class ServletABMProvincia extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request, response);
 		try {
 			switch(request.getPathInfo()) {
 			case "/nuevo":
@@ -71,11 +70,13 @@ public class ServletABMProvincia extends HttpServlet {
 	}
 	private void mapearADatos(HttpServletRequest req) {
 		
-		if(req.getPathInfo().equals("nuevo") || req.getPathInfo().equals("editar")) {
+		if(req.getPathInfo().equals("/nuevo") || req.getPathInfo().equals("/editar")) {
 			prov.setDenominacion(req.getParameter("txtDenominacion"));
-		}else {
+			
+		}else if(req.getPathInfo().equals("/nuevaLocalidad") || req.getPathInfo().equals("/editarLocalidad")){
 			loc.setCodigoPostal(Integer.parseInt(req.getParameter("txtCodigoPostal")));
 			loc.setDenominacion(req.getParameter("txtLocalidad"));
+			loc.setProvincia(pl.getOne(Integer.parseInt(req.getParameter("selectProvincia")) ) );
 			// falta provincia
 		}
 		

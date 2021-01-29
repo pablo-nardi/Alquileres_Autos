@@ -70,17 +70,18 @@
 <body>
 												<!--  ///////////////////////////////
 													      
-													     EMPIEZA LA PARTE DE LOCALIDADES 
+													     EMPIEZA LA PARTE DE PROVINCIAS 
 													      
 													      /////////////////////////////////-->
 													      
 													      
-	<h1>Formulario ABM de Usuarios</h1>
-		<h2>Datos obligatorios</h2>
+	<h1>Formulario ABM de Provincias y localidades</h1>
 
+		
 
-	<div class="container-fluid">
-		<h3>Provincias</h3>		 
+	<div class="container-fluid">		 
+	    <h2>ABM de Provincias</h2>
+	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 	      <div class="row">
 	          <div class="col-sm-8"><!-- col-12 col-sm-12 col-lg-12 -->
 	            <div class="table-responsive">
@@ -125,7 +126,7 @@
 	   			</form>
 		   	</div>
 	      </div>
-	      
+	      	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 	      <!-- 
 													      ///////////////////////////////
 													      
@@ -134,6 +135,8 @@
 													      /////////////////////////////////
 	      
 	       -->
+	       	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
+	      <h2>ABM de Localidades</h2>
 	      
 	      <div class="row">
 	      	<div class="col-sm-8"><!-- col-12 col-sm-12 col-lg-12 -->
@@ -179,17 +182,15 @@
 				  		<div class="row">
 						    <div class="col-sm-12" style="background-color:lavender;">
 							 	<label>Provincia</label>
-							 	<select name="selectTipo" class="form-control">
+							 	<select name="selectProvincia" class="form-control" <%=formActionLocalidad=="eliminarLocalidad"?"disabled":"" %>>
 							 	<%for(Provincia p: provincias){ String value = Integer.toString(p.getIdProvincia()); %>
 							 	<option value="<%=value %>" <%=local!=null&&Integer.parseInt(value)==local.getProvincia().getIdProvincia()?"selected":"" %> ><%=p.getDenominacion() %></option>
 							 	<%} %>
 							 	</select>
-						    	<label>Provincia:</label>
-								<input type="number" name="txtProvincia" autofocus readonly  class="form-control" value="<%=local==null?"":local.getProvincia().getDenominacion() %>"><br>
 								<label>Localidad:</label>
-								<input type="text" name="txtLocalidad"  class="form-control" value="<%=local==null?"":local.getDenominacion() %>" ><br>
+								<input type="text" name="txtLocalidad"  class="form-control" value="<%=local==null?"":local.getDenominacion() %>" <%=formActionLocalidad=="eliminarLocalidad"?"readonly":"" %>><br>
 								<label>Codigo Postal</label>
-								<input type="number" name="txtCodigoPostal"  class="form-control" value="<%=local==null?"":local.getCodigoPostal() %>" ><br>
+								<input type="number" name="txtCodigoPostal"  class="form-control" value="<%=local==null?"":local.getCodigoPostal() %>" <%=formActionLocalidad=="eliminarLocalidad"?"readonly":"" %> ><br>
 								<% String texto = "No paso el if"; 
 								if(mode.equals("nuevo")){texto = "Cargar";}
 								else if(mode.equals("editarLocalidad")){texto = "Editar";}
@@ -202,6 +203,7 @@
 	   			</form>
 	          </div>	
 	      </div>
+	      	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
     </div>
     
     

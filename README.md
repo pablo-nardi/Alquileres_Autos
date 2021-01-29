@@ -4,7 +4,7 @@ Repositorio del TP de la Materia JAVA
 **Mail de MEca:** adrianmeca@gmail.com
 link de github: https://github.com/utnfrrojava/java2019
 
-# Datos en clases
+# Datos en clase
 ¿getAttribute? vs ¿getParameter?
 getServletContext().getRequestDispatcher("/Admin.jsp").forward(request, response);
 vs

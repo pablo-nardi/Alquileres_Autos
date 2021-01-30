@@ -14,7 +14,7 @@ public class SucursalLogic {
 	}
 	public LinkedList<Sucursal> getAll() throws SQLException{
 		return ds.getAll();
-	}/*
+	}
 	public Sucursal getOne(int id) throws SQLException{
 		return ds.getOne(id);
 	}
@@ -26,5 +26,5 @@ public class SucursalLogic {
 	}
 	public void deleteSucursal(int id) throws SQLException{
 		ds.deleteSucursal(id);
-	}*/
+	}
 }

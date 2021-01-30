@@ -42,7 +42,7 @@
 		
 		String mode = (String)request.getParameter("mode");
 		if(mode == null){	mode = "nuevo";	}
-		if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){ //CAMBIAR POR ELSE IF ///////////////////////
 			prov = pl.getOne(Integer.parseInt(request.getParameter("id")));
 			formActionProvincia = "editar";
 		}

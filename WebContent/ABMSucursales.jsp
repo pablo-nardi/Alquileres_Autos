@@ -113,6 +113,7 @@
 								<input type="time" name="txtHoraApertura" class="form-control">
 								<label>Hora de Cierre:</label>
 								<input type="time" name="txtHoraCierre" class="form-control"><br>
+								
 							</div>
 		   				</div>
 	   				</div>

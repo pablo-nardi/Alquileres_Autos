@@ -1,24 +1,23 @@
 package entidades;
 
-import java.sql.Time;
-import java.time.LocalTime;
+
 
 
 public class Sucursal {
 	int idSucursal; 
-	String denominacion, direccion, telefono;
+	String horaApertura, horaCierre, denominacion, direccion, telefono;
 	Localidad localidad;
-	LocalTime horaApertura, horaCierre;
+	 
 	
 
 	///// Getters ///////
 	public String getTelefono() {
 		return telefono;
 	}
-	public LocalTime getHoraApertura() {
+	public String getHoraApertura() {
 		return horaApertura;
 	}
-	public LocalTime getHoraCierre() {
+	public String getHoraCierre() {
 		return horaCierre;
 	}
 	public Localidad getLocalidad() {
@@ -47,10 +46,10 @@ public class Sucursal {
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}public void setHoraCierre(LocalTime horaCierre) {
+	}public void setHoraCierre(String horaCierre) {
 		this.horaCierre = horaCierre;
 	}
-	public void setHoraApertura(LocalTime horaApertura) {
+	public void setHoraApertura(String horaApertura) {
 		this.horaApertura = horaApertura;
 	}
 	public void setTelefono(String telefono) {

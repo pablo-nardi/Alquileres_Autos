@@ -16,12 +16,12 @@ import entidades.Sucursal;
 import logic.*;
 
 @WebServlet("/ServeltABMSucursal")
-public class ServeltABMSucursal extends HttpServlet {
+public class ServletABMSucursal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Sucursal suc = null;
     SucursalLogic sl = null;
 
-    public ServeltABMSucursal() {
+    public ServletABMSucursal() {
         super();
         suc = new Sucursal();
         sl = new SucursalLogic();
@@ -56,32 +56,8 @@ public class ServeltABMSucursal extends HttpServlet {
 	private void mapearADatos(HttpServletRequest req) {
 		suc.setDenominacion(req.getParameter("txtSucursal"));
 		suc.setDireccion(req.getParameter("txtDireccion"));
-		suc.setHoraApertura(LocalTime.parse(req.getParameter("txtHoraApertura")));
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }

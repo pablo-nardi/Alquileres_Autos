@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.*;
 import entidades.*;
 import logic.*;
 
@@ -77,12 +76,6 @@ public class ServletABMProvincia extends HttpServlet {
 			loc.setCodigoPostal(Integer.parseInt(req.getParameter("txtCodigoPostal")));
 			loc.setDenominacion(req.getParameter("txtLocalidad"));
 			loc.setProvincia(pl.getOne(Integer.parseInt(req.getParameter("selectProvincia")) ) );
-			// falta provincia
-		}
-		
-		
-		//TODO falta hacer select en jsp
-		//TODO falta cambiar el mapearadatos
+		}		
 	}
-
 }

@@ -16,4 +16,16 @@ public class AutoLogic {
 	public LinkedList<Auto> getAll() throws SQLException{
 		return da.getAll();
 	}
+	public Auto getOne(String patente) throws SQLException{
+		return da.getOne(patente);
+	}
+	public void addAuto(Auto auto) throws SQLException{
+		da.addAuto(auto);
+	}
+	public void updateAuto(Auto auto)throws SQLException {
+		da.update(auto);
+	}
+	public void deleteAuto(String patente)throws SQLException {
+		da.delete(patente);
+	}
 }

@@ -22,6 +22,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+	function cargarFormulario(met) {
+		document.formAuto.action=met;
+	}
+    </script>
     
     	<% 	/*VALIDACION DE SESION DE USUARIO
 		Usuario user = (Usuario)session.getAttribute("usuario");
@@ -43,6 +48,17 @@
 		autos = al.getAll();
 		modelos = ml.getAll();
 		sucursales = sl.getAll();
+		
+		String mode = (String)request.getParameter("mode");
+		if(mode == null){	mode = "nuevo";	}
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
+			auto = al.getOne((String)request.getParameter("id"));
+			detailFormAuto = "editar";
+		}
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
+			auto = al.getOne((String)request.getParameter("id"));
+			detailFormAuto = "eliminar";
+		}
 	%>
     
 </head>
@@ -88,8 +104,8 @@
                     <td><%=a.getFechaUtltimoServicio() %></td>
                     <td><%=a.getModelo().getDenominacion() %></td>
                     <td><%=a.getSucursal().getDenominacion() %></td>
-                    <td><a class="form-botton-editar" href="ABMModelos.jsp?mode=editar&id=<%=a.getPatente() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ServletABMModelos/eliminar?id=<%=a.getPatente() %>">Eliminar</a></td>
+                    <td><a class="form-botton-editar" href="ABMAutos.jsp?mode=editar&id=<%=a.getPatente() %>">Editar</a></td>
+                    <td><a class="form-botton-eliminar" href="ABMAutos.jsp?mode=eliminar&id=<%=a.getPatente() %>">Eliminar</a></td>
                   </tr>
                   <% } %>
                 </tbody>
@@ -101,43 +117,47 @@
       <!-- Linea divisora -->	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>
       
        <div class="col-sm-12" style="background-color:lavender;">
-	          	<form action="" name="formSucursal" method="post">			
+	          	<form action="" name="formAuto" method="post">			
 					<div class="container"> 
 				  		<div class="row">
 						    <div class="col-sm-6" style="background-color:lavender;">
 							 	<label>Patente</label>
-							 	<input type="text" name="txtPatente"  class="form-control">
+							 	<input type="text" name="txtPatente"  class="form-control" value="<%=auto==null?"":auto.getPatente() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 							 	<label>Estado</label>
-							 	<select name="selectEstado" class="form-control">
-							 		<option value="disponible">Disponible</option>
-							 		<option value="alquilado">Alquilado</option>
-							 		<option value="inspeccion">Inspeccion</option>
-							 		<option value="inhabilitado">Inhabilitado</option>
+							 	<select name="selectEstado" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
+							 		<option value="disponible" <%=auto!=null&&auto.getEstado().toString().equals("disponible")?"selected":"" %> >Disponible</option>
+							 		<option value="alquilado" <%=auto!=null&&auto.getEstado().toString().equals("alquilado")?"selected":"" %> >Alquilado</option>
+							 		<option value="inspeccion" <%=auto!=null&&auto.getEstado().toString().equals("inspeccion")?"selected":"" %> >Inspeccion</option>
+							 		<option value="inhabilitado" <%=auto!=null&&auto.getEstado().toString().equals("inhabilitado")?"selected":"" %> >Inhabilitado</option>
 							 	</select>
 							 	<label>Capadidad del Tanque</label>
-							 	<input type="number" name="txtCapacidad" class="form-control">
+							 	<input type="number" name="txtCapacidad" class="form-control" value="<%=auto==null?"":auto.getCapacidadDelTanque() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 							 	<label>Kilometraje</label>
-							 	<input type="number" name="txtKilometraje" class="form-control"><br>
-								<button class="btn btn-primary" >Cargar</button>
+							 	<input type="number" name="txtKilometraje" class="form-control" value="<%=auto==null?"":auto.getKilometraje() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+								<% String texto = "No paso el if"; 
+								if(mode.equals("nuevo")){texto = "Cargar";}
+								else if(mode.equals("editar")){texto = "Editar";}
+								else if(mode.equals("eliminar")){texto = "Eliminar";} %>
+								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMAutos/<%=detailFormAuto%>')"><%=texto %></button>
 				   				<button class="btn btn-outline-primary" name="">Cancelar</button>
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">
 				   				<label>Fecha de Compra:</label>
-							 	<input type="date" name="txtFechaCompra"  class="form-control">
+							 	<input type="date" name="txtFechaCompra"  class="form-control" value="<%=auto==null?"":auto.getFecha_de_compra() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 								<label>Fecha Ult. Servicio</label>
-								<input type="date" name="txtServicio" class="form-control">
+								<input type="date" name="txtServicio" class="form-control" value="<%=auto==null?"":auto.getFechaUtltimoServicio() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 								<label>Modelo:</label>
-								<select name="selectModelos" class="form-control">
+								<select name="selectModelos" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
 								
-									<%for (Modelo m: modelos){ %>
-										<option> <%=m.getDenominacion() %> </option>
+									<%for (Modelo m: modelos){ String value = Integer.toString(m.getIdentificacion()); %>
+										<option value="<%=value%>" <%=auto!=null&&auto.getModelo().getIdentificacion()==m.getIdentificacion()?"selected":"" %> > <%=m.getDenominacion() %> </option>
 									<%} %>
 								
 								</select>
 								<label>Sucursal:</label>
-								<select name="selectSucursales" class="form-control">
-									<%for (Sucursal s: sucursales){ %>
-										<option> <%=s.getDenominacion() %> </option>
+								<select name="selectSucursales" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
+									<%for (Sucursal s: sucursales){ String value = String.valueOf(s.getIdSucursal()); %>
+										<option value="<%=value %>" <%=auto!=null&&auto.getSucursal().getIdSucursal()==s.getIdSucursal()?"selected":"" %> > <%=s.getDenominacion() %> </option>
 									<%} %>
 								</select>
 							</div>

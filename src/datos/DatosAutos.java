@@ -148,6 +148,8 @@ public class DatosAutos {
 			stmt.setInt(7, auto.getModelo().getIdentificacion());
 			stmt.setInt(8, auto.getSucursal().getIdSucursal());
 			
+			stmt.executeUpdate();
+			
 		}catch (SQLException e) {
 			throw e;
 		}finally {

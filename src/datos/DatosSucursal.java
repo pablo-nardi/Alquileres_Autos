@@ -5,10 +5,7 @@ import entidades.Sucursal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.LinkedList;
-import java.sql.Time;
-import entidades.Localidad;
 
 public class DatosSucursal {
 	public LinkedList<Sucursal> getAll() throws SQLException{
@@ -28,8 +25,8 @@ public class DatosSucursal {
 					
 					sucursal.setDenominacion(rs.getString("denominacion"));
 					sucursal.setDireccion(rs.getString("direccion"));
-					sucursal.setHoraApertura(LocalTime.parse(String.valueOf(rs.getTime("horaApertura")))); //REVISAR COMO HACER CON LOCALTIME
-					sucursal.setHoraCierre(LocalTime.parse(String.valueOf(rs.getTime("horaCierre"))));		//REVISAR COMO HACER CON LOCALTIME
+					sucursal.setHoraApertura(rs.getString("horaApertura"));
+					sucursal.setHoraCierre(rs.getString("horaCierre"));
 					sucursal.setIdSucursal(rs.getInt("idSucursal"));
 					sucursal.setTelefono(rs.getString("telefono"));
 					sucursal.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
@@ -67,8 +64,8 @@ public class DatosSucursal {
 				
 				suc.setDenominacion(rs.getString("denominacion"));
 				suc.setDireccion(rs.getString("direccion"));
-				//suc.setHoraApertura(rs.getTime("horaApertura"));
-				//suc.setHoraCierre(rs.getTime("horaCierre"));
+				suc.setHoraApertura(rs.getString("horaApertura"));
+				suc.setHoraCierre(rs.getString("horaCierre"));
 				suc.setIdSucursal(rs.getInt("idSucursal"));
 				suc.setTelefono(rs.getString("telefono"));
 				suc.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
@@ -95,12 +92,9 @@ public class DatosSucursal {
 			stmt.setInt(1, suc.getIdSucursal());
 			stmt.setString(2, suc.getTelefono());
 			stmt.setString(3, suc.getDenominacion());
-			stmt.setString(4, suc.getDireccion());/*
-			suc.setHoraApertura(LocalTime.parse(String.valueOf(rs.getTime("horaApertura")))); //REVISAR COMO HACER CON LOCALTIME
-			suc.setHoraCierre(LocalTime.parse(String.valueOf(rs.getTime("horaCierre"))));//REVISAR COMO HACER CON LOCALTIME
-			stmt.setTime(5, suc.getHoraApertura());
-			stmt.setTime(5, suc.getHoraApertura());
-			stmt.setTime(6, suc.getHoraCierre());*/
+			stmt.setString(4, suc.getDireccion());
+			stmt.setString(5, suc.getHoraApertura());
+			stmt.setString(6, suc.getHoraCierre());
 			stmt.setInt(7, suc.getLocalidad().getCodigoPostal());
 			stmt.executeUpdate();
 		}catch(SQLException e) {
@@ -114,15 +108,15 @@ public class DatosSucursal {
 			}
 		}
 	}
-	/*public void updateSucursal(Sucursal suc) throws SQLException{
+	public void updateSucursal(Sucursal suc) throws SQLException{
 		PreparedStatement stmt=null;
 			try {
 				stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE sucursales SET telefono=?, denominacion=?, direccion=?, horaApertura=?, horaCierre=?, codigoPostal=? WHERE idSucursal=?) VALUES (?,?,?,?,?,?,?)");
 				stmt.setString(1, suc.getTelefono());
 				stmt.setString(2, suc.getDenominacion());
 				stmt.setString(3, suc.getDireccion());
-				stmt.setTime(4, suc.getHoraApertura());
-				stmt.setTime(5, suc.getHoraCierre());
+				stmt.setString(4, suc.getHoraApertura());
+				stmt.setString(5, suc.getHoraCierre());
 				stmt.setInt(6, suc.getLocalidad().getCodigoPostal());
 				stmt.setInt(7, suc.getIdSucursal());
 				stmt.executeUpdate();
@@ -155,5 +149,5 @@ public class DatosSucursal {
 				throw e;
 			}
 		}
-	}*/
+	}
 }

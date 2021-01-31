@@ -32,6 +32,12 @@
 		}
 		
 	</style>
+	
+	<script type="text/javascript">
+		function cargarLocalidad(met){
+			document.myForm.action=met;
+		}
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #285CAC;">
@@ -76,8 +82,14 @@
 
     <ul>
     	<li><a href="ABMModelos.jsp">IR a ABM Modelos</a></li>
+    	<li><a href="ABMProvincias.jsp">IR a ABM de Provincias</a></li>
     	<li><a href="ABMUsuario.jsp">IR a ABM Usuarios</a></li>
     </ul>
+    
+	<form action="" name="myForm" method="post">
+		<button onclick="javascript: cargarLocalidad('ServletABM/abmprovincias')">hola</button>
+	</form>
+	
 <footer class="navbar navbar-fixed-bottom">
 	  <div class="container">
 	    <span class="text-muted">Place sticky footer content here.</span>

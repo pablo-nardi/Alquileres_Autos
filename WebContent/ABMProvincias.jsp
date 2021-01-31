@@ -25,9 +25,6 @@
 		function cargarLocalidad(met){
 			document.formLocalidad.action=met;
 		}
-		function recargar(){
-			location.href = 'ABMProvincias.jsp?mode=""';
-		}
 	</script>
 	<%
 	
@@ -119,7 +116,7 @@
 								else if(mode.equals("editar")){txtButton = "Editar";}
 								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
 								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMProvincia/<%=formActionProvincia%>')"><%=txtButton%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: recargar()">Cancelar</button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMProvincia/cancelar')">Cancelar</button>
 				   			</div>
 		   				</div>
 	   				</div>

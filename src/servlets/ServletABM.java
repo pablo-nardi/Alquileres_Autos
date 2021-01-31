@@ -14,7 +14,7 @@ import logic.UsuarioLogic;
 /**
  * Servlet implementation class ServletABM
  */
-@WebServlet("/ServletABM")
+@WebServlet("/ServletABM/*")
 public class ServletABM extends HttpServlet {
 	UsuarioLogic ul;
 	Usuario user;
@@ -30,7 +30,7 @@ public class ServletABM extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		//response.getWriter().append("Served at: Servlet de ABM").append(request.getContextPath());
-		
+		/*
 		user.setNombre(request.getParameter("txtNombre"));
 		user.setApellido(request.getParameter("txtApellido"));
 		user.setCuil(request.getParameter("txtCuil"));
@@ -48,7 +48,14 @@ public class ServletABM extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		//doGet(request, response);
+		switch(request.getPathInfo()) {
+		case "/abmprovincias":
+			getServletContext().getRequestDispatcher("/WEB-INF/ABMProvincias.jsp").forward(request, response);
+			//response.sendRedirect("/Alquileres_Autos/NewFile.jsp");
+			break;
+		}
+		
 	}
 
 }

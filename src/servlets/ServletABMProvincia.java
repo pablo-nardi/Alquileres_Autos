@@ -63,6 +63,10 @@ public class ServletABMProvincia extends HttpServlet {
 			case "/eliminarLocalidad":
 				ll.deleteLocalidad(Integer.parseInt(request.getParameter("txtCodigoPostal")));
 				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				break;
+			case "/cancelar":
+				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				break;
 			}
 		}catch (SQLException e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}

@@ -25,7 +25,14 @@ h1{
             color: white;
 }        
 .form-botton-eliminar{
-	display: block;
+			display: block;
+            text-decoration: none;
+            padding: 5px 5px;
+            border: 2px solid black;
+            border-radius: 15px;
+}
+.cancelar{
+		display: block;
             text-decoration: none;
             padding: 5px 5px;
             border: 2px solid black;

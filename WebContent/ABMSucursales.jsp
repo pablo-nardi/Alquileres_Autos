@@ -21,7 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 	function cargarSucursal(met){
-		document.formLocalidad.action=met;
+		document.formSucursal.action=met;
 	}
     </script>
     <%
@@ -36,6 +36,19 @@
     	sucursales = sl.getAll();
     	provincias = pl.getAll();
     
+    	String mode = (String)request.getParameter("mode");
+		if(mode == null){	mode = "nuevo";	}
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
+			int idSuc = Integer.parseInt((String)request.getParameter("id"));
+			sucursal = sl.getOne(idSuc);
+			formActionSucursal = "editar";
+		}
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
+			int idSuc = Integer.parseInt((String)request.getParameter("id"));
+			sucursal = sl.getOne(idSuc);
+			formActionSucursal = "eliminar";
+		}
+    	
     %>
     
 </head>
@@ -85,8 +98,10 @@
 					<div class="container"> 
 				  		<div class="row">
 						    <div class="col-sm-6" style="background-color:lavender;">
+						    	<label>ID Sucursal</label>
+						    	<input type="number" name="txtIdSucursal" value="<%=sucursal==null?"":sucursal.getIdSucursal() %>" class="form-control">
 							 	<label>Nombre Sucursal</label>
-							 	<input type="text" name="txtSucursal"  class="form-control">
+							 	<input type="text" name="txtSucursal" value="<%=sucursal==null?"":sucursal.getDenominacion() %>" class="form-control">
 							 	<label>Ubicacion: Provincia / Localidad</label>
 							 	<select name="selectProvincia" class="form-control" <%=formActionSucursal=="eliminarLocalidad"?"disabled":"" %>>
 							 	<%for(Provincia p: provincias)
@@ -102,17 +117,17 @@
 							 	%>
 							 	</select>
 							 	<label>Direccion</label>
-							 	<input type="text" name="txtDireccion" class="form-control">
-								<button class="btn btn-primary" onclick="javascript: cargarSucursal('ServletABMSucursal/<%=formActionSucursal%>')">Cargar</button>
-				   				<button class="btn btn-outline-primary" name="">Cancelar</button>
+							 	<input type="text" name="txtDireccion" value="<%=sucursal==null?"":sucursal.getDireccion() %>" class="form-control">
+								<button class="btn btn-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/<%=formActionSucursal%>')">Cargar</button>
+				   				<button class="btn btn-outline-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/cancelar')" name="">Cancelar</button>
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">
 				   				<label>Telefono:</label>
-							 	<input type="text" name="txtTelefono"  class="form-control">
+							 	<input type="text" name="txtTelefono" value="<%=sucursal==null?"":sucursal.getTelefono() %>" class="form-control">
 								<label>Hora de Apertura:</label>
-								<input type="time" name="txtHoraApertura" class="form-control">
+								<input type="time" name="txtHoraApertura" value="<%=sucursal==null?"": sucursal.getHoraApertura() %>" class="form-control">
 								<label>Hora de Cierre:</label>
-								<input type="time" name="txtHoraCierre" class="form-control"><br>
+								<input type="time" name="txtHoraCierre" value="<%=sucursal==null?"":sucursal.getHoraCierre() %>" class="form-control"><br>
 								
 							</div>
 		   				</div>

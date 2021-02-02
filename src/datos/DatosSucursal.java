@@ -87,16 +87,20 @@ public class DatosSucursal {
 	}
 	public void addSucursal(Sucursal suc) throws SQLException{
 		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO sucursales (idSucursal, telefono, denominacion, direccion, horaApertura, horaCierre, codigoPostal) VALUES (?,?,?,?,?,?,?)");
-			stmt.setInt(1, suc.getIdSucursal());
-			stmt.setString(2, suc.getTelefono());
-			stmt.setString(3, suc.getDenominacion());
-			stmt.setString(4, suc.getDireccion());
-			stmt.setString(5, suc.getHoraApertura());
-			stmt.setString(6, suc.getHoraCierre());
-			stmt.setInt(7, suc.getLocalidad().getCodigoPostal());
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO sucursales (telefono, denominacion, direccion, horaApertura, horaCierre, codigoPostal) VALUES (?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, suc.getTelefono());
+			stmt.setString(2, suc.getDenominacion());
+			stmt.setString(3, suc.getDireccion());
+			stmt.setString(4, suc.getHoraApertura());
+			stmt.setString(5, suc.getHoraCierre());
+			stmt.setInt(6, suc.getLocalidad().getCodigoPostal());
 			stmt.executeUpdate();
+			keyResultSet = stmt.getGeneratedKeys();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				suc.setIdSucursal(keyResultSet.getInt(1));
+			}
 		}catch(SQLException e) {
 			throw e;
 		}finally {

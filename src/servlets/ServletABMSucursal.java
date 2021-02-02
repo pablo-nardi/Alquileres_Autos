@@ -2,9 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Sucursal;
 import logic.*;
 
-@WebServlet("/ServeltABMSucursal")
+@WebServlet("/ServeltABMSucursal/*")
 public class ServletABMSucursal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Sucursal suc = null;
     SucursalLogic sl = null;
+    LocalidadLogic ll = null;
 
     public ServletABMSucursal() {
         super();
         suc = new Sucursal();
         sl = new SucursalLogic();
+        ll = new LocalidadLogic();
     }
 
 
@@ -32,30 +31,37 @@ public class ServletABMSucursal extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*try {
+		try {
 			switch(request.getPathInfo()) {
 			case "/nuevo":
-				//mapearADatos(request);
+				mapearADatos(request);
 				sl.addSucursal(suc);
-				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				response.sendRedirect("/Alquileres_Autos/ABMSucursales.jsp");
 				break;
 			case "/editar":
-				//mapearADatos(request);
-				//prov.setIdProvincia(Integer.parseInt(request.getParameter("txtIdProvincia")));
-				//pl.updateProvincia(prov);
-				response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				mapearADatos(request);
+				sl.updateSucursal(suc);
+				response.sendRedirect("/Alquileres_Autos/ABMSucursales.jsp");
 				break;
 			case "/eliminar":
-				//pl.deleteProvincia(Integer.parseInt(request.getParameter("txtIdProvincia")));
-				//response.sendRedirect("/Alquileres_Autos/ABMProvincias.jsp");
+				sl.deleteSucursal(Integer.parseInt(request.getParameter("txtIdSucursal")));
+				response.sendRedirect("/Alquileres_Autos/ABMSucursales.jsp");
+				break;
+			case "/cancelar":
+				response.sendRedirect("/Alquileres_Autos/ABMSucursales.jsp");
 				break;
 			}
 		}catch (SQLException e) {
-			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}*/
+			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}
-	private void mapearADatos(HttpServletRequest req) {
+	private void mapearADatos(HttpServletRequest req)throws SQLException {
 		suc.setDenominacion(req.getParameter("txtSucursal"));
 		suc.setDireccion(req.getParameter("txtDireccion"));
+		suc.setHoraApertura(req.getParameter("txtHoraApertura"));
+		suc.setHoraCierre(req.getParameter("txtHoraCierre"));
+		//suc.setIdSucursal(Integer.parseInt(req.getParameter("txtIdSucursal")));
+		suc.setLocalidad(ll.getOne(Integer.parseInt(req.getParameter("selectProvincia"))));
+		suc.setTelefono(req.getParameter("txtTelefono"));
 	}
 	
 	

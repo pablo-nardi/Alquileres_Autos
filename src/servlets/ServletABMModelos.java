@@ -61,9 +61,11 @@ public class ServletABMModelos extends HttpServlet {
 					
 					break;
 				case "/eliminar":
-					ml.delete(Integer.parseInt(request.getParameter("id")));
+					ml.delete(Integer.parseInt(request.getParameter("txtId")));
 					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
-					//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
+					break;
+				case "/cancelar":
+					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
 					break;
 				}
 			} catch (SQLException e) {

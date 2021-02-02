@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page errorPage="paginaErrordesdeJSP.jsp" %>
 <%@	page import="java.util.*"%>
 <%@ page import="entidades.Usuario" %>
 <%@ page import="entidades.*" %>
@@ -52,10 +53,16 @@
 		modelos = ml.getAll();
 		
 		String mode = (String)request.getParameter("mode");
-		if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
+		if(mode == null){	mode = "nuevo";	}
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
 			int idModelo = Integer.parseInt((String)request.getParameter("id"));
 			modelo = ml.getOne(idModelo);
 			detailFormAction = "editar";
+		}
+		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
+			int idModelo = Integer.parseInt((String)request.getParameter("id"));
+			modelo = ml.getOne(idModelo);
+			detailFormAction = "eliminar";
 		}
 		
 	%>
@@ -108,7 +115,7 @@
                     <td><%= mod.getTipoAuto().getNombreTipo() %></td>
                     <!-- <td><a href="ServletABMModelos/editar?id=<%=mod.getIdentificacion() %>">EDITAR</a></td>  -->
                     <td><a class="form-botton-editar" href="ABMModelos.jsp?mode=editar&id=<%=mod.getIdentificacion() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ServletABMModelos/eliminar?id=<%=mod.getIdentificacion() %>">Eliminar</a></td>
+                    <td><a class="form-botton-eliminar" href="ABMModelos.jsp?mode=eliminar&id=<%=mod.getIdentificacion() %>">Eliminar</a></td>
                   </tr>
                   <% } %>
                 </tbody>
@@ -126,38 +133,38 @@
     	<label>Id Modelo:</label>
     	<input type="text" name="txtId" value="<%=modelo==null?"":modelo.getIdentificacion() %>" class="form-control" readonly><br>
     	<label>Cantidad Maxima de pasajeros:</label>
-		<input type="number" name="txtCantPasajeros" value="<%=modelo==null?"":modelo.getCantPasajeros()%>"  autofocus required class="form-control"><br>
+		<input type="number" name="txtCantPasajeros" value="<%=modelo==null?"":modelo.getCantPasajeros()%>"  autofocus required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Denominacion:</label>
-		<input type="text" name="txtDenominacion" value="<%=modelo==null?"":modelo.getDenominacion()%>" required class="form-control"><br>
+		<input type="text" name="txtDenominacion" value="<%=modelo==null?"":modelo.getDenominacion()%>" required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Foto del Modelo:</label>
-		<input type="text" name="txtFoto" required class="form-control"><br>
+		<input type="text" name="txtFoto" class="form-control"><br>
 		<label>Cantidad de Equipaje Grande:</label>
-		<select name="selectEquiGran" class="form-control">
+		<select name="selectEquiGran" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeGrande()==1?"selected":"" %>>1</option>
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeGrande()==2?"selected":"" %> >2</option>
 		</select><br>
 		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/<%=detailFormAction%>')">Aceptar</button>
-		<button class="btn btn-outline-primary" name="" onclick="javascript: recargar()">Cancelar</button>
+		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/cancelar')">Cancelar</button>
 	</div>
     <div class="col-sm-4" style="background-color:orange;">
     	<label>Cantidad de Equipaje Chico:</label>
-		<select name="selectEquiChico" class="form-control" >
+		<select name="selectEquiChico" <%=mode.equals("eliminar")?"disabled":""%> class="form-control" >
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeChico()==1?"selected":"" %> >1</option>
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeChico()==2?"selected":"" %> >2</option>
 			<option value="3" <%=modelo!=null&&modelo.getCantEquipajeChico()==3?"selected":"" %> >3</option>
 		</select><br>
     	<label>Transmision:</label>
-		<select name="selectTransmision" class="form-control">
+		<select name="selectTransmision" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="manual" <%=modelo!=null&&modelo.getTransmision().equals("manual")?"selected":"" %> >Manual</option>
 			<option value="automatica" <%=modelo!=null&&modelo.getTransmision().equals("automatica")?"selected":"" %> >Automatica</option>
 		</select><br>
 		<label>Aire Acondicionado:</label>
-		<select name="selectAA" class="form-control">
+		<select name="selectAA" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="si" <%=modelo!=null&&modelo.getAireAcondicionado().equals("si")?"selected":"" %> >Si</option>
 			<option value="no" <%=modelo!=null&&modelo.getAireAcondicionado().equals("no")?"selected":"" %> >No</option>
 		</select><br>
 		<label>Tipo de Auto:</label>
-		<select name="selectTipo" class="form-control">
+		<select name="selectTipo" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 		<%int val = 0; 	for(TipoAuto ta:tiposAutos){++val; String var = Integer.toString(val); String value = Integer.toString(ta.getId_Tipo());%>
 			
 			<option value="<%=value%>" <%=modelo!=null&&val==modelo.getTipoAuto().getId_Tipo()?"selected":""%>><%=ta.getNombreTipo() %></option>
@@ -165,7 +172,7 @@
 		<%}%>
 		</select><br>
 		<label>Precio por día:</label>
-		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>" autofocus required class="form-control"><br>
+		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>" autofocus required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
     </div>
     <div class="col-sm-4" style="background-color:blue;">
     	<label>Ingrese Foto: </label>

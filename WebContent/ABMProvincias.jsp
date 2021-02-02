@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page errorPage="paginaErrordesdeJSP.jsp" %>
 <%@ page import="java.util.*"%>
 <%@ page import="entidades.*" %>
 <%@ page import="logic.*"%>
@@ -26,6 +27,15 @@
 			document.formLocalidad.action=met;
 		}
 	</script>
+	
+		<% 	//VALIDACION DE SESION DE USUARIO
+		Usuario user = (Usuario)session.getAttribute("usuario");
+		if(!user.getRol().toLowerCase().equals("administrador")){
+		String redirectURL = "login.jsp";
+	    response.sendRedirect(redirectURL);
+		}
+	%>
+	
 	<%
 	
 		Localidad local = null;
@@ -193,7 +203,7 @@
 								else if(mode.equals("editarLocalidad")){texto = "Editar";}
 								else if(mode.equals("eliminarLocalidad")){texto = "Eliminar";} %>
 								<button class="btn btn-primary" onclick="javascript: cargarLocalidad('ServletABMProvincia/<%=formActionLocalidad%>')"><%=texto%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: recargar()">Cancelar</button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarLocalidad('ServletABMProvincia/cancelar')">Cancelar</button>
 				   			</div>
 		   				</div>
 	   				</div>

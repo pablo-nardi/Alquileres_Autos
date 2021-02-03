@@ -15,10 +15,11 @@ public class Usuario {
 			rol,
 			password;
 	
-	int 	piso,
-			codigoPostal;
+	int 	piso;
 	
 	Date 	vencUltTarjeta;
+	
+	Localidad localidad;
 	
 	public Localidad getLocalidad() {
 		return localidad;
@@ -28,7 +29,7 @@ public class Usuario {
 		this.localidad = localidad;
 	}
 
-	Localidad localidad;
+	
 
 	public String getCuil() {
 		return cuil;
@@ -76,10 +77,6 @@ public class Usuario {
 
 	public int getPiso() {
 		return piso;
-	}
-
-	public int getCodigoPostal() {
-		return codigoPostal;
 	}
 
 	public Date getVencUltTarjeta() {
@@ -132,10 +129,6 @@ public class Usuario {
 
 	public void setPiso(int piso) {
 		this.piso = piso;
-	}
-
-	public void setCodigoPostal(int codigoPostal) {
-		this.codigoPostal = codigoPostal;
 	}
 
 	public void setVencUltTarjeta(Date vencUltTarjeta) {

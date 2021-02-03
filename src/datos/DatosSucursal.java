@@ -115,7 +115,7 @@ public class DatosSucursal {
 	public void updateSucursal(Sucursal suc) throws SQLException{
 		PreparedStatement stmt=null;
 			try {
-				stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE sucursales SET telefono=?, denominacion=?, direccion=?, horaApertura=?, horaCierre=?, codigoPostal=? WHERE idSucursal=?) VALUES (?,?,?,?,?,?,?)");
+				stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE sucursales SET telefono=?, denominacion=?, direccion=?, horaApertura=?, horaCierre=?, codigoPostal=? WHERE idSucursal=?");
 				stmt.setString(1, suc.getTelefono());
 				stmt.setString(2, suc.getDenominacion());
 				stmt.setString(3, suc.getDireccion());

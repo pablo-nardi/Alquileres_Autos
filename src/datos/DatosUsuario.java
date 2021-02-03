@@ -16,7 +16,7 @@ public class DatosUsuario {
 			DatosLocalidad dl = new DatosLocalidad();
 			
 			try {
-				stmt = DbConnector.getInstancia().getConn().prepareStatement("select cuil, nombre, apellido, telefono, mail, calle, piso, dpto, codigoPostal, numUltTarjeta, nombreUtlTarjeta, vencUltTarjeta, rol, password from usuarios where mail=? and password=?");
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("select cuil, nombre, apellido, telefono, mail, calle, piso, dpto, codigoPostal, rol, password from usuarios where mail=? and password=?");
 				
 				stmt.setString(1, usuario.getMail());
 				stmt.setString(2, usuario.getPassword());
@@ -26,14 +26,10 @@ public class DatosUsuario {
 					user = new Usuario();
 					user.setApellido(rs.getString("apellido"));
 					user.setCalle(rs.getString("calle"));
-					user.setCodigoPostal(rs.getInt("codigoPostal"));
-					user.setLocalidad(dl.getOne(user.getCodigoPostal()));//otra forma de hacerlo
+					user.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
 					user.setCuil(rs.getString("cuil"));
 					user.setMail(rs.getString("mail"));
 					user.setNombre(rs.getString("nombre"));
-					user.setNombreUltTarjeta(rs.getString("nombreUtlTarjeta"));
-					user.setNumUltTarjeta(rs.getString("numUltTarjeta"));
-					user.setVencUltTarjeta(rs.getDate("vencUltTarjeta"));
 					user.setPassword(rs.getString("password"));
 					user.setPiso(rs.getInt("piso"));
 					user.setDepartamento(rs.getString("dpto"));
@@ -69,8 +65,7 @@ public class DatosUsuario {
 						
 						user.setApellido(rs.getString("apellido"));
 						user.setCalle(rs.getString("calle"));
-						user.setCodigoPostal(rs.getInt("codigoPostal"));
-						user.setLocalidad(dl.getOne(user.getCodigoPostal()));
+						user.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
 						user.setCuil(rs.getString("cuil"));
 						user.setDepartamento(rs.getString("dpto"));
 						user.setMail(rs.getString("mail"));
@@ -112,8 +107,7 @@ public class DatosUsuario {
 					user = new Usuario();
 					user.setApellido(rs.getString("apellido"));
 					user.setCalle(rs.getString("calle"));
-					user.setCodigoPostal(rs.getInt("codigoPostal"));
-					user.setLocalidad(dl.getOne(user.getCodigoPostal()));
+					user.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
 					user.setCuil(rs.getString("cuil"));
 					user.setDepartamento(rs.getString("dpto"));
 					user.setMail(rs.getString("mail"));
@@ -151,7 +145,7 @@ public class DatosUsuario {
 				stmt.setString(6, user.getCalle());
 				stmt.setInt(7, user.getPiso());
 				stmt.setString(8, user.getDepartamento());
-				stmt.setInt(9, user.getCodigoPostal());
+				stmt.setInt(9, user.getLocalidad().getCodigoPostal());
 				stmt.setString(10, user.getRol());
 				stmt.setString(11, user.getPassword());
 				stmt.executeUpdate();
@@ -178,11 +172,9 @@ public class DatosUsuario {
 				stmt.setString(5, user.getCalle());
 				stmt.setInt(6, user.getPiso());
 				stmt.setString(7, user.getDepartamento());
-				stmt.setInt(8, user.getCodigoPostal());
+				stmt.setInt(8, user.getLocalidad().getCodigoPostal());
 				stmt.setString(9, user.getRol());
-				stmt.setString(10, user.getPassword());
-				//stmt.setString(11, user.getCuil());¿ Que pasa si quiero cambiar este atributo?
-				
+				stmt.setString(10, user.getPassword());				
 				stmt.setString(11, user.getCuil());
 				
 				stmt.executeUpdate();

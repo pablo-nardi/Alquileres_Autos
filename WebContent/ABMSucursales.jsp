@@ -24,6 +24,16 @@
 		document.formSucursal.action=met;
 	}
     </script>
+    
+    	<% 	//VALIDACION DE SESION DE USUARIO
+		Usuario user = (Usuario)session.getAttribute("usuario");
+		if(!user.getRol().toLowerCase().equals("administrador")){
+		String redirectURL = "login.jsp";
+	    response.sendRedirect(redirectURL);
+		}
+	%>
+    
+    
     <%
     
     	Sucursal sucursal = null;
@@ -99,11 +109,11 @@
 				  		<div class="row">
 						    <div class="col-sm-6" style="background-color:lavender;">
 						    	<label>ID Sucursal</label>
-						    	<input type="number" name="txtIdSucursal" value="<%=sucursal==null?"":sucursal.getIdSucursal() %>" class="form-control">
+						    	<input type="number" name="txtIdSucursal" value="<%=sucursal==null?"":sucursal.getIdSucursal() %>" readonly class="form-control">
 							 	<label>Nombre Sucursal</label>
-							 	<input type="text" name="txtSucursal" value="<%=sucursal==null?"":sucursal.getDenominacion() %>" class="form-control">
+							 	<input type="text" name="txtSucursal" value="<%=sucursal==null?"":sucursal.getDenominacion() %>" <%=mode.equals("eliminar")?"readonly":"" %> class="form-control">
 							 	<label>Ubicacion: Provincia / Localidad</label>
-							 	<select name="selectProvincia" class="form-control" <%=formActionSucursal=="eliminarLocalidad"?"disabled":"" %>>
+							 	<select name="selectProvincia" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %>>
 							 	<%for(Provincia p: provincias)
 							 	  {
 							 		if(!p.getLocalidades().isEmpty()){
@@ -117,17 +127,21 @@
 							 	%>
 							 	</select>
 							 	<label>Direccion</label>
-							 	<input type="text" name="txtDireccion" value="<%=sucursal==null?"":sucursal.getDireccion() %>" class="form-control">
-								<button class="btn btn-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/<%=formActionSucursal%>')">Cargar</button>
+							 	<input type="text" name="txtDireccion" value="<%=sucursal==null?"":sucursal.getDireccion() %>" <%=mode.equals("eliminar")?"readonly":"" %> class="form-control">
+								<% String txtButton = "No paso el if"; 
+								if(mode.equals("nuevo")){txtButton = "Cargar";}
+								else if(mode.equals("editar")){txtButton = "Editar";}
+								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
+								<button class="btn btn-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/<%=formActionSucursal%>')"><%=txtButton %></button>
 				   				<button class="btn btn-outline-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/cancelar')" name="">Cancelar</button>
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">
 				   				<label>Telefono:</label>
-							 	<input type="text" name="txtTelefono" value="<%=sucursal==null?"":sucursal.getTelefono() %>" class="form-control">
+							 	<input type="text" name="txtTelefono" value="<%=sucursal==null?"":sucursal.getTelefono() %>" <%=mode.equals("eliminar")?"readonly":"" %> class="form-control">
 								<label>Hora de Apertura:</label>
-								<input type="time" name="txtHoraApertura" value="<%=sucursal==null?"": sucursal.getHoraApertura() %>" class="form-control">
+								<input type="time" name="txtHoraApertura" value="<%=sucursal==null?"": sucursal.getHoraApertura() %>" <%=mode.equals("eliminar")?"readonly":"" %> class="form-control">
 								<label>Hora de Cierre:</label>
-								<input type="time" name="txtHoraCierre" value="<%=sucursal==null?"":sucursal.getHoraCierre() %>" class="form-control"><br>
+								<input type="time" name="txtHoraCierre" value="<%=sucursal==null?"":sucursal.getHoraCierre() %>" <%=mode.equals("eliminar")?"readonly":"" %> class="form-control"><br>
 								
 							</div>
 		   				</div>

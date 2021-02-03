@@ -27,8 +27,8 @@ public class ServletABMSucursal extends HttpServlet {
     }
 
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
+	//protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	//}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -55,11 +55,15 @@ public class ServletABMSucursal extends HttpServlet {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}
 	private void mapearADatos(HttpServletRequest req)throws SQLException {
+		
+		if(req.getPathInfo().equals("/editar")) {
+			suc.setIdSucursal(Integer.parseInt(req.getParameter("txtIdSucursal")));
+		}
+		
 		suc.setDenominacion(req.getParameter("txtSucursal"));
 		suc.setDireccion(req.getParameter("txtDireccion"));
 		suc.setHoraApertura(req.getParameter("txtHoraApertura"));
 		suc.setHoraCierre(req.getParameter("txtHoraCierre"));
-		//suc.setIdSucursal(Integer.parseInt(req.getParameter("txtIdSucursal")));
 		suc.setLocalidad(ll.getOne(Integer.parseInt(req.getParameter("selectProvincia"))));
 		suc.setTelefono(req.getParameter("txtTelefono"));
 	}

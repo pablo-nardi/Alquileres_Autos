@@ -28,13 +28,13 @@
 	}
     </script>
     
-    	<% 	/*VALIDACION DE SESION DE USUARIO
+    	<% 	//VALIDACION DE SESION DE USUARIO
 		Usuario user = (Usuario)session.getAttribute("usuario");
 		if(!user.getRol().toLowerCase().equals("administrador")){
 		String redirectURL = "login.jsp";
 	    response.sendRedirect(redirectURL);
-		}*/
-	%>
+		}
+		%>
 	
 	<%
 		Auto auto = null;

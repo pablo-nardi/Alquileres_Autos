@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page errorPage="paginaErrordesdeJSP.jsp" %>
 <%@ page import="java.util.*"%>
 <%@ page import="entidades.*" %>
 <%@ page import="logic.*"%>
@@ -25,13 +26,7 @@
 	function cargarFormulario(met){
 		document.myForm.action=met;
 	}
-	/*function recargar(){
-		location.href = 'ABMUsuario.jsp?mode=nuevo';
-	}
-	function viajar(valor){
-		 location.href = valor;
-	}
-	
+	/*
 	function validar(valor){
 		var password = document.getElementById("txtPassword")
 		var confirm_password = document.getElementById("txtPasswordConfirm");
@@ -58,15 +53,22 @@
 			Usuario usuario = null;
 			String detailFormAction = "nuevo";
 			LinkedList<Usuario> usuarios;
-			//traer Localidad ¿?
+			LinkedList<Provincia> provincias;
 			UsuarioLogic ul = new UsuarioLogic();
+			ProvinciaLogic pl = new ProvinciaLogic();
 			usuarios = ul.getAll();
+			provincias = pl.getAll();
 			
 			String mode = (String)request.getParameter("mode");
-			if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
+			if(mode == null){	mode = "nuevo";	}
+			else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
 				usuario = ul.getOne(request.getParameter("id"));
 				detailFormAction = "editar";
 			}
+			else if (mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
+					usuario = ul.getOne(request.getParameter("id"));
+					detailFormAction = "eliminar";
+				}
 		%>
 			
 		
@@ -102,7 +104,7 @@
                 </thead>
                 <tbody>
                 <%for(Usuario user : usuarios) { %>
-                  <tr><!-- IMAGENES/userelos/chev_joy.jpg -->
+                  <tr>
                   	<td><%=user.getNombre() + " " + user.getApellido() %></td>
                   	<td><%= user.getCuil() %></td>
                   	<td><%= user.getMail() %></td>
@@ -122,7 +124,7 @@
                     %>
                     <td><%= lugar %></td>
                     <td><a class="form-botton-editar" href="ABMUsuario.jsp?mode=editar&id=<%=user.getCuil() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ServletABMUsuarios/eliminar?id=<%=user.getCuil() %>">Eliminar</a></td>
+                    <td><a class="form-botton-eliminar" href="ABMUsuario.jsp?mode=eliminar&id=<%=user.getCuil() %>">Eliminar</a></td>
                   </tr>
                   <% } %>
                 </tbody>
@@ -137,36 +139,53 @@
   <div class="row">
     <div class="col-sm-4" style="background-color:lavender;">
     	<label>Nombre:</label>
-		<input type="text" name="txtNombre" autofocus  class="form-control" value="<%=usuario==null?"":usuario.getNombre() %>"><br>
+		<input type="text" name="txtNombre" autofocus  class="form-control" value="<%=usuario==null?"":usuario.getNombre() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Apellido:</label>
-		<input type="text" name="txtApellido"  class="form-control" value="<%=usuario==null?"":usuario.getApellido()%>"><br>
+		<input type="text" name="txtApellido"  class="form-control" value="<%=usuario==null?"":usuario.getApellido()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>CUIL:</label>
-		<input type="text" name="txtCuil"  class="form-control" value="<%=usuario==null?"":usuario.getCuil()%>"><br>
+		<input type="text" name="txtCuil"  class="form-control" value="<%=usuario==null?"":usuario.getCuil()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Mail:</label>
-		<input type="email" name="txtEmail"  class="form-control" value="<%=usuario==null?"":usuario.getMail()%>"><br>
+		<input type="email" name="txtEmail"  class="form-control" value="<%=usuario==null?"":usuario.getMail()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Contraseña:</label>
-		<input type="password" name="txtPassword" id="txtPassword"  class="form-control" value="<%=usuario==null?"":usuario.getPassword()%>"><br>
+		<input type="password" name="txtPassword" id="txtPassword"  class="form-control" value="<%=usuario==null?"":usuario.getPassword()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
     	<label>Ingrese de nuevo la contraseña:</label>
-		<input type="password" name="txtPasswordConfirm" id="txtPasswordConfirm" class="form-control"><br>
-		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletsABMUSuarios/<%=detailFormAction%>')" >Cargar</button>
+		<input type="password" name="txtPasswordConfirm" id="txtPasswordConfirm" class="form-control" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<% String txtButton = "No paso el if"; 
+		if(mode.equals("nuevo")){txtButton = "Cargar";}
+		else if(mode.equals("editar")){txtButton = "Editar";}
+		else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
+		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletsABMUSuarios/<%=detailFormAction%>')" ><%=txtButton %></button>
+  		<button class="btn btn-outline-primary" onclick="javascript: cargarFormulario('ServletsABMUSuarios/cancelar')" name="">Cancelar</button>
     </div>
     <div class="col-sm-4" style="background-color:orange;">
     	<label>Rol en el sistema:</label>
-		<select name="selectRol" class="form-control">
+		<select name="selectRol" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
 			<option value="usuario" <%=usuario!=null&&usuario.getRol().equals("usuario")?"selected":"" %>>Usuario</option>
 			<option value="administrador" <%=usuario!=null&&usuario.getRol().equals("administrador")?"selected":"" %>>Administrador</option>
 			<option value="cliente" <%=usuario!=null&&usuario.getRol().equals("cliente")?"selected":"" %>>Cliente</option>
 		</select><br>
 		<label>Telefono:</label>
-		<input type="text" name="txtTelefono"  class="form-control" value="<%=usuario==null?"":usuario.getTelefono()%>"><br>
-		<label>Codigo Postal:</label>
-		<input type="number" name="txtCodigoPostal"  class="form-control" value="<%=usuario==null?"":usuario.getCodigoPostal()%>"><br>
+		<input type="text" name="txtTelefono"  class="form-control" value="<%=usuario==null?"":usuario.getTelefono()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<label>Localidad</label>
+		<select name="selectLocalidad" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %>>
+							 	<%for(Provincia p: provincias)
+							 	  {
+							 		if(!p.getLocalidades().isEmpty()){
+							 			for(Localidad l: p.getLocalidades())
+							 			{
+							 				String value = Integer.toString(l.getCodigoPostal()); %>		
+							 				<option value="<%=value %>" <%=usuario!=null&&Integer.parseInt(value)==usuario.getLocalidad().getCodigoPostal()?"selected":"" %> ><%=p.getDenominacion()+" / "+l.getDenominacion() %></option>
+							 	<%		}			
+							 		}
+							 	  } 
+							 	%>
+							 	</select>
 		<label>Calle:</label>
-		<input type="text" name="txtCalle"  class="form-control" value="<%=usuario==null?"":usuario.getCalle()%>"><br>
+		<input type="text" name="txtCalle"  class="form-control" value="<%=usuario==null?"":usuario.getCalle()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Departamento:</label>
-		<input type="text" name="txtDpto" class="form-control" value="<%=usuario==null?"":usuario.getDepartamento()%>"><br>
+		<input type="text" name="txtDpto" class="form-control" value="<%=usuario==null?"":usuario.getDepartamento()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Piso:</label>
-		<input type="number" name="txtPiso" class="form-control" value="<%=usuario==null?"0":usuario.getPiso()%>"><br>		
+		<input type="number" name="txtPiso" class="form-control" value="<%=usuario==null?"0":usuario.getPiso()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>		
     </div>
   </div>
 </div>

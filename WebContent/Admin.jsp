@@ -81,6 +81,8 @@
     	<li><a href="ABMUsuario.jsp">IR a ABM Usuarios</a></li>
     	<li><a href="ABMSucursales.jsp">IR a ABM Sucursales</a></li>
     	<li><a href="ABMAutos.jsp">IR a ABM de Autos</a></li>
+    	<li><a href="ABMExtras.jsp">IR a ABM de Extras</a></li>
+    	<li><a href="ABMPlanDePago.jsp">IR a ABM de Planes de Pago</a></li>
     </ul>
     
 	

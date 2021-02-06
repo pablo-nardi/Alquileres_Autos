@@ -40,11 +40,13 @@ public class ServletsABMUSuarios extends HttpServlet {
 		try {
 			switch(request.getPathInfo()) {
 			case "/nuevo":
+				validaContraseña(request);
 				mapearADatos(request);
 				ul.addUser(user);
 				response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
 				break;
 			case "/editar":
+				validaContraseña(request);
 				mapearADatos(request);
 				ul.updateUser(user);
 				response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
@@ -66,14 +68,8 @@ public class ServletsABMUSuarios extends HttpServlet {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());
 		}
 	}
-	public void mapearADatos(HttpServletRequest req) throws NumberFormatException, SQLException, Exception {
-		
-		String pswd, cpswd;
-		pswd = req.getParameter("txtPassword");
-		cpswd = req.getParameter("txtPasswordConfirm");
-		if(cpswd.isBlank() || cpswd.isEmpty() || cpswd == null || !pswd.equals(cpswd)) {
-			throw new Exception("El campo CONTRASEÑA debe ser identico al campo CONFIRMA CONTRASEÑA");
-		}
+	private void mapearADatos(HttpServletRequest req) throws NumberFormatException, SQLException, Exception {
+
 		
 		user.setNombre(req.getParameter("txtNombre"));
 		user.setApellido(req.getParameter("txtApellido"));
@@ -86,6 +82,24 @@ public class ServletsABMUSuarios extends HttpServlet {
 		user.setCalle(req.getParameter("txtCalle"));
 		user.setDepartamento(req.getParameter("txtDpto"));
 		user.setPiso(Integer.parseInt(req.getParameter("txtPiso")));
+		
+	}
+	private void validaContraseña(HttpServletRequest req)throws NumberFormatException, SQLException, Exception{
+		
+		String pswd, cpswd;
+		pswd = req.getParameter("txtPassword");
+		cpswd = req.getParameter("txtPasswordConfirm");
+		if(req.getPathInfo().equals("/nuevo") && (cpswd.isBlank() || cpswd.isEmpty() || cpswd == null || !pswd.equals(cpswd)) ) {
+			
+			throw new Exception("El campo CONTRASEÑA debe ser identico al campo CONFIRMA CONTRASEÑA");
+		
+		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || cpswd != null)) {
+			
+			if(!pswd.equals(cpswd)) {
+				
+				throw new Exception("El campo CONTRASEÑA debe ser identico al campo CONFIRMA CONTRASEÑA");
+			}			
+		}
 	}
 
 }

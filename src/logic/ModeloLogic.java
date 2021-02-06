@@ -15,7 +15,7 @@ public class ModeloLogic {
 		public void addModelo(Modelo mod) throws SQLException{
 			dm.addModelos(mod);
 		}
-		public LinkedList<Modelo> getAll() {
+		public LinkedList<Modelo> getAll()throws SQLException {
 			return dm.getAll();
 		}
 		public void update(Modelo mod) throws SQLException{
@@ -24,7 +24,7 @@ public class ModeloLogic {
 		public void delete(int idModelo) throws SQLException {
 			dm.delete(idModelo);
 		}
-		public Modelo getOne(int idModelo) {
+		public Modelo getOne(int idModelo)throws SQLException {
 			return dm.getOne(idModelo);
 		}
 }

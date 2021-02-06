@@ -71,7 +71,7 @@ public class ServletABMProvincia extends HttpServlet {
 		}catch (SQLException e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}
-	private void mapearADatos(HttpServletRequest req) {
+	private void mapearADatos(HttpServletRequest req) throws NumberFormatException, SQLException {
 		
 		if(req.getPathInfo().equals("/nuevo") || req.getPathInfo().equals("/editar")) {
 			prov.setDenominacion(req.getParameter("txtDenominacion"));

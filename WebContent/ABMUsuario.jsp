@@ -26,28 +26,19 @@
 	function cargarFormulario(met){
 		document.myForm.action=met;
 	}
-	/*
-	function validar(valor){
-		var password = document.getElementById("txtPassword")
-		var confirm_password = document.getElementById("txtPasswordConfirm");
-
-		if(password.value != confirm_password.value) {
-		    //confirm_password.setCustomValidity("Las contraseñas No son iguales");
-			alert('Las contraseñas no coinciden');  
-		} else {
-			  //cargarFormulario(met); onclick=validar('https://www.google.com.ar')
-			 viajar(valor);
-		  }
-		}*/
-		
+			
 	</script>
 		
-		<% 	/*/VALIDACION DE SESION DE USUARIO
-			Usuario user = (Usuario)session.getAttribute("usuario");
-			if(!user.getRol().toLowerCase().equals("administrador")){
+		<% 	//VALIDACION DE SESION DE USUARIO
+			Usuario usu = (Usuario)session.getAttribute("usuario");
+		if(usu == null){
 			String redirectURL = "login.jsp";
 		    response.sendRedirect(redirectURL);
-			}*/
+		}	
+		else if(!usu.getRol().toLowerCase().equals("administrador")){
+			String redirectURL = "login.jsp";
+		    response.sendRedirect(redirectURL);
+			}
 		%>
 		<%
 			Usuario usuario = null;

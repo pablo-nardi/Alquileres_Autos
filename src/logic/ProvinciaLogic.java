@@ -10,10 +10,10 @@ public class ProvinciaLogic {
 	
 	DatosProvincia dp = new DatosProvincia();
 	
-	public LinkedList<Provincia> getAll(){
+	public LinkedList<Provincia> getAll()throws SQLException{
 		return dp.getAll();
 	}
-	public Provincia getOne(int id) {
+	public Provincia getOne(int id) throws SQLException{
 		return dp.getOne(id);
 	}
 	public void addProvincia(Provincia prov) throws SQLException {

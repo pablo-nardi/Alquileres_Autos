@@ -1,4 +1,5 @@
 package datos;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,28 +7,26 @@ import java.util.LinkedList;
 
 import entidades.*;
 
-public class DatosProvincia {
-	
-	public LinkedList<Provincia> getAll() throws SQLException{
-		LinkedList<Provincia> provincias = new LinkedList<>();
-		Provincia prov = null;
-		DatosLocalidad dl = new DatosLocalidad();
+public class DatosExtras {
+	public LinkedList<Extras> getAll() throws SQLException{
+		LinkedList<Extras> extras= new LinkedList<>();
+		Extras extra = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM provincias");
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM extras");
 			rs = stmt.executeQuery();
 			
 			if(rs != null) {
 				while(rs.next()) {
-					prov = new Provincia();
+					extra = new Extras();
 					
-					prov.setIdProvincia(rs.getInt("idProvincia"));
-					prov.setDenominacion(rs.getString("denominacion"));
-					prov.setLocalidades(dl.getLocalidades(prov.getIdProvincia()));
+					extra.setCodigo(rs.getInt("idExtra"));
+					extra.setDescripcion(rs.getString("descripcion"));
+					extra.setPrecio(rs.getFloat("precio"));
 					
-					provincias.add(prov);
+					extras.add(extra);
 				}
 			}
 		}catch(Exception ex) {
@@ -41,23 +40,25 @@ public class DatosProvincia {
 				throw e;
 			}
 		}
-		return provincias;
+		return extras;
 	}
-	public Provincia getOne(int id) throws SQLException{
+	public Extras getOne(int id) throws SQLException{
 
-		Provincia prov = null;
+		Extras extra = null;
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM provincias WHERE idProvincia=?");
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM extras WHERE idExtra=?");
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 			
 			if(rs != null && rs.next()) {
-				prov = new Provincia();
-				prov.setIdProvincia(rs.getInt("idProvincia"));
-				prov.setDenominacion(rs.getString("denominacion"));
+				extra = new Extras();
+				
+				extra.setCodigo(rs.getInt("idExtra"));
+				extra.setDescripcion(rs.getString("descripcion"));
+				extra.setPrecio(rs.getFloat("precio"));
 			}
 		}catch(Exception ex) {
 			throw ex;
@@ -71,19 +72,20 @@ public class DatosProvincia {
 			}
 		}
 		
-		return prov;
+		return extra;
 	}
-	public void addProvincia(Provincia prov) throws SQLException {
+	public void addExtra(Extras extra) throws SQLException {
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;
 		
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO provincias (denominacion) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, prov.getDenominacion());
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO extras (descripcion, precio) VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, extra.getDescripcion());
+			stmt.setFloat(2, extra.getPrecio());
 			stmt.executeUpdate();
 			keyResultSet = stmt.getGeneratedKeys();
 			if(keyResultSet!=null && keyResultSet.next()) {
-				prov.setIdProvincia(keyResultSet.getInt(1));
+				extra.setCodigo(keyResultSet.getInt(1));
 			}
 		}catch(SQLException e) {
 			throw e;
@@ -97,13 +99,14 @@ public class DatosProvincia {
 			}
 		}
 	}
-	public void updateProvincia(Provincia prov) throws SQLException{
+	public void updateExtra(Extras extra) throws SQLException{
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE provincias SET denominacion=? WHERE idProvincia=?");
-			stmt.setString(1, prov.getDenominacion());
-			stmt.setInt(2, prov.getIdProvincia());
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE extras SET descripcion=?, precio=? WHERE idExtra=?");
+			stmt.setString(1, extra.getDescripcion());
+			stmt.setFloat(2, extra.getPrecio());
+			stmt.setInt(3, extra.getCodigo());
 			
 			stmt.executeUpdate();
 		}catch (SQLException e) {
@@ -117,11 +120,11 @@ public class DatosProvincia {
 			}
 		}
 	}
-	public void deleteProvincia(int idProvincia)throws SQLException{
+	public void deleteExtra(int idExtra)throws SQLException{
 		PreparedStatement stmt = null;
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from provincias where idProvincia=?");
-			stmt.setInt(1,idProvincia);
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from extras where idExtra=?");
+			stmt.setInt(1,idExtra);
 			
 			stmt.executeUpdate();
 		}
@@ -139,4 +142,3 @@ public class DatosProvincia {
 	
 	}
 }
-

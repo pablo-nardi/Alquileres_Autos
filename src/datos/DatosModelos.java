@@ -12,7 +12,7 @@ import java.sql.*;
 import entidades.Modelo;
 
 public class DatosModelos {
-	public Modelo getOne(int idModelo) {
+	public Modelo getOne(int idModelo)throws SQLException {
 		Modelo mod = new Modelo();
 		DatosTiposAuto dtp = new DatosTiposAuto();
 		PreparedStatement stmt=null;
@@ -36,20 +36,20 @@ public class DatosModelos {
 				mod.setTipoAuto(dtp.getOne(rs.getInt("idTipo")));
 			}
 		}catch(Exception ex) {
-			ex.printStackTrace();
+			throw ex;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		return mod;
 	}
-	public LinkedList<Modelo> getAll(){
+	public LinkedList<Modelo> getAll() throws SQLException{
 		Statement stmt=null;
 		ResultSet rs = null;
 		LinkedList<Modelo> modelos = new LinkedList<>();
@@ -79,14 +79,14 @@ public class DatosModelos {
 				}
 			}
 		}catch(Exception ex) {
-			ex.printStackTrace();
+			throw ex;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return modelos;

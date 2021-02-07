@@ -6,9 +6,6 @@
   padding: 8% 0 0;
   margin: auto;
 }
-#linkInicio{
-	margin-bottom:100px;
-}
 .form {
   position: relative;
   z-index: 1;
@@ -63,6 +60,13 @@
 }
 body{
   background-color: #285CAC;
+}
+.form-button{
+	  		display: block;
+            text-decoration: none;
+            padding: 5px 5px;
+            border: 2px solid black;
+            border-radius: 15px;
 }
 /*
 body {

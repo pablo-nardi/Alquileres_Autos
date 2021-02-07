@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ServletPrueba
- */
 @WebServlet("/ServletPrueba")
 @MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
 maxFileSize = 10485760L, // 10 MB
@@ -20,28 +17,16 @@ maxRequestSize = 20971520L // 20 MB
 public class ServletPrueba extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String UPLOAD_DIR = "uploads";
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ServletPrueba() {
         super();
         
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
+    }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request, response);
-		
+		/*
         String applicationPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
         String uploadFilePath = "/home/pablo/prueba";
@@ -52,7 +37,9 @@ public class ServletPrueba extends HttpServlet {
         if (!uploadFolder.exists()) {
             uploadFolder.mkdirs();
         }
-        getServletContext().getRequestDispatcher("/NewFile.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/NewFile.jsp").forward(request, response);*/
+		
+		request.getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
 	}
 
 }

@@ -29,17 +29,18 @@
 	function cargarFormulario(met) {
 		document.myForm.action=met;
 	}
-	function recargar(){
-		location.href = 'ABMModelos.jsp?mode=nuevo';
-	}
 	</script>
 	
 	<% 	//VALIDACION DE SESION DE USUARIO
-		Usuario user = (Usuario)session.getAttribute("usuario");
-		if(!user.getRol().toLowerCase().equals("administrador")){
-		String redirectURL = "login.jsp";
+	Usuario user = (Usuario)session.getAttribute("usuario");
+	if(user == null){
+		String redirectURL = "login.jsp?estado=Usuario Incorrecto";
 	    response.sendRedirect(redirectURL);
-		}
+	}
+	else if(!user.getRol().toLowerCase().equals("administrador")){
+	String redirectURL = "login.jsp";
+	response.sendRedirect(redirectURL);
+	}
 	%>
 	
 	<% 	
@@ -53,16 +54,19 @@
 		modelos = ml.getAll();
 		
 		String mode = (String)request.getParameter("mode");
+		String foto = "Foto:";
 		if(mode == null){	mode = "nuevo";	}
 		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
 			int idModelo = Integer.parseInt((String)request.getParameter("id"));
 			modelo = ml.getOne(idModelo);
 			detailFormAction = "editar";
+			foto = "Foto Anterior:";
 		}
 		else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
 			int idModelo = Integer.parseInt((String)request.getParameter("id"));
 			modelo = ml.getOne(idModelo);
 			detailFormAction = "eliminar";
+			foto = "Foto Anterior:";
 		}
 		
 	%>
@@ -136,23 +140,21 @@
 		<input type="number" name="txtCantPasajeros" value="<%=modelo==null?"":modelo.getCantPasajeros()%>"  autofocus required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Denominacion:</label>
 		<input type="text" name="txtDenominacion" value="<%=modelo==null?"":modelo.getDenominacion()%>" required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
-		<label>Foto del Modelo:</label>
-		<input type="text" name="txtFoto" class="form-control"><br>
 		<label>Cantidad de Equipaje Grande:</label>
 		<select name="selectEquiGran" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeGrande()==1?"selected":"" %>>1</option>
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeGrande()==2?"selected":"" %> >2</option>
 		</select><br>
-		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/<%=detailFormAction%>')">Aceptar</button>
-		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/cancelar')">Cancelar</button>
-	</div>
-    <div class="col-sm-4" style="background-color:orange;">
-    	<label>Cantidad de Equipaje Chico:</label>
+		<label>Cantidad de Equipaje Chico:</label>
 		<select name="selectEquiChico" <%=mode.equals("eliminar")?"disabled":""%> class="form-control" >
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeChico()==1?"selected":"" %> >1</option>
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeChico()==2?"selected":"" %> >2</option>
 			<option value="3" <%=modelo!=null&&modelo.getCantEquipajeChico()==3?"selected":"" %> >3</option>
 		</select><br>
+		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/<%=detailFormAction%>')">Aceptar</button>
+		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/cancelar')">Cancelar</button>
+	</div>
+    <div class="col-sm-4" style="background-color:orange;">
     	<label>Transmision:</label>
 		<select name="selectTransmision" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="manual" <%=modelo!=null&&modelo.getTransmision().equals("manual")?"selected":"" %> >Manual</option>
@@ -173,11 +175,16 @@
 		</select><br>
 		<label>Precio por día:</label>
 		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>" autofocus required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
-    </div>
-    <div class="col-sm-4" style="background-color:blue;">
     	<label>Ingrese Foto: </label>
     	<input type="file" name="foto" class="form-control">
     </div>
+    <div class="col-sm-4" style="background-color:blue; height: 250px;">
+    	<label style="font-size: 32px;" ><%=foto %></label>
+    	<div style="width:330px; height:170px; background-color: white;">
+    	<img alt="No hay foto disponible" src="<%=modelo==null?"":modelo.getFotoModelo() %>" style="width:320px; height:160px; position: relative; top: 5px; left:5px;" >
+    	</div>
+    </div>
+
   </div>
 </div>
 

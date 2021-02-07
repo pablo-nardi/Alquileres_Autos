@@ -31,7 +31,7 @@ public class DatosModelos {
 				mod.setDenominacion(rs.getString("denominacion"));
 				mod.setTransmision(rs.getString("transmision"));
 				mod.setAireAcondicionado(rs.getString("aireAcondicionado"));
-				//falta la foto
+				mod.setFotoModelo(rs.getString("fotoModelo"));
 				mod.setCantPasajeros(rs.getInt("cantPasajeros"));
 				mod.setTipoAuto(dtp.getOne(rs.getInt("idTipo")));
 			}

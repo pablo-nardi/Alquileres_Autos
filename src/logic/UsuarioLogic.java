@@ -32,4 +32,17 @@ public class UsuarioLogic {
 	public void deleteUser(String cuil) throws SQLException{
 		du.deleteUser(cuil);
 	}
+	public boolean validarUsuario(Usuario user, String letra) {
+		boolean estado = false;
+		
+		if(user == null) {
+			estado = false;
+		}else if(letra.toUpperCase().equals("A") && user.getRol().equals("administrador")) {
+			estado = true;
+		}else if(letra.toUpperCase().equals("U") && user.getRol().equals("usuario")) {
+			estado = true;
+		}
+		
+		return estado;
+	}
 }

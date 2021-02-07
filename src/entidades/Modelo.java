@@ -12,8 +12,8 @@ public class Modelo {
 	
 	String denominacion,
 			transmision,
-	  aireAcondicionado,
-	  fotoModelo;
+			aireAcondicionado,
+			fotoModelo;
 	
 	TipoAuto tipoAuto;
 	

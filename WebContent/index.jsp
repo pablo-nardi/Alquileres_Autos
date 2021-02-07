@@ -75,7 +75,7 @@
 <body>
 
    	<nav class="navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Inicio</a>
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
  
   <a class="navbar-brand" href="login.jsp">Login</a>
 

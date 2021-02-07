@@ -35,27 +35,12 @@
 	
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #285CAC;">
-	  <!-- Brand -->
-	  <a class="navbar-brand" href="#">Logo</a>
-	
-	  <!-- Links -->
-	  <ul class="navbar-nav">
-	    <li class="nav-item">
-	      <a class="nav-link" href="#">INICIO</a>
-	    </li>
-	
-	    <!-- Dropdown -->
-	    <li class="nav-item dropdown" my-2 my-lg-0>
-	      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-	        Usuario
-	      </a>
-	      <div class="dropdown-menu">
-	        <a class="dropdown-item" href="#">Cerrar Sesion</a>
-	      </div>
-	    </li>
-	  </ul>
-	  
+   	<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <a class="navbar-brand" href="#">Logout</a>
+
 	</nav>
 	<% 	
 		Usuario user = (Usuario)session.getAttribute("usuario");

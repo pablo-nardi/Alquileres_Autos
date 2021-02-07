@@ -23,7 +23,6 @@ public class ServletABMExtras extends HttpServlet {
         extra = new Extras();
         el = new ExtrasLogic();
     }
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			switch(request.getPathInfo()) {

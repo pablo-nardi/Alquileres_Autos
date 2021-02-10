@@ -13,6 +13,7 @@ import entidades.*;
 
 
 
+
 public class DatosAutos {
 	
 	
@@ -51,6 +52,37 @@ public class DatosAutos {
 			}
 		}
 		return autos;		
+	}
+	public LinkedList<Auto> getAutos(String estado)throws SQLException{
+		LinkedList<Auto> autos = new LinkedList<>();
+		Auto auto = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM autos WHERE estado=?");
+			stmt.setString(1, estado);
+			rs = stmt.executeQuery();
+			if(rs != null ) {
+				while(rs.next()) {
+					auto = new Auto();
+					DatosModelos dm = new DatosModelos();
+					auto.setPatente(rs.getString("patente"));
+					auto.setModelo(dm.getOne(rs.getInt("idModelo")));
+					autos.add(auto);	
+				}
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}		
+		return autos;
 	}
 	public LinkedList<Auto> getAll() throws SQLException {
 		Statement stmt=null;

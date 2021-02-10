@@ -29,10 +29,10 @@
 	</script>
 	
 		<% 	//VALIDACION DE SESION DE USUARIO
-		Usuario user = (Usuario)session.getAttribute("usuario");
-		if(!user.getRol().toLowerCase().equals("administrador")){
-		String redirectURL = "login.jsp";
-	    response.sendRedirect(redirectURL);
+		UsuarioLogic ul = new UsuarioLogic();
+		if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+			String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+			response.sendRedirect(redirectURL);
 		}
 	%>
 	

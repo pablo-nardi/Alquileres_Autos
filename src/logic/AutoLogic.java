@@ -28,4 +28,7 @@ public class AutoLogic {
 	public void deleteAuto(String patente)throws SQLException {
 		da.delete(patente);
 	}
+	public  LinkedList<Auto> getAutos(String estado)throws SQLException{
+		return da.getAutos(estado);
+	}
 }

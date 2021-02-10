@@ -30,22 +30,17 @@
 	</script>
 		
 		<% 	//VALIDACION DE SESION DE USUARIO
-			Usuario usu = (Usuario)session.getAttribute("usuario");
-		if(usu == null){
-			String redirectURL = "login.jsp";
-		    response.sendRedirect(redirectURL);
-		}	
-		else if(!usu.getRol().toLowerCase().equals("administrador")){
-			String redirectURL = "login.jsp";
-		    response.sendRedirect(redirectURL);
-			}
+		UsuarioLogic ul = new UsuarioLogic();
+		if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+			String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+			response.sendRedirect(redirectURL);
+		}
 		%>
 		<%
 			Usuario usuario = null;
 			String detailFormAction = "nuevo";
 			LinkedList<Usuario> usuarios;
 			LinkedList<Provincia> provincias;
-			UsuarioLogic ul = new UsuarioLogic();
 			ProvinciaLogic pl = new ProvinciaLogic();
 			usuarios = ul.getAll();
 			provincias = pl.getAll();

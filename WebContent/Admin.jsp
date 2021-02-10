@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@	page import="java.util.*"%>
 <%@ page import="entidades.Usuario" %>
+<%@ page import="logic.UsuarioLogic" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,19 +44,14 @@
 
 	</nav>
 	<% 	
-		Usuario user = (Usuario)session.getAttribute("usuario");
-	
-	if(!user.getRol().toLowerCase().equals("administrador")){
-		String redirectURL = "index.html";
-	    response.sendRedirect(redirectURL);
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
 	}
 	%>
 		
-	<label>Mail</label>
-	<% out.println((String) user.getNombre().toString() ) ; %>
-	
-	<label>Rol</label>
-	<% out.println((String) user.getRol().toString()); %>
+
 
 	<h1>Probando JSP en Pagina de Admin</h1>
 	

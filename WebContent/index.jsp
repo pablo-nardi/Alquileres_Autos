@@ -39,7 +39,7 @@
 			document.myForm.action=met;
     	}
     	function buscaModelos(met) {
-    		if ($('#fechaRetiro').val().length == 0) {
+    		/*if ($('#fechaRetiro').val().length == 0) {
     			 alert('Elija una fecha de Retiro');
     			 }
     		else if($('#fechaDevolucion').val().length == 0){
@@ -48,8 +48,8 @@
     		else{
     			document.myForm.action=met;
         		//document.getElementById("myFrom").submit();		
-    		}
-    			
+    		}*/
+    		document.myForm.action=met;
     	
         }
     </script>
@@ -110,11 +110,11 @@
 	    </div>
 	    <div class="col-sm-">
 	    	<label>Fecha de Retiro:</label>
-	      	<input type="datetime-local" class="form-control" id="fechaRetiro" name="fechaRetiro">
+	      	<input type="date" class="form-control" id="fechaRetiro" name="fechaRetiro">
 	    </div>
 	    <div class="col-sm-">
 	    	<label>Fecha de Devolucion::</label>
-	      	<input type="datetime-local" class="form-control" id="fechaDevolucion" name="fechaDevolucion">
+	      	<input type="date" class="form-control" id="fechaDevolucion" name="fechaDevolucion">
 	    </div>
 	    <div class="col-sm-">
 	    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('ServletIndex/buscarModelos')" style="margin-top: 15px;">Buscar</button>

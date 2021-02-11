@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page errorPage="paginaErrordesdeJSP.jsp" %>
 <%@	page import="java.util.*"%>
-<%@ page import="entidades.Usuario" %>
 <%@ page import="entidades.*" %>
 <%@ page import="logic.*" %>
+<%@ page import="java.sql.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +30,14 @@
 		#parrafo::first-letter, .datos::first-letter{
         text-transform: uppercase;
  	    } 
+ 	    .button-seleccionar{
+			display: block;
+            text-decoration: none;
+            padding: 5px 5px;
+            border: 2px solid black;
+            border-radius: 15px;
+            text-align: center;
+ 	    }
 	</style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -45,6 +53,14 @@
 	ModeloLogic ml = new ModeloLogic();
 	SucursalLogic sl = new SucursalLogic();
 	autos = al.getAutos("disponible");
+	
+	// CALCULO CANTIDAD DE DIAS CON LAS FECHAS
+	
+	Date fechaRetiro= Date.valueOf(request.getParameter("fechaRetiro"));
+	Date fechaDevolucion= Date.valueOf(request.getParameter("fechaDevolucion"));
+	
+	long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
+	
 	//modelos = ml.getAll();
 	//sucursales = sl.getAll();
 	
@@ -62,6 +78,7 @@
       <div class="row">
         <h2>Autos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
+          <form action="ServletFormularioDePago" name="myForm" method="post">
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead class="thead-dark">
@@ -69,9 +86,7 @@
                   	<th>Foto</th>
 					<th>Datos</th>
 					<th></th>
-                    <th>Precio por dia</th>
-					<th>Editar</th>
-					<th>Eliminar</th>
+                    <th>Precio</th>
 
                   </tr>
                 </thead>
@@ -88,14 +103,17 @@
                     <td><p><b>Caja de cambio:</b> <br> <%=mod.getTransmision() %></p>
                     	<p><b>Aire Acondicionaso</b> <br> <%=mod.getAireAcondicionado() %></p>	</td>
 
-                    <td><%=mod.getPrecioPorDia() %>
-                    <td><a class="form-botton-editar" href="ABMAutos.jsp?mode=editar&id=<%=a.getPatente() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ABMAutos.jsp?mode=eliminar&id=<%=a.getPatente() %>">Eliminar</a></td>
+                    <td><p><b>Precio por dia: </b> <br> <%=mod.getPrecioPorDia() %></p>
+                    	<p><b>Cantidad de dias: </b> <br> <%=dias %></p>
+                    	<p><b>Precio total: </b> <br> <%=dias * mod.getPrecioPorDia() %></p>
+                    	<button class="btn btn-primary" >Reservar</button>
+                    	</td>
                   </tr>
                   <% } %>
                 </tbody>
               </table>
             </div>
+            </form>
           </div>
       </div>
     </div>

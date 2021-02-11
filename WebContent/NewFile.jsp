@@ -9,7 +9,6 @@
 <body>
 	<p> Hola </p>
 	
-	<%out.println((String) request.getAttribute("applicationPath") ) ; %>
-	<%out.println((String) request.getAttribute("uploadFilePath")); %>
+	
 </body>
 </html>

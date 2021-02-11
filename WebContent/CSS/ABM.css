@@ -6,14 +6,11 @@ h1{
 			background-color: green;
 }
 
- .form-botton-editar:hover{
+.form-botton-editar:hover{
             background-color: rgb(10,150,150);
             color: white;  
  }
- .form-botton-editar:active{
-            background-color: rgb(68, 152, 209);
-            color: white;
-        }
+
 .form-botton-eliminar:hover{
 			background-color: rgb(150,10,10);
             color: white;
@@ -25,13 +22,7 @@ h1{
             border: 2px solid black;
             border-radius: 15px;
 }
-.cancelar{
-		display: block;
-            text-decoration: none;
-            padding: 5px 5px;
-            border: 2px solid black;
-            border-radius: 15px;
-}
+
 .imagen-auto{
 	width: 80px;
 	height: 80px;

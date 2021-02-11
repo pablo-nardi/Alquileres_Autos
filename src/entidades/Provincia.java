@@ -6,19 +6,7 @@ public class Provincia {
 	int idProvincia;
 	String denominacion;
 	LinkedList<Localidad> localidades = new LinkedList<>();
-	/*
-	HashMap<String, Localidad> localidades = new HashMap<String, Localidad>();
-	HashMap<String, String> capitalCities = new HashMap<String, String>(); solo de prueba
-		capitalCities.put("England", "London");
-		capitalCities.get("England");
-		capitalCities.remove("England");
-		capitalCities.clear(); 
-		capitalCities.size();
-		// Print keys and values
-			for (String i : capitalCities.keySet()) {
-  				System.out.println("key: " + i + " value: " + capitalCities.get(i));
-			}
-	*/
+
 	
 	
 	

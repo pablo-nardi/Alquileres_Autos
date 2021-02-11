@@ -91,13 +91,13 @@ public class ServletsABMUSuarios extends HttpServlet {
 		cpswd = req.getParameter("txtPasswordConfirm");
 		if(req.getPathInfo().equals("/nuevo") && (cpswd.isBlank() || cpswd.isEmpty() || cpswd == null || !pswd.equals(cpswd)) ) {
 			
-			throw new Exception("El campo CONTRASEÑA debe ser identico al campo CONFIRMA CONTRASEÑA");
+			throw new Exception("El campo CONTRASEñA debe ser identico al campo CONFIRMA CONTRASEñA");
 		
 		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || cpswd != null)) {
 			
 			if(!pswd.equals(cpswd)) {
 				
-				throw new Exception("El campo CONTRASEÑA debe ser identico al campo CONFIRMA CONTRASEÑA");
+				throw new Exception("El campo CONTRASEñA debe ser identico al campo CONFIRMA CONTRASEñA");
 			}			
 		}
 	}

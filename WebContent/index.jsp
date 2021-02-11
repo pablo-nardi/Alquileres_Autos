@@ -96,7 +96,6 @@
 	  	<div class="col-sm-">
 	  		
 	  		<button class="btn btn-primary" name="btnBuscaLocalidad" onclick="javascript: buscaLocalidades('ServletIndex/buscarLocalidad')" style="margin-top:15px;" >Buscar Localidad</button>
-	  		
 	  	</div>
 	    <div class="col-sm-" style="background-color: red;">
 	    	<label>Ciudad:</label>
@@ -117,7 +116,7 @@
 	      	<input type="date" class="form-control" id="fechaDevolucion" name="fechaDevolucion">
 	    </div>
 	    <div class="col-sm-">
-	    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('ServletIndex/buscarModelos')" style="margin-top: 15px;">Buscar</button>
+	    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('ServletBuscarModelos')" style="margin-top: 15px;">Buscar</button>
 	    </div>
 	    	
 	  </div>

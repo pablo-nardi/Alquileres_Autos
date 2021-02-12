@@ -45,6 +45,40 @@ public class DatosPlanesDePago {
 		}
 		return planes;
 	}
+	public LinkedList<PlanDePago> getPlanes() throws SQLException{
+		LinkedList<PlanDePago> planes = new LinkedList<>();
+		PlanDePago plan = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT DISTINCT entidadCrediticia,nombreTarjeta FROM planesDePago");
+			rs = stmt.executeQuery();
+			
+			if(rs != null) {
+				while(rs.next()) {
+					plan = new PlanDePago();
+					
+					plan.setEntidadCrediticia(rs.getString("entidadCrediticia"));
+					plan.setNombreTarjeta(rs.getString("nombreTarjeta"));
+					
+					planes.add(plan);
+				}
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			}catch(SQLException e) {
+				throw e;
+			}
+		}
+		return planes;
+	}
+	
 	public PlanDePago getOne(int idPlan) throws SQLException{
 		PlanDePago plan = null;
 		PreparedStatement stmt=null;

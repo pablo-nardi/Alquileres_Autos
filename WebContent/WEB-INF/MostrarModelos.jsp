@@ -105,7 +105,7 @@
 
                     <td><p><b>Precio por dia: </b> <br> <%=mod.getPrecioPorDia() %></p>
                     	<p><b>Cantidad de dias: </b> <br> <%=dias %></p>
-                    	<p><b>Precio total: </b> <br> <%=dias * mod.getPrecioPorDia() %></p>
+                    	<input type="text" name="total" class="form-control" value="<%=dias * mod.getPrecioPorDia()  %>" readonly >
                     	<button class="btn btn-primary" >Reservar</button>
                     	</td>
                   </tr>

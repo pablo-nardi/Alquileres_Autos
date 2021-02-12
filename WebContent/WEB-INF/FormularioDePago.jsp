@@ -8,7 +8,6 @@
 <html lang="en">
 <head>
 
-<title>ABM de Autos</title>
 
 <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -26,44 +25,79 @@
 	PlanDePago plan = null;
     LinkedList<PlanDePago> planes = new LinkedList<>();
     PlanDePagoLogic ppl = new PlanDePagoLogic();
-    planes = ppl.getAll();
+    planes = ppl.getPlanes();
 	
 	%>
 
 <title>Carga de Formulario</title>
 </head>
 <body>
-	<div class="container-fluid">		 
-	    <h2>ABM de Provincias</h2>
-	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
-		<div class="row">
-			<div class="col-sm-4" style="background-color:lavender;">
-		          <form action="" name="myForm" method="post">			
-					<div class="container"> 
-				  		<div class="row">
-						    <div class="col-sm-12" style="background-color:lavender;">
-						    	<label>Tarjeta:</label>
-								<select name="selectTarjeta" class="form-control">
-									<%for(PlanDePago pdp: planes){  String value = Integer.toString(pdp.getIdPlan()); %>
-										<option value="<%=value%>" ><%=pdp.getNombreTarjeta() %></option>
-									<%} %>
-								</select>
-								
-											
-								
-								<label>Descripcion:</label>
-								<input type="text" name="txtDescripcion"  class="form-control"><br>
-								<label>Precio:</label>
-								<input type="text" name="txtPrecio"  class="form-control" ><br>
-						
-								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMExtras/')"></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMExtras/cancelar')">Cancelar</button>
-				   			</div>
-		   				</div>
-	   				</div>
-	   			</form>
-		   	</div>
-		 </div>
-	
+
+ <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
+
+<h2>Formulario de pago</h2>
+
+	<form action="ServletFormularioFacturacion" name="myForm" method="post">	
+		<div class="container">		 
+			<div class="row">
+				<div class="col-sm-4" style="background-color:lavender;">
+			          		
+							    	<label>Tarjeta:</label>
+									<select name="selectTarjeta" class="form-control">
+										<%for(PlanDePago pdp: planes){  String value = pdp.getNombreTarjeta(); %>
+											<option value="<%=value%>" ><%=pdp.getNombreTarjeta() %></option>
+										<%} %>
+									</select>
+									
+									<label>Banco:</label>
+									<select name="selectBanco" class="form-control">
+										<%for(PlanDePago pdp: planes){  String value = pdp.getEntidadCrediticia(); %>
+											<option value="<%=value%>" ><%=pdp.getEntidadCrediticia() %></option>
+										<%} %>
+									</select>	
+												
+										<label>Cuotas:</label>
+									<select name="selectCuotas" class="form-control">
+										<%for(int i = 3; i < 15; i+=3){   %>
+											<option value="<%=i%>" ><%=i %></option>
+										<%} %>
+									</select>				
+												
+									<label>Total:</label>
+									<input type="text" name="total" class="form-control" value="<%=request.getParameter("total") %>" readonly >
+									
+									<br>
+							
+									<button class="btn btn-primary">Aceptar</button>
+		   			
+			   	</div>
+			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
+			          		
+							    	<label>Numero de Tarjeta (sin espacios ni guiones):</label>
+									<input type="number" name="txtNumTarjeta"  class="form-control">
+									
+									<label>Titular de la Tarjeta (como figura en la tarjeta):</label>
+									<input type="text" name="txtTitular"  class="form-control">
+												
+									<label>Fecha de Vencimiento:</label>
+									<div>
+										<select name="selectMes" class="form-control" style=" float:left; width: 25%;">
+											<%for(int i = 1; i <= 12; i++){   %>
+												<option value="<%=i%>" ><%=i %></option>
+											<%} %>
+										</select>
+										<select name="selectAños" class="form-control" style=" width: 25%;" >
+											<%for(int i = 2021; i <= 2032; i++){   %>
+												<option value="<%=i%>" ><%=i %></option>
+											<%} %>
+										</select>
+									</div>		
+									<label>Codigo de Seguridad:</label>
+									<input type="number" name="txtCodigo"  class="form-control">
+		   			
+			   	</div>
+			 </div>
+			 </div>
+	</form>
 </body>
 </html>

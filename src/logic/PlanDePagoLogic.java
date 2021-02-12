@@ -27,4 +27,7 @@ public class PlanDePagoLogic {
 	public void deletePlanDePago(int id) throws SQLException {
 		dpp.deleteExtra(id);
 	}
+	public LinkedList<PlanDePago> getPlanes() throws SQLException {
+		return dpp.getPlanes();
+	}
 }

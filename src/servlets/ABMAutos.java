@@ -14,15 +14,15 @@ import entidades.*;
 import logic.*;
 
 
-@WebServlet("/ServletABMAutos/*")
-public class ServletABMAutos extends HttpServlet {
+@WebServlet("/ABMAutos/*")
+public class ABMAutos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Auto auto = null;
     AutoLogic al = null;
     ModeloLogic ml = null;
     SucursalLogic sl = null;
     
-    public ServletABMAutos() {
+    public ABMAutos() {
         super();
         auto = new Auto();
         al = new AutoLogic();

@@ -59,8 +59,7 @@
 		ProvinciaLogic pl = new ProvinciaLogic(); 
 		LinkedList<Localidad> localidades = null;
 		LinkedList<Provincia> provincias = pl.getAll();
-	%>
-	<%
+	
 		String idProv = request.getParameter("id");
 		if(idProv != null){
 			int id = Integer.parseInt(idProv);
@@ -68,7 +67,7 @@
 			ll = new LocalidadLogic();
 			localidades = ll.getLocalidades(id);
 		}
-	%>
+		%>
 </head>
 
 

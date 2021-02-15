@@ -138,7 +138,7 @@
 								if(mode.equals("nuevo")){texto = "Cargar";}
 								else if(mode.equals("editar")){texto = "Editar";}
 								else if(mode.equals("eliminar")){texto = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMAutos/<%=detailFormAuto%>')"><%=texto %></button>
+								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMAutos/<%=detailFormAuto%>')"><%=texto %></button>
 				   				<button class="btn btn-outline-primary" name="">Cancelar</button>
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">

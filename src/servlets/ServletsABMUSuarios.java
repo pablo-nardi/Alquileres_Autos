@@ -92,7 +92,7 @@ public class ServletsABMUSuarios extends HttpServlet {
 			
 			throw new Exception("El campo CONTRASEñA debe ser identico al campo CONFIRMA CONTRASEñA");
 		
-		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || cpswd != null || cpswd != "" )) {
+		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || !cpswd.equals("") )) {
 			
 			if(!pswd.equals(cpswd)) {
 				

@@ -20,11 +20,12 @@
 	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
 	<style type="text/css">
 		.form-botton-editar{
-		display: block;
+			display: block;
             text-decoration: none;
             padding: 5px 5px;
             border: 2px solid black;
             border-radius: 15px;
+            width: 75px;
 }
 	</style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -83,7 +84,7 @@
 
 	
 	
-	<a class="form-botton-editar" href="Admin.jsp">Volver a Admin.jsp</a>
+	<a class="form-botton-editar" href="Admin.jsp" style="width: 150px;" >Volver a Admin.jsp</a>
 		
 	<div class="container-fluid">
       <div class="row">
@@ -141,9 +142,9 @@
     	<label>Id Modelo:</label>
     	<input type="text" name="txtId" value="<%=modelo==null?"":modelo.getIdentificacion() %>" class="form-control" readonly><br>
     	<label>Cantidad Maxima de pasajeros:</label>
-		<input type="number" name="txtCantPasajeros" value="<%=modelo==null?"":modelo.getCantPasajeros()%>"  autofocus required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
+		<input type="number" name="txtCantPasajeros" value="<%=modelo==null?"":modelo.getCantPasajeros()%>"    <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Denominacion:</label>
-		<input type="text" name="txtDenominacion" value="<%=modelo==null?"":modelo.getDenominacion()%>" required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
+		<input type="text" name="txtDenominacion" value="<%=modelo==null?"":modelo.getDenominacion()%>"  <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Cantidad de Equipaje Grande:</label>
 		<select name="selectEquiGran" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeGrande()==1?"selected":"" %>>1</option>
@@ -155,8 +156,8 @@
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeChico()==2?"selected":"" %> >2</option>
 			<option value="3" <%=modelo!=null&&modelo.getCantEquipajeChico()==3?"selected":"" %> >3</option>
 		</select><br>
-		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/<%=detailFormAction%>')">Aceptar</button>
-		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMModelos/cancelar')">Cancelar</button>
+		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMModelos/<%=detailFormAction%>')">Aceptar</button>
+		<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMModelos/cancelar')">Cancelar</button>
 	</div>
     <div class="col-sm-4" style="background-color:orange;">
     	<label>Transmision:</label>
@@ -178,14 +179,15 @@
 		<%}%>
 		</select><br>
 		<label>Precio por día:</label>
-		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>" autofocus required <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
+		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>"   <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
     	<label>Ingrese Foto: </label>
-    	<input type="file" name="foto" class="form-control">
+    	<input type="file" name="foto" class="form-control" value="<%=modelo==null?"":modelo.getFotoModelo() %>" <%=mode.equals("eliminar")?"disabled":""%> >
     </div>
     <div class="col-sm-4" style="background-color:blue; height: 250px;">
     	<label style="font-size: 32px;" ><%=foto %></label>
     	<div style="width:330px; height:170px; background-color: white;">
     	<img alt="No hay foto disponible" src="<%=modelo==null?"":modelo.getFotoModelo() %>" style="width:320px; height:160px; position: relative; top: 5px; left:5px;" >
+    	<input type="hidden" name="fotoAnterior" value="<%=modelo==null?"":modelo.getFotoModelo() %>" >
     	</div>
     </div>
 

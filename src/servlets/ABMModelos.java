@@ -17,16 +17,16 @@ import logic.ModeloLogic;
 import entidades.Usuario;
 
 
-@WebServlet({"/ServletABMModelos/*", "/ServletabmModelos/*", "/Servletambmodelos/*", "/servletabmModelos/*"})
+@WebServlet({"/ABMModelos/*", "/ServletabmModelos/*", "/Servletambmodelos/*", "/servletabmModelos/*"})
 
 
-public class ServletABMModelos extends HttpServlet {
+public class ABMModelos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Modelo mod;
     TipoAuto tipo;
     ModeloLogic ml;
   
-    public ServletABMModelos() {
+    public ABMModelos() {
         super();
         mod = new Modelo();
         ml = new ModeloLogic();
@@ -46,19 +46,12 @@ public class ServletABMModelos extends HttpServlet {
 					MapearADatos(request);
 					ml.addModelo(mod);
 					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
-					//getServletContext().getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
 					break;
 				case "/editar":
-					
-					//request.getRequestDispatcher("./Alquileres_Autos/ABMModelos.jsp").forward(request, response); NO
-					//Modelo mod = ml.getOne(Integer.parseInt(request.getParameter("id"))); NO
-					//request.setAttribute("modEdit", mod); NO
-					//response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp?mode=editar&id="+request.getParameter("id")); SI
 					MapearADatos(request);
 					mod.setIdentificacion(Integer.parseInt(request.getParameter("txtId")));
 					ml.update(mod);
 					response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
-					
 					break;
 				case "/eliminar":
 					ml.delete(Integer.parseInt(request.getParameter("txtId")));
@@ -88,6 +81,20 @@ public class ServletABMModelos extends HttpServlet {
 		mod.setTransmision(request.getParameter("selectTransmision"));
 		mod.setAireAcondicionado(request.getParameter("selectAA"));
 		mod.getTipoAuto().setId_Tipo(Integer.parseInt(request.getParameter("selectTipo")));
-		mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
+		
+		if(request.getPathInfo().equals("/editar")) {
+			
+			if(request.getParameter("foto").equals("")) {
+				mod.setFotoModelo(request.getParameter("fotoAnterior"));
+			}else {
+				mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
+			}
+			
+			
+		}else {
+			mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
+		}
+		
+		
 	}
 }

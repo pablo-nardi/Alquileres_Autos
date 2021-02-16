@@ -9,8 +9,6 @@ public class Alquiler {
 	
 	float	costoPorDaños,
 			costoDevolucionTardia,
-			codtoTanqueSinLlenar,
-			importeAcordado,
 			precioDiario;
 	
 	Date	fechaHoraRetiroPrevisto,
@@ -43,14 +41,6 @@ public class Alquiler {
 
 	public float getCostoDevolucionTardia() {
 		return costoDevolucionTardia;
-	}
-
-	public float getCodtoTanqueSinLlenar() {
-		return codtoTanqueSinLlenar;
-	}
-
-	public float getImporteAcordado() {
-		return importeAcordado;
 	}
 
 	public float getPrecioDiario() {
@@ -103,14 +93,6 @@ public class Alquiler {
 
 	public void setCostoDevolucionTardia(float costoDevolucionTardia) {
 		this.costoDevolucionTardia = costoDevolucionTardia;
-	}
-
-	public void setCodtoTanqueSinLlenar(float codtoTanqueSinLlenar) {
-		this.codtoTanqueSinLlenar = codtoTanqueSinLlenar;
-	}
-
-	public void setImporteAcordado(float importeAcordado) {
-		this.importeAcordado = importeAcordado;
 	}
 
 	public void setPrecioDiario(float precioDiario) {

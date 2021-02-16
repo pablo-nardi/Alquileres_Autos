@@ -28,11 +28,6 @@ public class ServletsABMUSuarios extends HttpServlet {
     }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		//Validar sesion // Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
@@ -75,13 +70,17 @@ public class ServletsABMUSuarios extends HttpServlet {
 		user.setApellido(req.getParameter("txtApellido"));
 		user.setCuil(req.getParameter("txtCuil"));
 		user.setMail(req.getParameter("txtEmail"));
-		user.setPassword(req.getParameter("txtPassword"));
 		user.setRol(req.getParameter("selectRol"));
 		user.setTelefono(req.getParameter("txtTelefono"));
-		user.setLocalidad(ll.getOne(Integer.parseInt(req.getParameter("selectLocalidad"))));
+		user.setCiudad(req.getParameter("txtCiudad"));
+		user.setCodigoPostal(req.getParameter("txtCodigo"));
 		user.setCalle(req.getParameter("txtCalle"));
 		user.setDepartamento(req.getParameter("txtDpto"));
 		user.setPiso(Integer.parseInt(req.getParameter("txtPiso")));
+		user.setPassword(req.getParameter("txtPassword"));
+		if(req.getPathInfo().equals("/nuevo")) {
+			
+		}
 		
 	}
 	private void validaContraseña(HttpServletRequest req)throws NumberFormatException, SQLException, Exception{
@@ -93,7 +92,7 @@ public class ServletsABMUSuarios extends HttpServlet {
 			
 			throw new Exception("El campo CONTRASEñA debe ser identico al campo CONFIRMA CONTRASEñA");
 		
-		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || cpswd != null)) {
+		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || cpswd != null || cpswd != "" )) {
 			
 			if(!pswd.equals(cpswd)) {
 				

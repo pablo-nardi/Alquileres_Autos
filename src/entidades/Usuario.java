@@ -8,6 +8,8 @@ public class Usuario {
 			apellido,
 			telefono,
 			mail,
+			ciudad,
+			codigoPostal,
 			calle,
 			departamento,
 			numUltTarjeta,
@@ -18,18 +20,27 @@ public class Usuario {
 	int 	piso;
 	
 	Date 	vencUltTarjeta;
-	
-	Localidad localidad;
-	
-	public Localidad getLocalidad() {
-		return localidad;
+
+
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
+	public void setCiudad(String localidad) {
+		this.ciudad = localidad;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
 	}
 
 	
+	
+
 
 	public String getCuil() {
 		return cuil;

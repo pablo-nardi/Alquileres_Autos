@@ -13,10 +13,9 @@ public class DatosUsuario {
 			ResultSet rs=null;
 			PreparedStatement stmt=null;
 			Usuario user = null;
-			DatosLocalidad dl = new DatosLocalidad();
 			
 			try {
-				stmt = DbConnector.getInstancia().getConn().prepareStatement("select cuil, nombre, apellido, telefono, mail, calle, piso, dpto, codigoPostal, rol, password from usuarios where mail=? and password=?");
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("select cuil, nombre, apellido, telefono, mail, calle, piso, dpto, ciudad, codigoPostal, rol, password from usuarios where mail=? and password=?");
 				
 				stmt.setString(1, usuario.getMail());
 				stmt.setString(2, usuario.getPassword());
@@ -26,7 +25,8 @@ public class DatosUsuario {
 					user = new Usuario();
 					user.setApellido(rs.getString("apellido"));
 					user.setCalle(rs.getString("calle"));
-					user.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
+					user.setCodigoPostal(rs.getString("codigoPostal"));
+					user.setCiudad(rs.getString("ciudad"));
 					user.setCuil(rs.getString("cuil"));
 					user.setMail(rs.getString("mail"));
 					user.setNombre(rs.getString("nombre"));
@@ -53,7 +53,6 @@ public class DatosUsuario {
 			LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
 			ResultSet rs = null;
 			PreparedStatement stmt = null;
-			DatosLocalidad dl = new DatosLocalidad();
 			
 			try {
 				stmt = DbConnector.getInstancia().getConn().prepareStatement("select * from usuarios");
@@ -65,7 +64,8 @@ public class DatosUsuario {
 						
 						user.setApellido(rs.getString("apellido"));
 						user.setCalle(rs.getString("calle"));
-						user.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
+						user.setCodigoPostal(rs.getString("codigoPostal"));
+						user.setCiudad(rs.getString("ciudad"));
 						user.setCuil(rs.getString("cuil"));
 						user.setDepartamento(rs.getString("dpto"));
 						user.setMail(rs.getString("mail"));
@@ -94,7 +94,6 @@ public class DatosUsuario {
 		}
 		public Usuario getOne(String cuil) throws SQLException{
 			Usuario user = null;
-			DatosLocalidad dl = new DatosLocalidad();
 			PreparedStatement stmt=null;
 			ResultSet rs = null;
 			
@@ -107,7 +106,8 @@ public class DatosUsuario {
 					user = new Usuario();
 					user.setApellido(rs.getString("apellido"));
 					user.setCalle(rs.getString("calle"));
-					user.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
+					user.setCodigoPostal(rs.getString("codigoPostal"));
+					user.setCiudad(rs.getString("ciudad"));
 					user.setCuil(rs.getString("cuil"));
 					user.setDepartamento(rs.getString("dpto"));
 					user.setMail(rs.getString("mail"));
@@ -136,7 +136,7 @@ public class DatosUsuario {
 			PreparedStatement stmt = null;
 			
 			try {
-				stmt = DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO usuarios (cuil, nombre, apellido, telefono, mail, calle, piso, dpto, codigoPostal, rol, password) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO usuarios (cuil, nombre, apellido, telefono, mail, calle, piso, dpto, ciudad, codigoPostal, rol, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 				stmt.setString(1, user.getCuil());
 				stmt.setString(2, user.getNombre());
 				stmt.setString(3, user.getApellido());
@@ -145,9 +145,10 @@ public class DatosUsuario {
 				stmt.setString(6, user.getCalle());
 				stmt.setInt(7, user.getPiso());
 				stmt.setString(8, user.getDepartamento());
-				stmt.setInt(9, user.getLocalidad().getCodigoPostal());
-				stmt.setString(10, user.getRol());
-				stmt.setString(11, user.getPassword());
+				stmt.setString(9, user.getCiudad());
+				stmt.setString(10, user.getCodigoPostal());
+				stmt.setString(11, user.getRol());
+				stmt.setString(12, user.getPassword());
 				stmt.executeUpdate();
 			}catch (SQLException e) {
 				e.printStackTrace();
@@ -164,7 +165,7 @@ public class DatosUsuario {
 			PreparedStatement stmt = null;
 			
 			try {
-				stmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE usuarios SET nombre=?, apellido=?, telefono=?, mail=?, calle=?, piso=?, dpto=?, codigoPostal=?, rol=?, password=? where cuil=?");
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE usuarios SET nombre=?, apellido=?, telefono=?, mail=?, calle=?, piso=?, dpto=?, ciudad=?, codigoPostal=?, rol=?, password=? where cuil=?");
 				stmt.setString(1, user.getNombre());
 				stmt.setString(2, user.getApellido());
 				stmt.setString(3, user.getTelefono());
@@ -172,10 +173,11 @@ public class DatosUsuario {
 				stmt.setString(5, user.getCalle());
 				stmt.setInt(6, user.getPiso());
 				stmt.setString(7, user.getDepartamento());
-				stmt.setInt(8, user.getLocalidad().getCodigoPostal());
-				stmt.setString(9, user.getRol());
-				stmt.setString(10, user.getPassword());				
-				stmt.setString(11, user.getCuil());
+				stmt.setString(8, user.getCiudad());
+				stmt.setString(9, user.getCodigoPostal());
+				stmt.setString(10, user.getRol());
+				stmt.setString(11, user.getPassword());				
+				stmt.setString(12, user.getCuil());
 				
 				stmt.executeUpdate();
 				

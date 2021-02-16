@@ -115,7 +115,7 @@
 	      	<input type="date" class="form-control" id="fechaDevolucion" name="fechaDevolucion">
 	    </div>
 	    <div class="col-sm-">
-	    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('ServletBuscarModelos')" style="margin-top: 15px;">Buscar</button>
+	    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('BuscarModelos')" style="margin-top: 15px;">Buscar</button>
 	    </div>
 	    	
 	  </div>

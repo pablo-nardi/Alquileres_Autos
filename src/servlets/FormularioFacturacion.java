@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ServletFormularioFacturacion")
-public class ServletFormularioFacturacion extends HttpServlet {
+@WebServlet("/FormularioFacturacion")
+public class FormularioFacturacion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ServletFormularioFacturacion() {
+    public FormularioFacturacion() {
         super();
     }
 

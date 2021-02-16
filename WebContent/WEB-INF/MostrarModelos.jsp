@@ -68,7 +68,7 @@
 	    
 </head>
 <body>
-	<h1>Pagina donde se van a mostrar los modelos</h1>
+	<h1>Modelos de autos diponibles</h1>
 	<!--tipo: nombre
 		modelo: imagen, denominacion, cant pasaj, cant equipajes, caja cambio, ac, 
         precio por dia
@@ -78,7 +78,7 @@
       <div class="row">
         <h2>Autos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
-          <form action="ServletFormularioDePago" name="myForm" method="post">
+          <form action="FormularioDePago" name="myForm" method="post">
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead class="thead-dark">
@@ -106,6 +106,7 @@
                     <td><p><b>Precio por dia: </b> <br> <%=mod.getPrecioPorDia() %></p>
                     	<p><b>Cantidad de dias: </b> <br> <%=dias %></p>
                     	<input type="text" name="total" class="form-control" value="<%=dias * mod.getPrecioPorDia()  %>" readonly >
+                    	<input type="hidden" name="id" value="<%=mod.getIdentificacion()  %>" >
                     	<button class="btn btn-primary" >Reservar</button>
                     	</td>
                   </tr>

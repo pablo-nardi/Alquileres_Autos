@@ -23,6 +23,24 @@
 <title>Resumen Reserva</title>
 </head>
 <body>
-	<h1>Hola</h1>
+	<h1>Resumen de la reserva</h1>
+	
+	<form action="" name="myForm" method="post">	
+		<div class="container">		 
+			<div class="row">
+				<div class="col-sm-4" style="background-color:lavender;">
+					<label>Fecha:</label><br>
+					<label>Tipo de auto:</label><br>
+					<label>Modelo:</label><br>
+			   	</div>
+			   	<div class="col-sm-4" style="background-color:lavender;">
+			 		<label>Sucursal:</label><br>
+					<label>Total:</label><br>
+					<button class="btn btn-primary" onclick="javascript: crearAlquiler('CrearAlquiler')" >Alquilar</button>
+			 	</div>
+			 </div>
+		 </div>
+	</form>
+	
 </body>
 </html>

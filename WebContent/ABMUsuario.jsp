@@ -40,10 +40,7 @@
 			Usuario usuario = null;
 			String detailFormAction = "nuevo";
 			LinkedList<Usuario> usuarios;
-			LinkedList<Provincia> provincias;
-			ProvinciaLogic pl = new ProvinciaLogic();
 			usuarios = ul.getAll();
-			provincias = pl.getAll();
 			
 			String mode = (String)request.getParameter("mode");
 			if(mode == null){	mode = "nuevo";	}
@@ -81,7 +78,7 @@
 					<th>Pass</th>
 					<th>Rol</th>
 					<th>Telefono</th>
-                    <th>Localidad</th>
+                    <th>Ciudad</th>
 					<th>Calle / Dpto / Piso</th>
 					<th>Editar</th>
 					<th>Eliminar</th>
@@ -97,18 +94,15 @@
                   	<td><%= user.getPassword() %></td>
                   	<td><%= user.getRol() %></td>
                     <td><%= user.getTelefono() %></td>
-                    <%String lugar = user.getLocalidad().getProvincia().getDenominacion() + " "+ 
-                    user.getLocalidad().getDenominacion();
-                    %>
-                    <td><%= lugar %></td>
+                    <td><%=user.getCiudad() %></td>
                     <%	String calle;
                     	if(user.getDepartamento() == null || user.getPiso() == 0){
-                    		lugar = user.getCalle();
+                    		calle = user.getCalle();
                     	}else{
-                    		lugar = user.getCalle() +" / "+ user.getDepartamento()+" / " + user.getPiso();
+                    		calle = user.getCalle() +" / "+ user.getDepartamento()+" / " + user.getPiso();
                     	}
                     %>
-                    <td><%= lugar %></td>
+                    <td><%= calle %></td>
                     <td><a class="form-botton-editar" href="ABMUsuario.jsp?mode=editar&id=<%=user.getCuil() %>">Editar</a></td>
                     <td><a class="form-botton-eliminar" href="ABMUsuario.jsp?mode=eliminar&id=<%=user.getCuil() %>">Eliminar</a></td>
                   </tr>
@@ -133,7 +127,7 @@
 		<label>Mail:</label>
 		<input type="email" name="txtEmail"  class="form-control" value="<%=usuario==null?"":usuario.getMail()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Contraseña:</label>
-		<input type="password" name="txtPassword" id="txtPassword"  class="form-control" value="<%=usuario==null?"":usuario.getPassword()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<input type="password" name="txtPassword" id="txtPassword"  class="form-control" value="<%=usuario==null?"":usuario.getPassword() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
     	<label>Ingrese de nuevo la contraseña:</label>
 		<input type="password" name="txtPasswordConfirm" id="txtPasswordConfirm" class="form-control" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<% String txtButton = "No paso el if"; 
@@ -152,20 +146,10 @@
 		</select><br>
 		<label>Telefono:</label>
 		<input type="text" name="txtTelefono"  class="form-control" value="<%=usuario==null?"":usuario.getTelefono()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
-		<label>Localidad</label>
-		<select name="selectLocalidad" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %>>
-							 	<%for(Provincia p: provincias)
-							 	  {
-							 		if(!p.getLocalidades().isEmpty()){
-							 			for(Localidad l: p.getLocalidades())
-							 			{
-							 				String value = Integer.toString(l.getCodigoPostal()); %>		
-							 				<option value="<%=value %>" <%=usuario!=null&&Integer.parseInt(value)==usuario.getLocalidad().getCodigoPostal()?"selected":"" %> ><%=p.getDenominacion()+" / "+l.getDenominacion() %></option>
-							 	<%		}			
-							 		}
-							 	  } 
-							 	%>
-							 	</select>
+		<label>Ciudad</label>
+		<input type="text" name="txtCiudad"  class="form-control" value="<%=usuario==null?"":usuario.getCiudad()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>	
+		<label>Codigo Postal:</label>
+		<input type="text" name="txtCodigo"  class="form-control" value="<%=usuario==null?"":usuario.getCodigoPostal()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Calle:</label>
 		<input type="text" name="txtCalle"  class="form-control" value="<%=usuario==null?"":usuario.getCalle()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Departamento:</label>

@@ -5,9 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<% String texto = request.getParameter("texto"); %>
+
 </head>
 <body>
-	<p> Hola </p>
+	<p> <%=texto %> </p>
 	
 	
 </body>

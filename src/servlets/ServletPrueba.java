@@ -21,9 +21,6 @@ public class ServletPrueba extends HttpServlet {
         
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
-    }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*
         String applicationPath = request.getServletContext().getRealPath("");
@@ -38,7 +35,7 @@ public class ServletPrueba extends HttpServlet {
         }
         getServletContext().getRequestDispatcher("/NewFile.jsp").forward(request, response);*/
 		
-		request.getRequestDispatcher("/ABMModelos.jsp").forward(request, response);
+		request.getRequestDispatcher("/NewFile.jsp").forward(request, response);
 	}
 
 }

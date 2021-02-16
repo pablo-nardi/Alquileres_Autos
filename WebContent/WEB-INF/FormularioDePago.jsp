@@ -37,7 +37,7 @@
 
 <h2>Formulario de pago</h2>
 
-	<form action="ServletFormularioFacturacion" name="myForm" method="post">	
+	<form action="FormularioFacturacion" name="myForm" method="post">	
 		<div class="container">		 
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">

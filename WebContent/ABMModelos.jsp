@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 
-	<title>	Formulario ABM Usuarios </title>
+	<title>	Formulario ABM Modelos </title>
 	
 	<!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,16 +18,7 @@
        <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
-	<style type="text/css">
-		.form-botton-editar{
-			display: block;
-            text-decoration: none;
-            padding: 5px 5px;
-            border: 2px solid black;
-            border-radius: 15px;
-            width: 75px;
-}
-	</style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -79,16 +70,21 @@
 
 
 <body>
+	<nav class="navbar navbar-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <a class="navbar-brand" href="#">Logout</a>
+
+	</nav>
 	<h1>Formulario ABM de Modelos</h1>
 		
+	<h2>Modelos</h2>
 
-	
-	
-	<a class="form-botton-editar" href="Admin.jsp" style="width: 150px;" >Volver a Admin.jsp</a>
-		
+<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+			
 	<div class="container-fluid">
       <div class="row">
-        <h2>Modelos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
             <div class="table-responsive">
               <table class="table table-hover">
@@ -134,6 +130,7 @@
       </div>
     </div>
 
+ <!-- LINEA DIVISORA --> <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 
 <form action="" name="myForm" method="post">			
 <div class="container"> 
@@ -195,6 +192,12 @@
 </div>
 
 </form>
-
+<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+	
+<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
 </body>
 </html>

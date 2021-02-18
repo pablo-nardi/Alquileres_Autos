@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Formulario ABM Provincias</title>
+
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,7 +71,7 @@
 		 
 	%>
 	
-	
+	<title>Formulario ABM Provincias</title>
 	
 </head>
 <body>
@@ -81,13 +81,19 @@
 													      
 													      /////////////////////////////////-->
 													      
-													      
+			
+		<nav class="navbar navbar-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <a class="navbar-brand" href="#">Logout</a>
+
+	</nav>										      
 	<h1>Formulario ABM de Provincias y localidades</h1>
 
-		
+		<h2>ABM de Provincias</h2>
 
 	<div class="container-fluid">		 
-	    <h2>ABM de Provincias</h2>
 	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 	      <div class="row">
 	          <div class="col-sm-8"><!-- col-12 col-sm-12 col-lg-12 -->
@@ -125,8 +131,8 @@
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}
 								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMProvincia/<%=formActionProvincia%>')"><%=txtButton%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMProvincia/cancelar')">Cancelar</button>
+								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMProvincia/<%=formActionProvincia%>')"><%=txtButton%></button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMProvincia/cancelar')">Cancelar</button>
 				   			</div>
 		   				</div>
 	   				</div>
@@ -164,7 +170,7 @@
 		                	<tr>
 		                		<td><%=pro.getDenominacion()%></td>
 			                  	<td>no hay localidad cargada</td>
-			                  	<td>no hay localidad cargada</td>
+			                  	<td>no hay Codigo Postal</td>
 			                </tr>
 		                <%}else{
 		                	for(Localidad loc: pro.getLocalidades()){	
@@ -194,16 +200,16 @@
 							 	<option value="<%=value %>" <%=local!=null&&Integer.parseInt(value)==local.getProvincia().getIdProvincia()?"selected":"" %> ><%=p.getDenominacion() %></option>
 							 	<%} %>
 							 	</select>
+								<label>Codigo Postal</label>
+								<input type="number" name="txtCodigoPostal"  class="form-control" value="<%=local==null?"":local.getCodigoPostal() %>" <%=formActionLocalidad=="eliminarLocalidad"||formActionLocalidad=="editarLocalidad"?"readonly":"" %> >
 								<label>Localidad:</label>
 								<input type="text" name="txtLocalidad"  class="form-control" value="<%=local==null?"":local.getDenominacion() %>" <%=formActionLocalidad=="eliminarLocalidad"?"readonly":"" %>><br>
-								<label>Codigo Postal</label>
-								<input type="number" name="txtCodigoPostal"  class="form-control" value="<%=local==null?"":local.getCodigoPostal() %>" <%=formActionLocalidad=="eliminarLocalidad"?"readonly":"" %> ><br>
 								<% String texto = "No paso el if"; 
 								if(mode.equals("nuevo")){texto = "Cargar";}
 								else if(mode.equals("editarLocalidad")){texto = "Editar";}
 								else if(mode.equals("eliminarLocalidad")){texto = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarLocalidad('ServletABMProvincia/<%=formActionLocalidad%>')"><%=texto%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarLocalidad('ServletABMProvincia/cancelar')">Cancelar</button>
+								<button class="btn btn-primary" onclick="javascript: cargarLocalidad('ABMProvincia/<%=formActionLocalidad%>')"><%=texto%></button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarLocalidad('ABMProvincia/cancelar')">Cancelar</button>
 				   			</div>
 		   				</div>
 	   				</div>
@@ -213,9 +219,12 @@
 	      	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
     </div>
     
+    	<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
     
-    
-    
-    
+        
 </body>
 </html>

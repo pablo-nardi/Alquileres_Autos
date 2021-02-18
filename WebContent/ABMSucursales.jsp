@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title> ABM de Sucursales </title>
+
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,14 +61,25 @@
     	
     %>
     
+    <title> ABM de Sucursales </title>
+    
 </head>
 <body>
+
+		<nav class="navbar navbar-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <a class="navbar-brand" href="#">Logout</a>
+
+	</nav>
+	
 	<h1> Formulario de ABM de Sucursales </h1>
 	
-	
+	<h2>ABM de Provincias</h2>	
+
+	    <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
 	<div class="container-fluid">		 
-	    <h2>ABM de Provincias</h2>
-	    <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
 	      <div class="row">
 	          <div class="col-sm-12"><!-- col-12 col-sm-12 col-lg-12 -->
 	            <div class="table-responsive">
@@ -151,16 +162,14 @@
 	 
 	  </div>
 	
+	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
+		
 	
 </body>
 </html>

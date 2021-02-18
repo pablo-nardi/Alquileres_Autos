@@ -12,25 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.*;
 import logic.*;
 
-@WebServlet("/ServletABMProvincia/*")
-public class ServletABMProvincia extends HttpServlet {
+@WebServlet("/ABMProvincia/*")
+public class ABMProvincia extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Provincia prov = null; 
 	ProvinciaLogic pl = null; 
 	Localidad loc = null;
 	LocalidadLogic ll = null;
        
-    public ServletABMProvincia() {
+    public ABMProvincia() {
         super();
         prov = new Provincia();
         pl = new ProvinciaLogic();
         loc = new Localidad();
         ll = new LocalidadLogic();
     }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {

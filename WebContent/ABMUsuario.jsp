@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 
-	<title>	Formulario ABM Usuarios </title>
+	
 	
 	<!-- Required meta tags -->
     <meta charset="utf-8">
@@ -54,19 +54,29 @@
 				}
 		%>
 			
-		
+		<title>	Formulario ABM Usuarios </title>
 	
 </head>
 
 
 <body>
+
+	<nav class="navbar navbar-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <button type="button" class="btn btn-outline-warning">Logout</button>
+
+	</nav>
+	
 	<h1>Formulario ABM de Usuarios</h1>
-		<h2>Datos obligatorios</h2>
+		
+		<h2>Usuarios</h2>
 
-
+	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+	
 	<div class="container-fluid">
       <div class="row">
-        <h3>Usuarios</h3>
           <div class="col-12 col-sm-12 col-lg-12">
             <div class="table-responsive">
               <table class="table table-hover">
@@ -113,6 +123,8 @@
           </div>
       </div>
     </div>
+
+	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
 
 <form action="" name="myForm" method="post">			
 <div class="container"> 
@@ -161,6 +173,13 @@
 </div>
 
 </form>
+<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+	
+<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
 
 </body>
 </html>

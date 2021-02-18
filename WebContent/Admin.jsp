@@ -18,25 +18,30 @@
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
  	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	
-	<title>Servlet del Admin</title>
+	<title>Sistemas</title>
 	<style>
 		body{
   			background-color: #f5f5f5;
+  			padding: 5px 15px;
 		}
 		h1{
-			background-color: green;
+			background-color: #485c7a;
+			text-align: center;
 		}
-		footer{
+		footer, nav{
   			background-color: #285CAC;
   			height: 50px;
   
+		}
+		.container p{
+			color: #f5f5f5;
 		}
 		
 	</style>
 	
 </head>
 <body>
-   	<nav class="navbar navbar-dark bg-dark">
+   	<nav class="navbar navbar-dark">
   <a class="navbar-brand" href="index.jsp">Inicio</a>
   <a class="navbar-brand" href="Admin.jsp">Home</a>
  
@@ -53,9 +58,9 @@
 		
 
 
-	<h1>Probando JSP en Pagina de Admin</h1>
+	<h1>Administracion de sistemas</h1>
 	
-
+	<h2>ABMs de Sistemas</h2>
     <ul>
     	<li><a href="ABMModelos.jsp">IR a ABM Modelos</a></li>
     	<li><a href="ABMProvincias.jsp">IR a ABM de Provincias</a></li>
@@ -65,11 +70,22 @@
     	<li><a href="ABMExtras.jsp">IR a ABM de Extras</a></li>
     	<li><a href="ABMPlanDePago.jsp">IR a ABM de Planes de Pago</a></li>
     </ul>
-    
+    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones 
+    de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final.
+
+Aunque no posee actualmente fuentes para justificar sus hipótesis, el profesor de filología clásica Richard 
+McClintock asegura que su uso se remonta a los impresores de comienzos del siglo XVI.1​ Su uso en algunos 
+editores de texto muy conocidos en la actualidad ha dado al texto lorem ipsum nueva popularidad.
+
+El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un t
+exto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras. 
+El significado del mismo no tiene importancia, ya que solo es una demostración o prueba. 
+El texto procede de la obra De finibus bonorum et malorum (Sobre los límites del bien y del mal) 
+que comienza con: </p>
 	
 <footer class="navbar navbar-fixed-bottom">
 	  <div class="container">
-	    <span class="text-muted">Place sticky footer content here.</span>
+	    <p>Trabajo Practico de java</p>
 	  </div>
 	</footer>
 </body>

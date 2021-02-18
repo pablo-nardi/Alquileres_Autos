@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Formulario ABM Panes de Pago</title>
+
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,9 +53,20 @@
     
     %>
     
+    <title>Formulario ABM Panes de Pago</title>
+    
 </head>
 
 <body>
+	
+		<nav class="navbar navbar-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <a class="navbar-brand" href="#">Logout</a>
+
+	</nav>
+	
 	<h1>Formulario ABM de Extras</h1>
 	
 	
@@ -122,6 +133,13 @@
 	      </div>
 	      	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 	   </div>
+	
+	<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
+	
 	
 </body>
 </html>

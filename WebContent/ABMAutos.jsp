@@ -63,18 +63,22 @@
     
 </head>
 <body>
-	
-	
-		<h1>Formulario ABM de Autos</h1>
-		
+		<nav class="navbar navbar-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+  <a class="navbar-brand" href="Admin.jsp">Home</a>
+ 
+  <a class="navbar-brand" href="#">Logout</a>
 
+	</nav>
 	
-	
-	<a class="form-botton-editar" href="Admin.jsp">Volver a Admin.jsp</a>
+	<h1>Formulario ABM de Autos</h1>
 		
+	 <h2>Autos</h2>
+	 		
+	 <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->		
+	 		
 	<div class="container-fluid">
       <div class="row">
-        <h2>Autos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
             <div class="table-responsive">
               <table class="table table-hover">
@@ -122,7 +126,7 @@
 				  		<div class="row">
 						    <div class="col-sm-6" style="background-color:lavender;">
 							 	<label>Patente</label>
-							 	<input type="text" name="txtPatente"  class="form-control" value="<%=auto==null?"":auto.getPatente() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
+							 	<input type="text" name="txtPatente"  class="form-control" value="<%=auto==null?"":auto.getPatente() %>" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> >
 							 	<label>Estado</label>
 							 	<select name="selectEstado" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
 							 		<option value="disponible" <%=auto!=null&&auto.getEstado().toString().equals("disponible")?"selected":"" %> >Disponible</option>
@@ -168,6 +172,12 @@
 	 
     </div>
 	
+	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
 	
+	<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
 </body>
 </html>

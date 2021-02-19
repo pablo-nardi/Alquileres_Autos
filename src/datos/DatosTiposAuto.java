@@ -10,37 +10,7 @@ import entidades.TipoAuto;
 
 public class DatosTiposAuto {
 	
-	public void addTipoAuto(TipoAuto tipo) {
-		
-		PreparedStatement stmt=null;
-		ResultSet keyResultSet=null;
-		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"insert into tiposAuto (nombreTipo, fotoTipo) VALUES (?,NULL)", PreparedStatement.RETURN_GENERATED_KEYS
-					);
-		
-			stmt.setString(1, tipo.getNombreTipo());
-			stmt.executeUpdate();
-			keyResultSet = stmt.getGeneratedKeys();
-			if(keyResultSet!=null && keyResultSet.next()) {
-				tipo.setId_Tipo(keyResultSet.getInt(1));
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(keyResultSet!=null) {keyResultSet.close();}
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	public TipoAuto getOne(int id) {
+	public TipoAuto getOne(int id) throws SQLException{
 		TipoAuto tipo = new TipoAuto();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -55,21 +25,21 @@ public class DatosTiposAuto {
 				tipo.setNombreTipo(rs.getString("nombreTipo"));
 			}
 		}catch(Exception ex) {
-			ex.printStackTrace();
+			throw ex;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		
 		return tipo;
 	}
-	public LinkedList<TipoAuto> getAll(){
+	public LinkedList<TipoAuto> getAll() throws SQLException{
 		LinkedList<TipoAuto> autos = new LinkedList<>();
 		TipoAuto tipo;
 		PreparedStatement stmt=null;
@@ -88,19 +58,94 @@ public class DatosTiposAuto {
 				}
 			}
 		}catch(Exception ex) {
-			ex.printStackTrace();
+			throw ex;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		
 		
 		return autos;
 	}
-
+	public void addTipoAuto(TipoAuto tipo) throws SQLException{
+			
+			PreparedStatement stmt=null;
+			ResultSet keyResultSet=null;
+			try {
+				stmt=DbConnector.getInstancia().getConn().prepareStatement(
+						"insert into tiposAuto (nombreTipo, fotoTipo) VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS
+						);
+			
+				stmt.setString(1, tipo.getNombreTipo());
+				stmt.setString(2, null);
+				stmt.executeUpdate();
+				keyResultSet = stmt.getGeneratedKeys();
+				if(keyResultSet!=null && keyResultSet.next()) {
+					tipo.setId_Tipo(keyResultSet.getInt(1));
+				}
+				
+				
+			} catch (SQLException e) {
+				throw e;
+			}finally {
+				try {
+					if(keyResultSet!=null) {keyResultSet.close();}
+					if(stmt!=null) {stmt.close();}
+					DbConnector.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					throw e;
+				}
+			}
+		}
+	public void updateTipoAuto(TipoAuto tipo)throws SQLException {
+		
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE tiposAuto SET nombreTipo=?, fotoTipo=? WHERE idTipo=?");
+		
+			stmt.setString(1, tipo.getNombreTipo());
+			stmt.setString(2, null);
+			stmt.setInt(3, tipo.getId_Tipo());
+			stmt.executeUpdate();
+						
+			
+		} catch (SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(keyResultSet!=null) {keyResultSet.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		
+	}
+	public void deleteTipoAuto(int id)throws SQLException{
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from tiposAuto where idTipo=?");
+			stmt.setInt(1,id);
+			
+			stmt.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	
+	}
 }

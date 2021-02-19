@@ -63,6 +63,7 @@
 	<h2>ABMs de Sistemas</h2>
     <ul>
     	<li><a href="ABMModelos.jsp">IR a ABM Modelos</a></li>
+    	<li><a href="ABMTipoDeAuto.jsp">IR a ABM Tipos de Autos</a></li>
     	<li><a href="ABMProvincias.jsp">IR a ABM de Provincias</a></li>
     	<li><a href="ABMUsuario.jsp">IR a ABM Usuarios</a></li>
     	<li><a href="ABMSucursales.jsp">IR a ABM Sucursales</a></li>

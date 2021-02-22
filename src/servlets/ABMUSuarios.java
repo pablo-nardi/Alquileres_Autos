@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Usuario;
 import logic.*;
 
-@WebServlet({"/ServletsABMUSuarios/*", "/ServletABMUsuarios/*"})
-public class ServletsABMUSuarios extends HttpServlet {
+@WebServlet({"/ABMUSuarios/*", "/ABMUsuarios/*"})
+public class ABMUSuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Usuario user;
 	UsuarioLogic ul;
 	LocalidadLogic ll;
+	ValidaPassLogic vpl;
        
-    public ServletsABMUSuarios() {
+    public ABMUSuarios() {
         super();
         user = new Usuario();
         ul = new UsuarioLogic();
         ll = new LocalidadLogic();
+        vpl = new ValidaPassLogic();
        
     }
 
@@ -35,13 +37,12 @@ public class ServletsABMUSuarios extends HttpServlet {
 		try {
 			switch(request.getPathInfo()) {
 			case "/nuevo":
-				validaContraseña(request);
+				validaPassword(request);
 				mapearADatos(request);
 				ul.addUser(user);
 				response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
 				break;
 			case "/editar":
-				validaContraseña(request);
 				mapearADatos(request);
 				ul.updateUser(user);
 				response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
@@ -77,27 +78,21 @@ public class ServletsABMUSuarios extends HttpServlet {
 		user.setCalle(req.getParameter("txtCalle"));
 		user.setDepartamento(req.getParameter("txtDpto"));
 		user.setPiso(Integer.parseInt(req.getParameter("txtPiso")));
-		user.setPassword(req.getParameter("txtPassword"));
+		
 		if(req.getPathInfo().equals("/nuevo")) {
-			
+			user.setPassword(req.getParameter("txtPassword"));
 		}
 		
 	}
-	private void validaContraseña(HttpServletRequest req)throws NumberFormatException, SQLException, Exception{
+	private void validaPassword(HttpServletRequest req)throws NumberFormatException, SQLException, Exception{
 		
-		String pswd, cpswd;
-		pswd = req.getParameter("txtPassword");
-		cpswd = req.getParameter("txtPasswordConfirm");
-		if(req.getPathInfo().equals("/nuevo") && (cpswd.isBlank() || cpswd.isEmpty() || cpswd == null || !pswd.equals(cpswd)) ) {
-			
-			throw new Exception("El campo CONTRASEñA debe ser identico al campo CONFIRMA CONTRASEñA");
+		String newpass = req.getParameter("txtPassword");
+		String repitedpass = req.getParameter("txtPassRepited");
 		
-		}else if(req.getPathInfo().equals("/editar") && (!cpswd.isBlank() || !cpswd.isEmpty() || !cpswd.equals("") )) {
+		if(vpl.validaPass(newpass, repitedpass).equals("valido")) {
 			
-			if(!pswd.equals(cpswd)) {
-				
-				throw new Exception("El campo CONTRASEñA debe ser identico al campo CONFIRMA CONTRASEñA");
-			}			
+		}else {
+			throw new Exception(vpl.validaPass(newpass, repitedpass));
 		}
 	}
 

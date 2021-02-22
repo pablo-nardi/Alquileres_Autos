@@ -11,7 +11,7 @@
 </head>
 <body>
 	<p> hola </p>
-	
+	<p><%=(String)request.getParameter("estado") %>
 	
 </body>
 </html>

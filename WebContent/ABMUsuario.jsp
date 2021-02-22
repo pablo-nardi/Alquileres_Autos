@@ -52,6 +52,10 @@
 					usuario = ul.getOne(request.getParameter("id"));
 					detailFormAction = "eliminar";
 				}
+			
+			// OBTENGO VARIABLE PARA EL MENSAJE DE CAMBIO DE PASSWORD
+			
+			String estado = (String) request.getParameter("estado");
 		%>
 			
 		<title>	Formulario ABM Usuarios </title>
@@ -62,10 +66,10 @@
 <body>
 
 	<nav class="navbar navbar-dark">
-  <a class="navbar-brand" href="index.jsp">Inicio</a>
-  <a class="navbar-brand" href="Admin.jsp">Home</a>
+  	<a class="navbar-brand" href="index.jsp">Inicio</a>
+  	<a class="navbar-brand" href="Admin.jsp">Home</a>
  
-  <button type="button" class="btn btn-outline-warning">Logout</button>
+  	<button type="button" class="btn btn-outline-warning">Logout</button>
 
 	</nav>
 	
@@ -85,7 +89,6 @@
                     <th>Nombre y Apellido</th>
 					<th>Cuil</th>
 					<th>Mail</th>
-					<th>Pass</th>
 					<th>Rol</th>
 					<th>Telefono</th>
                     <th>Ciudad</th>
@@ -101,7 +104,6 @@
                   	<td><%=user.getNombre() + " " + user.getApellido() %></td>
                   	<td><%= user.getCuil() %></td>
                   	<td><%= user.getMail() %></td>
-                  	<td><%= user.getPassword() %></td>
                   	<td><%= user.getRol() %></td>
                     <td><%= user.getTelefono() %></td>
                     <td><%=user.getCiudad() %></td>
@@ -124,10 +126,18 @@
       </div>
     </div>
 
-	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
 
 <form action="" name="myForm" method="post">			
-<div class="container"> 
+<div class="container">
+  <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+  
+		<div class="alert alert-success alert-dismissible" style="display:<%=estado==null?"none":"block"  %>;" >
+  			<button type="button" class="close" data-dismiss="alert">&times;</button>
+  			<!--  label></label-->
+  			<p style="font-size:30px;" ><%=estado==null?"":estado%> </p>
+		</div>
+
+<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
   <div class="row">
     <div class="col-sm-4" style="background-color:lavender;">
     	<label>Nombre:</label>
@@ -135,19 +145,25 @@
 		<label>Apellido:</label>
 		<input type="text" name="txtApellido"  class="form-control" value="<%=usuario==null?"":usuario.getApellido()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>CUIL:</label>
-		<input type="text" name="txtCuil"  class="form-control" value="<%=usuario==null?"":usuario.getCuil()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<input type="text" name="txtCuil"  class="form-control" value="<%=usuario==null?"":usuario.getCuil()%>" <%=mode.equals("nuevo")?"":"readonly" %> ><br>
 		<label>Mail:</label>
 		<input type="email" name="txtEmail"  class="form-control" value="<%=usuario==null?"":usuario.getMail()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
-		<label>Contraseña:</label>
-		<input type="password" name="txtPassword" id="txtPassword"  class="form-control" value="<%=usuario==null?"":usuario.getPassword() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
-    	<label>Ingrese de nuevo la contraseña:</label>
-		<input type="password" name="txtPasswordConfirm" id="txtPasswordConfirm" class="form-control" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<div style="display:<%=mode.equals("editar")||mode.equals("eliminar")?"none":""  %>;" >
+			<label>Clave:</label>
+			<input type="password" name="txtPassword"  class="form-control" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> ><br>
+			<label>Reingrese la clave:</label>
+			<input type="password" name="txtPassRepited"  class="form-control" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> ><br>
+		</div>
+		<div style="display:<%=mode.equals("nuevo")||mode.equals("eliminar")?"none":"block"  %>; margin-bottom:20px;">
+			<label>Cambiar Clave</label>
+			<a class="form-botton-editar" href="CambioPassword.jsp?id=<%=usuario==null?"":usuario.getCuil() %>" style="width:150px; height: 30px; padding-top:0;">Click Aqui</a>
+		</div>
 		<% String txtButton = "No paso el if"; 
 		if(mode.equals("nuevo")){txtButton = "Cargar";}
 		else if(mode.equals("editar")){txtButton = "Editar";}
 		else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
-		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletsABMUSuarios/<%=detailFormAction%>')" ><%=txtButton %></button>
-  		<button class="btn btn-outline-primary" onclick="javascript: cargarFormulario('ServletsABMUSuarios/cancelar')" name="">Cancelar</button>
+		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUSuarios/<%=detailFormAction%>')" ><%=txtButton %></button>
+  		<button class="btn btn-outline-primary" onclick="javascript: cargarFormulario('ABMUSuarios/cancelar')" name="">Cancelar</button>
     </div>
     <div class="col-sm-4" style="background-color:orange;">
     	<label>Rol en el sistema:</label>

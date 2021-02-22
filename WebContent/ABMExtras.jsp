@@ -114,8 +114,8 @@
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}
 								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMExtras/<%=formActionExtras%>')"><%=txtButton%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMExtras/cancelar')">Cancelar</button>
+								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMExtras/<%=formActionExtras%>')"><%=txtButton%></button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMExtras/cancelar')">Cancelar</button>
 				   			</div>
 		   				</div>
 	   				</div>

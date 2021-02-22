@@ -2,6 +2,8 @@ package servlets;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,30 +30,36 @@ public class ServletLogin extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombre = request.getParameter("txtNombre");
-		String pswd = request.getParameter("txtpswd");
 		
-		user = new Usuario();
-		user.setMail(nombre);
-		user.setPassword(pswd);
-		
-		user = ul.validarUsuario(user);
-		if(user != null) {
-			if(user.getRol().toLowerCase().equals("administrador")) {
-				HttpSession session = request.getSession(true);
-				session.setAttribute("usuario", user);
-				getServletContext().getRequestDispatcher("/Admin.jsp").forward(request, response);
-			}else if(user.getRol().toLowerCase().equals("usuario")) {
-				HttpSession var = request.getSession(true);
-				var.setAttribute("usuario", user);
-				getServletContext().getRequestDispatcher("/Usuario.jsp").forward(request, response);
-			}
-		}
-		else {
-			//getServletContext().getRequestDispatcher("/Alquileres_Autos/login.html");
-			response.sendRedirect("/Alquileres_Autos/login.jsp");
+		try {
+			String nombre = request.getParameter("txtNombre");
+			String pswd = request.getParameter("txtpswd");
 			
-		}
+			user = new Usuario();
+			user.setMail(nombre);
+			user.setPassword(pswd);
+			
+			user = ul.validarUsuario(user);
+			if(user != null) {
+				if(user.getRol().toLowerCase().equals("administrador")) {
+					HttpSession session = request.getSession(true);
+					session.setAttribute("usuario", user);
+					getServletContext().getRequestDispatcher("/Admin.jsp").forward(request, response);
+				}else if(user.getRol().toLowerCase().equals("usuario")) {
+					HttpSession var = request.getSession(true);
+					var.setAttribute("usuario", user);
+					getServletContext().getRequestDispatcher("/Usuario.jsp").forward(request, response);
+				}
+			}
+			else {
+				//getServletContext().getRequestDispatcher("/Alquileres_Autos/login.html");
+				response.sendRedirect("/Alquileres_Autos/login.jsp?estado=Usuario y/o Clave incorrectos");
+				
+			}
+		}catch (SQLException e) {
+			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+			
+		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

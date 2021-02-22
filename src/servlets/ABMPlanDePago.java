@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.PlanDePago;
 import logic.PlanDePagoLogic;
 
-@WebServlet("/ServletABMPlanDePago/*")
-public class ServletABMPlanDePago extends HttpServlet {
+@WebServlet("/ABMPlanDePago/*")
+public class ABMPlanDePago extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     PlanDePago plan = null;
     PlanDePagoLogic ppl = null;
 	
-    public ServletABMPlanDePago() {
+    public ABMPlanDePago() {
         super();
         plan = new PlanDePago();
         ppl = new PlanDePagoLogic();

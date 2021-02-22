@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class DatosUsuario {
 	
-		public Usuario validarUsuario(Usuario usuario) {
+		public Usuario validarUsuario(Usuario usuario) throws SQLException{
 			ResultSet rs=null;
 			PreparedStatement stmt=null;
 			Usuario user = null;
@@ -37,19 +37,68 @@ public class DatosUsuario {
 					user.setRol(rs.getString("rol"));
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}finally {
 				try {
 					if(rs!=null) {rs.close();}
 					if(stmt!=null) {stmt.close();}
 					DbConnector.getInstancia().releaseConn();
 				}catch(SQLException ex) {
-					ex.printStackTrace();
+					throw ex;
 				}
 			}
 			return user;
 		}
-		public LinkedList<Usuario> getAll(){
+		public String validarPassword(Usuario usuario) throws SQLException{
+			ResultSet rs=null;
+			PreparedStatement stmt=null;
+			Usuario user = null;
+			
+			try {
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("select password from usuarios where cuil=?");
+				
+				stmt.setString(1, usuario.getCuil());
+				rs = stmt.executeQuery();
+				
+				if(rs != null && rs.next()) {
+					user = new Usuario();
+					user.setPassword(rs.getString("password"));
+				}
+			} catch (SQLException e) {
+				throw e;
+			}finally {
+				try {
+					if(rs!=null) {rs.close();}
+					if(stmt!=null) {stmt.close();}
+					DbConnector.getInstancia().releaseConn();
+				}catch(SQLException ex) {
+					throw ex;
+				}
+			}
+			return user.getPassword();
+		}
+		public void setNewPassword(Usuario usuario) throws SQLException{
+			PreparedStatement stmt=null;
+			
+			try {
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE usuarios SET password=? WHERE cuil=?");
+				
+				stmt.setString(1, usuario.getPassword());
+				stmt.setString(2, usuario.getCuil());
+				stmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				throw e;
+			}finally {
+				try {
+					if(stmt!=null) {stmt.close();}
+					DbConnector.getInstancia().releaseConn();
+				}catch(SQLException ex) {
+					throw ex;
+				}
+			}
+		}
+		public LinkedList<Usuario> getAll()throws SQLException{
 			LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
 			ResultSet rs = null;
 			PreparedStatement stmt = null;
@@ -79,14 +128,14 @@ public class DatosUsuario {
 					}
 				}
 			}catch(Exception e) {
-				e.printStackTrace();
+				throw e;
 			}finally {
 				try {
 					if(rs!=null) {rs.close();}
 					if(stmt!=null) {stmt.close();}
 					DbConnector.getInstancia().releaseConn();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					throw e;
 				}
 			}
 			
@@ -151,7 +200,7 @@ public class DatosUsuario {
 				stmt.setString(12, user.getPassword());
 				stmt.executeUpdate();
 			}catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}finally {
 				try {
 					if(stmt!=null) {stmt.close();}

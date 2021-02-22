@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Extras;
 import logic.ExtrasLogic;
 
-@WebServlet("/ServletABMExtras/*")
-public class ServletABMExtras extends HttpServlet {
+@WebServlet("/ABMExtras/*")
+public class ABMExtras extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Extras extra = null;
     ExtrasLogic el = null;
        
-    public ServletABMExtras() {
+    public ABMExtras() {
         super();
         extra = new Extras();
         el = new ExtrasLogic();

@@ -123,8 +123,8 @@
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}
 								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ServletABMPlanDePago/<%=formActionPlan%>')"><%=txtButton%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ServletABMPlanDePago/cancelar')">Cancelar</button>
+								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMPlanDePago/<%=formActionPlan%>')"><%=txtButton%></button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMPlanDePago/cancelar')">Cancelar</button>
 				   			</div>
 		   				</div>
 	   				</div>

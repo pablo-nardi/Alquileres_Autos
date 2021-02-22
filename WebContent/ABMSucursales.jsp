@@ -143,8 +143,8 @@
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}
 								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/<%=formActionSucursal%>')"><%=txtButton %></button>
-				   				<button class="btn btn-outline-primary" onclick="javascript: cargarSucursal('ServeltABMSucursal/cancelar')" name="">Cancelar</button>
+								<button class="btn btn-primary" onclick="javascript: cargarSucursal('ABMSucursal/<%=formActionSucursal%>')"><%=txtButton %></button>
+				   				<button class="btn btn-outline-primary" onclick="javascript: cargarSucursal('ABMSucursal/cancelar')" name="">Cancelar</button>
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">
 				   				<label>Telefono:</label>

@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Sucursal;
 import logic.*;
 
-@WebServlet("/ServeltABMSucursal/*")
-public class ServletABMSucursal extends HttpServlet {
+@WebServlet("/ABMSucursal/*")
+public class ABMSucursal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     Sucursal suc = null;
     SucursalLogic sl = null;
     LocalidadLogic ll = null;
 
-    public ServletABMSucursal() {
+    public ABMSucursal() {
         super();
         suc = new Sucursal();
         sl = new SucursalLogic();

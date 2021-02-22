@@ -14,10 +14,10 @@ public class UsuarioLogic {
 		du = new DatosUsuario();
 	}
 	
-	public Usuario validarUsuario(Usuario usuario) {
+	public Usuario validarUsuario(Usuario usuario)throws SQLException  {
 		return du.validarUsuario(usuario);
 	}
-	public LinkedList<Usuario> getAll(){
+	public LinkedList<Usuario> getAll()throws SQLException {
 		return du.getAll();
 	}
 	public Usuario getOne(String cuil) throws SQLException {
@@ -31,6 +31,9 @@ public class UsuarioLogic {
 	}
 	public void deleteUser(String cuil) throws SQLException{
 		du.deleteUser(cuil);
+	}
+	public void setNewPassword(Usuario usuario) throws SQLException{
+		du.setNewPassword(usuario);
 	}
 	public boolean validarSesion(Usuario user, String letra) {
 		boolean estado = false;

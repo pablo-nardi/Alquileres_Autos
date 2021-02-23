@@ -74,6 +74,12 @@
         precio por dia
 		PRECIO TOTAL POR DIAS SELECCIONADOS
 		 -->
+		 <% 
+		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
+		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
+		 %>
+
+	<p>Probando fecha <%=fecha %></p>		 
 	<div class="container-fluid">
       <div class="row">
         <h2>Autos</h2>

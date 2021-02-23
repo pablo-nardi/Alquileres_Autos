@@ -24,18 +24,28 @@
 </head>
 <body>
 	<h1>Resumen de la reserva</h1>
-	
+				<% 
+		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
+			Usuario usuario = (Usuario) session.getAttribute("usuario");
+		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
+		 	String model = alquiler.getModelo().getDenominacion();
+		 	String num = usuario.getNumUltTarjeta();
+		 %>
+
+	<p>Probando fecha <%=fecha %></p>	
+	<p>Probando modelo <%=model %>	</p>
+	<p>Probando num tarjeta <%=num %></p>
 	<form action="" name="myForm" method="post">	
 		<div class="container">		 
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
-					<label>Fecha:</label><br>
-					<label>Tipo de auto:</label><br>
+					<label>Fecha:<%=request.getParameter("fechaRetiro") %></label><br>
+					<label>Tipo de auto:(titular tarjeta)<%=request.getParameter("txtTitular") %></label><br>
 					<label>Modelo:</label><br>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender;">
-			 		<label>Sucursal:</label><br>
-					<label>Total:</label><br>
+			 		<label>Sucursal:(numero de tarjeta)<%=request.getParameter("txtNumTarjeta") %></label><br>
+					<label>Total:<%=request.getParameter("total") %></label><br>
 					<button class="btn btn-primary" onclick="javascript: crearAlquiler('CrearAlquiler')" >Alquilar</button>
 			 	</div>
 			 </div>

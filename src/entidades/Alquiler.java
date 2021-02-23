@@ -2,124 +2,127 @@ package entidades;
 import java.util.Date;
 
 public class Alquiler {
-	int		idAlquiler,
-			idModelo,
-			idSucursal,
-			idPlan;
+
+//DECLARACION DE VARIABLES
+	
+	
+	int		idAlquiler;
 	
 	float	costoPorDaños,
 			costoDevolucionTardia,
 			precioDiario;
 	
-	Date	fechaHoraRetiroPrevisto,
-			fechaHoraDevolucionPrevista,
-			fechaHoraRetiroReal,
-			fechaHoraDevolucionReal;
-	
-	String 	estadoAlquiler, //Reservado, Cancelado, Anulado, Abierto, Inspeccion, Cerrado.
-			cuil;
+	Date	fecRetiroPrevisto,
+			fecDevPrevista,
+			fecRetiroReal,
+			fecDevReal;
+			
+	Auto auto;
+	Modelo modelo;
+	Sucursal sucursal;
+	PlanDePago plan;
+	Usuario usuario;
 
+	Estado estado;
+	
+	public enum Estado{
+		reservado,
+		cancelado,
+		anulado,
+		abierto,
+		inspeccion,
+		cerrado
+	}
+	
+	//GETTER Y SETTER
+	
 	public int getIdAlquiler() {
 		return idAlquiler;
 	}
-
-	public int getIdModelo() {
-		return idModelo;
-	}
-
-	public int getIdSucursal() {
-		return idSucursal;
-	}
-
-	public int getIdPlan() {
-		return idPlan;
-	}
-
 	public float getCostoPorDaños() {
 		return costoPorDaños;
 	}
-
 	public float getCostoDevolucionTardia() {
 		return costoDevolucionTardia;
 	}
-
 	public float getPrecioDiario() {
 		return precioDiario;
 	}
-
-	public Date getFechaHoraRetiroPrevisto() {
-		return fechaHoraRetiroPrevisto;
+	public Date getFecRetiroPrevisto() {
+		return fecRetiroPrevisto;
 	}
-
-	public Date getFechaHoraDevolucionPrevista() {
-		return fechaHoraDevolucionPrevista;
+	public Date getFecDevPrevista() {
+		return fecDevPrevista;
 	}
-
-	public Date getFechaHoraRetiroReal() {
-		return fechaHoraRetiroReal;
+	public Date getFecRetiroReal() {
+		return fecRetiroReal;
 	}
-
-	public Date getFechaHoraDevolucionReal() {
-		return fechaHoraDevolucionReal;
+	public Date getFecDevReal() {
+		return fecDevReal;
 	}
-
-	public String getEstadoAlquiler() {
-		return estadoAlquiler;
+	public Auto getAuto() {
+		return auto;
 	}
-
-	public String getCuil() {
-		return cuil;
+	public Modelo getModelo() {
+		return modelo;
 	}
-
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+	public PlanDePago getPlan() {
+		return plan;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public Estado getEstado() {
+		return estado;
+	}
+	
+	//////////////////////////////////////////
+	
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 	public void setIdAlquiler(int idAlquiler) {
 		this.idAlquiler = idAlquiler;
 	}
-
-	public void setIdModelo(int idModelo) {
-		this.idModelo = idModelo;
-	}
-
-	public void setIdSucursal(int idSucursal) {
-		this.idSucursal = idSucursal;
-	}
-
-	public void setIdPlan(int idPlan) {
-		this.idPlan = idPlan;
-	}
-
 	public void setCostoPorDaños(float costoPorDaños) {
 		this.costoPorDaños = costoPorDaños;
 	}
-
 	public void setCostoDevolucionTardia(float costoDevolucionTardia) {
 		this.costoDevolucionTardia = costoDevolucionTardia;
 	}
-
 	public void setPrecioDiario(float precioDiario) {
 		this.precioDiario = precioDiario;
 	}
-
-	public void setFechaHoraRetiroPrevisto(Date fechaHoraRetiroPrevisto) {
-		this.fechaHoraRetiroPrevisto = fechaHoraRetiroPrevisto;
+	public void setFecRetiroPrevisto(Date fecRetiroPrevisto) {
+		this.fecRetiroPrevisto = fecRetiroPrevisto;
+	}
+	public void setFecDevPrevista(Date fecDevPrevista) {
+		this.fecDevPrevista = fecDevPrevista;
+	}
+	public void setFecRetiroReal(Date fecRetiroReal) {
+		this.fecRetiroReal = fecRetiroReal;
+	}
+	public void setFecDevReal(Date fecDevReal) {
+		this.fecDevReal = fecDevReal;
+	}
+	public void setAuto(Auto auto) {
+		this.auto = auto;
+	}
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+	public void setPlan(PlanDePago plan) {
+		this.plan = plan;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public void setFechaHoraDevolucionPrevista(Date fechaHoraDevolucionPrevista) {
-		this.fechaHoraDevolucionPrevista = fechaHoraDevolucionPrevista;
-	}
-
-	public void setFechaHoraRetiroReal(Date fechaHoraRetiroReal) {
-		this.fechaHoraRetiroReal = fechaHoraRetiroReal;
-	}
-
-	public void setFechaHoraDevolucionReal(Date fechaHoraDevolucionReal) {
-		this.fechaHoraDevolucionReal = fechaHoraDevolucionReal;
-	}
-
-	public void setEstadoAlquiler(String estadoAlquiler) {
-		this.estadoAlquiler = estadoAlquiler;
-	}
-
-	public void setCuil(String cuil) {
-		this.cuil = cuil;
-	}
+	
 }

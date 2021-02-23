@@ -20,14 +20,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-		function buscaLocalidades(met) {
-			document.myForm.action=met;
-    	}
-		function resumenReserva(met){
-			document.myForm.action=met;
-		}
-    </script>
+
     
         <% 	
 		Provincia provincia = new Provincia();
@@ -49,8 +42,20 @@
 </head>
 <body>
 	<h2>Formulario de Facturacion</h2>
+	
+			<% 
+		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
+			Usuario usuario = (Usuario) session.getAttribute("usuario");
+		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
+		 	String model = alquiler.getModelo().getDenominacion();
+		 	String num = usuario.getNumUltTarjeta();
+		 %>
 
-	<form action="" name="myForm" method="post">	
+	<p>Probando fecha <%=fecha %></p>	
+	<p>Probando modelo <%=model %>	</p>
+	<p>Probando num tarjeta <%=num %></p>
+
+	<form action="ResumenReserva" name="myForm" method="post">	
 		<div class="container">		 
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
@@ -63,7 +68,7 @@
 					<label>Numero</label>
 					<input type="number" name="txtNumero" class="form-control">					
                     <br>
-					<button class="btn btn-primary" onclick="javascript: resumenReserva('ResumenReserva')" >Siguiente</button>
+					<button class="btn btn-primary">Siguiente</button>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 					<label>Piso (opcional):</label>
@@ -71,24 +76,9 @@
 					<label>Dpto (opcional):</label>
 					<input type="text" name="txtDpto"  class="form-control">
 					<label>Provincia:</label>
-	  				<select class="form-control" name="selectProvincia">
-					<%for (Provincia prov: provincias){ %>
-			
-					<option value="<%=Integer.toString(prov.getIdProvincia()) %>" <%=provincia!=null&&provincia.getIdProvincia()==prov.getIdProvincia()?"selected":"" %>><%=prov.getDenominacion() %></option>
-			
-					<%} %>
-	  				</select>
-	  				 
-	  				<button class="btn btn-primary" name="btnBuscaLocalidad" onclick="javascript: buscaLocalidades('BuscarLocalidad')" style="margin-top:15px; margin-bottom:15px" >Buscar Localidad</button>
-	  				<br>
+	  				<input type="text" name="txtProvincia" class="form-control">
 	  				<label>Ciudad:</label>
-	    			<select class="form-control" name="selectCiudad">
-	    			<%if(localidades != null){
-	    			for(Localidad local: localidades){%>
-	    			<option value="<%=Integer.toString(local.getCodigoPostal())%>"><%=local.getDenominacion() %></option>
-	    		
-	    			<%}} %>
-	    	</select>
+	    			<input type="text" name="txtLocalidad" class="form-control">
 			   	</div>
 			 </div>
 			 </div>

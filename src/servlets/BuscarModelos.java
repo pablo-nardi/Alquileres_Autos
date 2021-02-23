@@ -1,11 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import entidades.Alquiler;
 
 @WebServlet("/BuscarModelos")
 public class BuscarModelos extends HttpServlet {
@@ -18,8 +23,15 @@ public class BuscarModelos extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			validar(request);
+			//CREO SESION PARA EL ALQUILER
+			Alquiler alquiler = new Alquiler();
+			HttpSession session = request.getSession(true);
+			alquiler.setFecRetiroPrevisto( Date.valueOf(request.getParameter("fechaRetiro")));
+			
+			session.setAttribute("alquiler", alquiler);
+				
 			request.getRequestDispatcher("WEB-INF/MostrarModelos.jsp").forward(request, response);
-			//response.sendRedirect("/Alquileres_Autos/MostrarModelos.jsp");
+			
 		} catch (Exception e) {	response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 		
 	}

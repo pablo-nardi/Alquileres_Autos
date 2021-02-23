@@ -36,6 +36,14 @@
  <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 
 <h2>Formulario de pago</h2>
+ 		<% 
+		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
+		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
+		 	String model = alquiler.getModelo().getDenominacion();
+		 %>
+
+	<p>Probando fecha <%=fecha %></p>	
+	<p>Probando modelo <%=model %>	</p>
 
 	<form action="FormularioFacturacion" name="myForm" method="post">	
 		<div class="container">		 

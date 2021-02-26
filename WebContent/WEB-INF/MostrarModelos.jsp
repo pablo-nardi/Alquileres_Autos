@@ -69,22 +69,12 @@
 </head>
 <body>
 	<h1>Modelos de autos diponibles</h1>
-	<!--tipo: nombre
-		modelo: imagen, denominacion, cant pasaj, cant equipajes, caja cambio, ac, 
-        precio por dia
-		PRECIO TOTAL POR DIAS SELECCIONADOS
-		 -->
-		 <% 
-		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
-		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
-		 %>
-
-	<p>Probando fecha <%=fecha %></p>		 
+		 
 	<div class="container-fluid">
       <div class="row">
         <h2>Autos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
-          <form action="FormularioDePago" name="myForm" method="post">
+          <form action="FormularioFacturacion" name="myForm" method="post">
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead class="thead-dark">

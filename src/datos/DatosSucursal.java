@@ -85,6 +85,43 @@ public class DatosSucursal {
 		
 		return suc;
 	}
+	public Sucursal getSucursal(int cod)throws SQLException {
+		Sucursal suc = null;
+		DatosLocalidad dl = new DatosLocalidad();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM sucursales where codigoPostal=?");
+			stmt.setInt(1, cod);
+			rs = stmt.executeQuery();
+			
+			if (rs!=null && rs.next()) {
+				suc = new Sucursal();
+				
+				suc.setDenominacion(rs.getString("denominacion"));
+				suc.setDireccion(rs.getString("direccion"));
+				suc.setHoraApertura(rs.getString("horaApertura"));
+				suc.setHoraCierre(rs.getString("horaCierre"));
+				suc.setIdSucursal(rs.getInt("idSucursal"));
+				suc.setTelefono(rs.getString("telefono"));
+				suc.setLocalidad(dl.getOne(rs.getInt("codigoPostal")));
+			}			
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		
+		
+		return suc;
+	}
 	public void addSucursal(Sucursal suc) throws SQLException{
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;

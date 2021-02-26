@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import entidades.Alquiler;
+import entidades.*;
 import logic.ModeloLogic;
 
 @WebServlet("/FormularioDePago")
@@ -21,20 +20,28 @@ public class FormularioDePago extends HttpServlet {
         super();
     }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-		try {
-			HttpSession session = request.getSession();
-			Alquiler alquiler = (Alquiler)session.getAttribute("alquiler");
+		
+			HttpSession session = req.getSession();
+			Usuario user = new Usuario();
 			
-			alquiler.setModelo(ml.getOne(Integer.parseInt(request.getParameter("id"))));
+			user.setNombre(req.getParameter("txtNombre"));
+			user.setApellido(req.getParameter("txtApellido"));
+			user.setCuil(req.getParameter("txtCuil"));
+			user.setMail(req.getParameter("txtEmail"));
+			user.setTelefono(req.getParameter("txtTelefono"));
+			user.setCiudad(req.getParameter("txtCiudad"));
+			user.setCodigoPostal(req.getParameter("txtCodigo"));
+			user.setCalle(req.getParameter("txtCalle") + " " + req.getParameter("txtNum"));
+			user.setDepartamento(req.getParameter("txtDpto"));
+			user.setPiso(Integer.parseInt(req.getParameter("txtPiso")));
 			
-			session.setAttribute("alquiler", alquiler);
 			
-			request.getRequestDispatcher("WEB-INF/FormularioDePago.jsp").forward(request, response);
+			session.setAttribute("usuario", user);
+			req.getRequestDispatcher("WEB-INF/FormularioDePago.jsp").forward(req, response);
 			
-		}catch (SQLException e) {
-			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+		
 		
 		
 	}

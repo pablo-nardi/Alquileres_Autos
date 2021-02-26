@@ -36,16 +36,9 @@
  <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 
 <h2>Formulario de pago</h2>
- 		<% 
-		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
-		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
-		 	String model = alquiler.getModelo().getDenominacion();
-		 %>
 
-	<p>Probando fecha <%=fecha %></p>	
-	<p>Probando modelo <%=model %>	</p>
 
-	<form action="FormularioFacturacion" name="myForm" method="post">	
+	<form action="ResumenReserva" name="myForm" method="post">	
 		<div class="container">		 
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
@@ -94,7 +87,7 @@
 												<option value="<%=i%>" ><%=i %></option>
 											<%} %>
 										</select>
-										<select name="selectAños" class="form-control" style=" width: 25%;" >
+										<select name="selectYear" class="form-control" style=" width: 25%;" >
 											<%for(int i = 2021; i <= 2032; i++){   %>
 												<option value="<%=i%>" ><%=i %></option>
 											<%} %>

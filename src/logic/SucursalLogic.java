@@ -18,6 +18,9 @@ public class SucursalLogic {
 	public Sucursal getOne(int id) throws SQLException{
 		return ds.getOne(id);
 	}
+	public Sucursal getSucursal(int cod) throws SQLException{
+		return ds.getSucursal(cod);
+	}
 	public void addSucursal(Sucursal suc) throws SQLException{
 		ds.addSucursal(suc);
 	}

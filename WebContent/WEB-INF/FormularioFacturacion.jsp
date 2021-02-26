@@ -43,42 +43,36 @@
 <body>
 	<h2>Formulario de Facturacion</h2>
 	
-			<% 
-		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
-			Usuario usuario = (Usuario) session.getAttribute("usuario");
-		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
-		 	String model = alquiler.getModelo().getDenominacion();
-		 	String num = usuario.getNumUltTarjeta();
-		 %>
-
-	<p>Probando fecha <%=fecha %></p>	
-	<p>Probando modelo <%=model %>	</p>
-	<p>Probando num tarjeta <%=num %></p>
-
-	<form action="ResumenReserva" name="myForm" method="post">	
+	<form action="FormularioDePago" name="myForm" method="post">	
 		<div class="container">		 
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
-					<label>Nombre (Mismo titular de la Tarjeta):</label>
-					<input type="text" name="txtTitular" class="form-control">
+					<label>Nombre:</label>
+					<input type="text" name="txtNombre" class="form-control">
+					<label>Apellido:</label>
+					<input type="text" name="txtApellido" class="form-control">
 					<label>CUIL</label>
 					<input type="number" name="txtCuil" class="form-control">
-					<label>Calle</label>
-					<input type="text" name="txtCalle" class="form-control">
-					<label>Numero</label>
-					<input type="number" name="txtNumero" class="form-control">					
+					<label>Mail</label>
+					<input type="email" name="txtEmail" class="form-control">
+					<label>Numero de Celular</label>
+					<input type="number" name="txtTelefono" class="form-control">					
                     <br>
 					<button class="btn btn-primary">Siguiente</button>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
+					<label>Calle</label>
+					<input type="text" name="txtCalle" class="form-control">
+					<label>Numero</label>
+					<input type="text" name="txtNum" class="form-control">
 					<label>Piso (opcional):</label>
 					<input type="number" name="txtPiso"  class="form-control">
 					<label>Dpto (opcional):</label>
 					<input type="text" name="txtDpto"  class="form-control">
-					<label>Provincia:</label>
-	  				<input type="text" name="txtProvincia" class="form-control">
-	  				<label>Ciudad:</label>
-	    			<input type="text" name="txtLocalidad" class="form-control">
+					<label>Ciudad:</label>
+	  				<input type="text" name="txtCiudad" class="form-control">
+	  				<label>Codigo Postal:</label>
+	    			<input type="text" name="Codigo" class="form-control">
 			   	</div>
 			 </div>
 			 </div>

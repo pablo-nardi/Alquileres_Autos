@@ -8,9 +8,10 @@ public class Alquiler {
 	
 	int		idAlquiler;
 	
-	float	costoPorDaños,
-			costoDevolucionTardia,
-			precioDiario;
+	double costoDesperfecto,
+	costoDevolucionTardia;
+	
+	float	precioDiario;
 	
 	Date	fecRetiroPrevisto,
 			fecDevPrevista,
@@ -39,10 +40,10 @@ public class Alquiler {
 	public int getIdAlquiler() {
 		return idAlquiler;
 	}
-	public float getCostoPorDaños() {
-		return costoPorDaños;
+	public double getCostoDesperfecto() {
+		return costoDesperfecto;
 	}
-	public float getCostoDevolucionTardia() {
+	public double getCostoDevolucionTardia() {
 		return costoDevolucionTardia;
 	}
 	public float getPrecioDiario() {
@@ -87,10 +88,10 @@ public class Alquiler {
 	public void setIdAlquiler(int idAlquiler) {
 		this.idAlquiler = idAlquiler;
 	}
-	public void setCostoPorDaños(float costoPorDaños) {
-		this.costoPorDaños = costoPorDaños;
+	public void setCostoDesperfecto(double costoPorDaños) {
+		this.costoDesperfecto = costoPorDaños;
 	}
-	public void setCostoDevolucionTardia(float costoDevolucionTardia) {
+	public void setCostoDevolucionTardia(double costoDevolucionTardia) {
 		this.costoDevolucionTardia = costoDevolucionTardia;
 	}
 	public void setPrecioDiario(float precioDiario) {

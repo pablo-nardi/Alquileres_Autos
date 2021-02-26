@@ -10,14 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import entidades.Alquiler;
+import entidades.*;
+import logic.*;
 
 @WebServlet("/BuscarModelos")
 public class BuscarModelos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    SucursalLogic sl = null;
+	
     public BuscarModelos() {
         super();
+        sl = new SucursalLogic();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,6 +30,8 @@ public class BuscarModelos extends HttpServlet {
 			Alquiler alquiler = new Alquiler();
 			HttpSession session = request.getSession(true);
 			alquiler.setFecRetiroPrevisto( Date.valueOf(request.getParameter("fechaRetiro")));
+			alquiler.setFecDevPrevista( Date.valueOf(request.getParameter("fechaDevolucion")));
+			alquiler.setSucursal(sl.getSucursal(Integer.parseInt("2154")));
 			
 			session.setAttribute("alquiler", alquiler);
 				

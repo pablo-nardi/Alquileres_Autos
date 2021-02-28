@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.Date;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,20 +17,43 @@ import logic.*;
 public class ResumenReserva extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Usuario user = null;
+	PlanDePago plan = null;
+	Alquiler alq = null;
     public ResumenReserva() {
         super();
-        user = new Usuario();
+        plan = new PlanDePago();
+        
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
 		HttpSession session = request.getSession();
+		
+		//OBTENGO USUARIO DE LA SESION
+		
 		user = (Usuario) session.getAttribute("usuario");
 		
 		user.setNumUltTarjeta(request.getParameter("txtNumTarjeta"));
 		user.setNombreUltTarjeta(request.getParameter("txtTitular"));
-		//user.setVencUltTarjeta(Date.valueOf(request.getParameter("selectMes" + "selectYear")));
+		String fecha = request.getParameter("selectYear") +"-"+ request.getParameter("selectMes");
+		user.setVencUltTarjeta(fecha);
+		
+		session.setAttribute("usuario", user);
+		
+		//CREO PLAN DE PAGO Y LO AGREGO A ALQUILER
+		 
+		plan.setCantCuotas(Integer.parseInt(request.getParameter("selectCuotas")));
+		plan.setEntidadCrediticia(request.getParameter("selectBanco"));
+		plan.setNombreTarjeta(request.getParameter("selectTarjeta"));
+		
+		alq = (Alquiler) session.getAttribute("alquiler");
+		
+		alq.setPlan(plan);
+		alq.setUsuario(user);
+		session.setAttribute("alquiler", alq);
+		
+		///////////////////////
 		
 		request.getRequestDispatcher("ResumenReserva.jsp").forward(request, response);
 		

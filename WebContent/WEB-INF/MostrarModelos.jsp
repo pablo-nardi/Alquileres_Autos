@@ -61,8 +61,6 @@
 	
 	long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
 	
-	//modelos = ml.getAll();
-	//sucursales = sl.getAll();
 	
 	%>
 	    
@@ -81,7 +79,7 @@
                   <tr>
                   	<th>Foto</th>
 					<th>Datos</th>
-					<th></th>
+					<th></th> <!-- ESTA COLUMNA ES NECESARIA, NO BORRAR -->
                     <th>Precio</th>
 
                   </tr>

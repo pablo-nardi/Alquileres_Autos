@@ -1,5 +1,5 @@
 package entidades;
-import java.util.Date;
+import java.sql.Date;
 
 public class Alquiler {
 
@@ -18,7 +18,7 @@ public class Alquiler {
 			fecRetiroReal,
 			fecDevReal;
 			
-	Auto auto;
+	Auto auto; //SE SETEA EN EL SEGUNDO C.U
 	Modelo modelo;
 	Sucursal sucursal;
 	PlanDePago plan;

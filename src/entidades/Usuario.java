@@ -1,6 +1,6 @@
 package entidades;
 
-import java.util.Date;
+
 
 public class Usuario {
 	String 	cuil,
@@ -15,11 +15,12 @@ public class Usuario {
 			numUltTarjeta,
 			nombreUltTarjeta,
 			rol,
-			password;
+			password,
+			vencUltTarjeta;
 	
 	int 	piso;
 	
-	Date 	vencUltTarjeta;
+	 	
 
 
 	public String getCiudad() {
@@ -90,7 +91,7 @@ public class Usuario {
 		return piso;
 	}
 
-	public Date getVencUltTarjeta() {
+	public String getVencUltTarjeta() {
 		return vencUltTarjeta;
 	}
 
@@ -142,7 +143,7 @@ public class Usuario {
 		this.piso = piso;
 	}
 
-	public void setVencUltTarjeta(Date vencUltTarjeta) {
+	public void setVencUltTarjeta(String vencUltTarjeta) {
 		this.vencUltTarjeta = vencUltTarjeta;
 	}
 		

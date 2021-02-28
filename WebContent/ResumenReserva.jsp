@@ -20,32 +20,38 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<title>Resumen Reserva</title>
+    
+    <%
+    
+    HttpSession sesion = request.getSession();
+    Alquiler alq = (Alquiler) sesion.getAttribute("alquiler");
+    
+    //CALCULO CANTIDAD DE DIAS
+	
+	Date fechaRetiro= alq.getFecRetiroPrevisto();
+	Date fechaDevolucion= alq.getFecDevPrevista();
+		
+	long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
+		
+    
+    %>
+    
+<title>Resumen de la Reserva</title>
 </head>
 <body>
 	<h1>Resumen de la reserva</h1>
-				<% 
-		 	Alquiler alquiler= (Alquiler) session.getAttribute("alquiler"); 
-			Usuario usuario = (Usuario) session.getAttribute("usuario");
-		 	String fecha = alquiler.getFecRetiroPrevisto().toString();
-		 	String model = alquiler.getModelo().getDenominacion();
-		 	String num = usuario.getNumUltTarjeta();
-		 %>
 
-	<p>Probando fecha <%=fecha %></p>	
-	<p>Probando modelo <%=model %>	</p>
-	<p>Probando num tarjeta <%=num %></p>
 	<form action="" name="myForm" method="post">	
 		<div class="container">		 
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
-					<label>Fecha:<%=request.getParameter("fechaRetiro") %></label><br>
-					<label>Tipo de auto:(titular tarjeta)<%=request.getParameter("txtTitular") %></label><br>
-					<label>Modelo:</label><br>
+					<label>Fecha de retiro:<%=alq.getFecRetiroPrevisto() %></label><br>
+					<label>Tipo de auto:<%=alq.getModelo().getTipoAuto().getNombreTipo() %></label><br>
+					<label>Modelo:<%=alq.getModelo().getDenominacion() %> </label><br>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender;">
-			 		<label>Sucursal:(numero de tarjeta)<%=request.getParameter("txtNumTarjeta") %></label><br>
-					<label>Total:<%=request.getParameter("total") %></label><br>
+			 		<label>Sucursal de retiro: <%=alq.getSucursal().getDenominacion() %></label><br>
+					<label>Total:<%=alq.getPrecioDiario() * dias %></label><br>
 					<button class="btn btn-primary" onclick="javascript: crearAlquiler('CrearAlquiler')" >Alquilar</button>
 			 	</div>
 			 </div>

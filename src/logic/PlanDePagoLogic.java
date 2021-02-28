@@ -18,6 +18,9 @@ public class PlanDePagoLogic {
 	public PlanDePago getOne(int id) throws SQLException{
 		return dpp.getOne(id);
 	}
+	public int getId (String entidad, String tarjeta, int cuotas) throws SQLException{
+		return dpp.getId(entidad, tarjeta, cuotas);
+	}
 	public void addPlanDePago(PlanDePago plan) throws SQLException {
 		dpp.addPlan(plan);
 	}

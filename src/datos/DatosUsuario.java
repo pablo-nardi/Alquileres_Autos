@@ -185,7 +185,7 @@ public class DatosUsuario {
 			PreparedStatement stmt = null;
 			
 			try {
-				stmt = DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO usuarios (cuil, nombre, apellido, telefono, mail, calle, piso, dpto, ciudad, codigoPostal, rol, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO usuarios (cuil, nombre, apellido, telefono, mail, calle, piso, dpto, ciudad, codigoPostal,numUltTarjeta,nomUltTarjeta, vencUltTarjeta, rol, password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				stmt.setString(1, user.getCuil());
 				stmt.setString(2, user.getNombre());
 				stmt.setString(3, user.getApellido());
@@ -196,8 +196,12 @@ public class DatosUsuario {
 				stmt.setString(8, user.getDepartamento());
 				stmt.setString(9, user.getCiudad());
 				stmt.setString(10, user.getCodigoPostal());
-				stmt.setString(11, user.getRol());
-				stmt.setString(12, user.getPassword());
+				stmt.setString(11, user.getNumUltTarjeta());
+				stmt.setString(12, user.getNombreUltTarjeta());
+				stmt.setString(13, user.getVencUltTarjeta());
+				stmt.setString(14, user.getRol());
+				stmt.setString(15, user.getPassword());
+				
 				stmt.executeUpdate();
 			}catch (SQLException e) {
 				throw e;

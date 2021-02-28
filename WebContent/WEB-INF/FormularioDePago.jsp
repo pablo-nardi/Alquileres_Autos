@@ -4,6 +4,7 @@
 <%@	page import="java.util.*"%>
 <%@ page import="entidades.*" %>
 <%@ page import="logic.*" %>
+<%@ page import="java.sql.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +27,16 @@
     LinkedList<PlanDePago> planes = new LinkedList<>();
     PlanDePagoLogic ppl = new PlanDePagoLogic();
     planes = ppl.getPlanes();
+	HttpSession sesion = request.getSession();
+	Alquiler alq = (Alquiler) sesion.getAttribute("alquiler");
+	
+	// CALCULO CANTIDAD DE DIAS CON LAS FECHAS
+	
+	Date fechaRetiro= alq.getFecRetiroPrevisto();
+	Date fechaDevolucion= alq.getFecDevPrevista();
+		
+	long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
+		
 	
 	%>
 
@@ -57,7 +68,7 @@
 										<%} %>
 									</select>	
 												
-										<label>Cuotas:</label>
+									<label>Cuotas:</label>
 									<select name="selectCuotas" class="form-control">
 										<%for(int i = 3; i < 15; i+=3){   %>
 											<option value="<%=i%>" ><%=i %></option>
@@ -65,7 +76,7 @@
 									</select>				
 												
 									<label>Total:</label>
-									<input type="text" name="total" class="form-control" value="<%=request.getParameter("total") %>" readonly >
+									<input type="text" name="total" class="form-control" value="<%=alq.getPrecioDiario() * dias%>" readonly >
 									
 									<br>
 							

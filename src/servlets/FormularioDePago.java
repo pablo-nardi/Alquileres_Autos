@@ -15,6 +15,7 @@ import logic.ModeloLogic;
 @WebServlet("/FormularioDePago")
 public class FormularioDePago extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Usuario user = null;
     ModeloLogic ml = new ModeloLogic();
     public FormularioDePago() {
         super();
@@ -24,7 +25,7 @@ public class FormularioDePago extends HttpServlet {
 
 		
 			HttpSession session = req.getSession();
-			Usuario user = new Usuario();
+			user = new Usuario();
 			
 			user.setNombre(req.getParameter("txtNombre"));
 			user.setApellido(req.getParameter("txtApellido"));
@@ -32,13 +33,14 @@ public class FormularioDePago extends HttpServlet {
 			user.setMail(req.getParameter("txtEmail"));
 			user.setTelefono(req.getParameter("txtTelefono"));
 			user.setCiudad(req.getParameter("txtCiudad"));
-			user.setCodigoPostal(req.getParameter("txtCodigo"));
+			user.setCodigoPostal(req.getParameter("Codigo"));
 			user.setCalle(req.getParameter("txtCalle") + " " + req.getParameter("txtNum"));
 			user.setDepartamento(req.getParameter("txtDpto"));
 			user.setPiso(Integer.parseInt(req.getParameter("txtPiso")));
 			
 			
 			session.setAttribute("usuario", user);
+			
 			req.getRequestDispatcher("WEB-INF/FormularioDePago.jsp").forward(req, response);
 			
 		

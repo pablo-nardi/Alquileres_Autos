@@ -112,6 +112,38 @@ public class DatosPlanesDePago {
 		}
 		return plan;
 	}
+	public int getId(String entidad, String tarjeta, int cuotas) throws SQLException{
+		PlanDePago plan = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT idPlan FROM planesDePago WHERE entidadCrediticia=? and nombreTarjeta=? and cantCuotas=?");
+			stmt.setString(1, entidad);
+			stmt.setString(2, tarjeta);
+			stmt.setInt(3, cuotas);
+			rs = stmt.executeQuery();
+			
+			if(rs != null && rs.next()) {
+					plan = new PlanDePago();
+					
+					plan.setIdPlan(rs.getInt("idPlan"));
+					
+					
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			}catch(SQLException e) {
+				throw e;
+			}
+		}
+		return plan.getIdPlan();
+	}
 	public void addPlan(PlanDePago plan) throws SQLException {
 		PreparedStatement stmt=null;
 		ResultSet keyResultSet=null;

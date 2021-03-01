@@ -1,7 +1,9 @@
 package logic;
 import entidades.Alquiler;
 
-import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
+
+
 
 import datos.DatosAlquiler;
 
@@ -16,16 +18,8 @@ public class AlquilerLogic {
 		da = new DatosAlquiler();
 	}
 	
-	public void addAlquiler(Alquiler alq) {
+	public void addAlquiler(Alquiler alq) throws SQLException {
 		da.addAlquiler(alq);
 	}
-	public void crearAlquiler(HttpServletRequest req) {
-		
-		
-		//codigo
-		
-		
-		
-		addAlquiler(alq);
-	}
+	
 }

@@ -38,6 +38,7 @@ public class ResumenReserva extends HttpServlet {
 		user.setNombreUltTarjeta(request.getParameter("txtTitular"));
 		String fecha = request.getParameter("selectYear") +"-"+ request.getParameter("selectMes");
 		user.setVencUltTarjeta(fecha);
+		user.setRol("cliente");
 		
 		session.setAttribute("usuario", user);
 		

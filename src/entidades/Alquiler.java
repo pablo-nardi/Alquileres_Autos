@@ -8,17 +8,16 @@ public class Alquiler {
 	
 	int		idAlquiler;
 	
-	double costoDesperfecto,
-	costoDevolucionTardia;
-	
-	float	precioDiario;
+	double 	costoDesperfecto,
+			costoDevolucionTardia,
+			precioDiario;
 	
 	Date	fecRetiroPrevisto,
 			fecDevPrevista,
 			fecRetiroReal,
 			fecDevReal;
 			
-	Auto auto; //SE SETEA EN EL SEGUNDO C.U
+	Auto auto; //SE SETEA "generico" EN EL PRIMR CU Y EL VERDADERO EN EL SEGUNDO C.U
 	Modelo modelo;
 	Sucursal sucursal;
 	PlanDePago plan;
@@ -46,7 +45,7 @@ public class Alquiler {
 	public double getCostoDevolucionTardia() {
 		return costoDevolucionTardia;
 	}
-	public float getPrecioDiario() {
+	public double getPrecioDiario() {
 		return precioDiario;
 	}
 	public Date getFecRetiroPrevisto() {
@@ -94,7 +93,7 @@ public class Alquiler {
 	public void setCostoDevolucionTardia(double costoDevolucionTardia) {
 		this.costoDevolucionTardia = costoDevolucionTardia;
 	}
-	public void setPrecioDiario(float precioDiario) {
+	public void setPrecioDiario(double precioDiario) {
 		this.precioDiario = precioDiario;
 	}
 	public void setFecRetiroPrevisto(Date fecRetiroPrevisto) {

@@ -20,6 +20,7 @@ public class CrearAlquiler extends HttpServlet {
 	UsuarioLogic ul;
 	PlanDePagoLogic ppl;
 	Alquiler alq;
+	AutoLogic aul;
 	
 	
     public CrearAlquiler() {
@@ -28,6 +29,7 @@ public class CrearAlquiler extends HttpServlet {
         ul = new UsuarioLogic();
         ppl = new PlanDePagoLogic();
         alq = new Alquiler();
+        aul = new AutoLogic();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,12 +39,17 @@ public class CrearAlquiler extends HttpServlet {
 			
 			ul.addUser((Usuario) session.getAttribute("usuario")); 
 			alq = (Alquiler) session.getAttribute("alquiler");
+			alq.setEstado(Alquiler.Estado.valueOf("reservado"));
 			alq.getPlan().setIdPlan(ppl.getId(	alq.getPlan().getEntidadCrediticia(),
 												alq.getPlan().getNombreTarjeta(),
 												alq.getPlan().getCantCuotas()
 											 )
 									);
+			alq.setAuto(aul.getOne("generico"));
 			
+			al.addAlquiler(alq);
+			
+			request.getRequestDispatcher("index.jsp");
 			
 		}catch (SQLException e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}

@@ -36,6 +36,8 @@
 			localidades = ll.getLocalidades(Integer.parseInt(idProv));
 			
 		}
+		String pep = "prueba";
+		int pap = 10;
 		%>
 	
 <title>Formulario de Facturacion</title>
@@ -48,31 +50,31 @@
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
 					<label>Nombre:</label>
-					<input type="text" name="txtNombre" class="form-control">
+					<input type="text" name="txtNombre" class="form-control" value="<%=pep%>">
 					<label>Apellido:</label>
-					<input type="text" name="txtApellido" class="form-control">
+					<input type="text" name="txtApellido" class="form-control" value="<%=pep%>">
 					<label>CUIL</label>
-					<input type="number" name="txtCuil" class="form-control">
+					<input type="number" name="txtCuil" class="form-control" value="<%=pap%>">
 					<label>Mail</label>
 					<input type="email" name="txtEmail" class="form-control">
 					<label>Numero de Celular</label>
-					<input type="number" name="txtTelefono" class="form-control">					
+					<input type="number" name="txtTelefono" class="form-control" value="<%=pap%>">					
                     <br>
 					<button class="btn btn-primary">Siguiente</button>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 					<label>Calle</label>
-					<input type="text" name="txtCalle" class="form-control">
+					<input type="text" name="txtCalle" class="form-control" value="<%=pep%>">
 					<label>Numero</label>
 					<input type="text" name="txtNum" class="form-control">
 					<label>Piso (opcional):</label>
-					<input type="number" name="txtPiso"  class="form-control">
+					<input type="number" name="txtPiso"  class="form-control" value="0"> 
 					<label>Dpto (opcional):</label>
 					<input type="text" name="txtDpto"  class="form-control">
 					<label>Ciudad:</label>
-	  				<input type="text" name="txtCiudad" class="form-control">
+	  				<input type="text" name="txtCiudad" class="form-control" value="<%=pep%>">
 	  				<label>Codigo Postal:</label>
-	    			<input type="text" name="Codigo" class="form-control">
+	    			<input type="text" name="Codigo" class="form-control" value="<%=pap%>">
 			   	</div>
 			 </div>
 			 </div>

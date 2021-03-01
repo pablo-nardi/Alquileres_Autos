@@ -41,8 +41,8 @@ public class FormularioDePago extends HttpServlet {
 			
 			session.setAttribute("usuario", user);
 			
-			req.getRequestDispatcher("WEB-INF/FormularioDePago.jsp").forward(req, response);
-			
+			//req.getRequestDispatcher("WEB-INF/FormularioDePago.jsp").forward(req, response);
+			req.getRequestDispatcher("FormularioDePago.jsp").forward(req, response);
 		
 		
 		

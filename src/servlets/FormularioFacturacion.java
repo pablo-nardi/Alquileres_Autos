@@ -36,7 +36,8 @@ public class FormularioFacturacion extends HttpServlet {
 		
 		session.setAttribute("alquiler", alquiler);	
 		
-		request.getRequestDispatcher("WEB-INF/FormularioFacturacion.jsp").forward(request, response);
+		//request.getRequestDispatcher("WEB-INF/FormularioFacturacion.jsp").forward(request, response);
+		request.getRequestDispatcher("FormularioFacturacion.jsp").forward(request, response);
 		}catch (SQLException e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}

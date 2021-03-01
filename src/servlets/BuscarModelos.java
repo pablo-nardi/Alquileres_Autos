@@ -35,7 +35,8 @@ public class BuscarModelos extends HttpServlet {
 			
 			session.setAttribute("alquiler", alquiler);
 				
-			request.getRequestDispatcher("WEB-INF/MostrarModelos.jsp").forward(request, response);
+			//request.getRequestDispatcher("WEB-INF/MostrarModelos.jsp").forward(request, response);
+			request.getRequestDispatcher("MostrarModelos.jsp").forward(request, response);
 			
 		} catch (Exception e) {	response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 		

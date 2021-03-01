@@ -27,7 +27,8 @@
     LinkedList<PlanDePago> planes = new LinkedList<>();
     PlanDePagoLogic ppl = new PlanDePagoLogic();
     planes = ppl.getPlanes();
-	HttpSession sesion = request.getSession();
+		
+    HttpSession sesion = request.getSession();
 	Alquiler alq = (Alquiler) sesion.getAttribute("alquiler");
 	
 	// CALCULO CANTIDAD DE DIAS CON LAS FECHAS
@@ -36,7 +37,6 @@
 	Date fechaDevolucion= alq.getFecDevPrevista();
 		
 	long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
-		
 	
 	%>
 

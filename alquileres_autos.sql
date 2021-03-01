@@ -2,10 +2,10 @@
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 23, 2021 at 01:48 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Servidor: localhost
+-- Tiempo de generación: 01-03-2021 a las 02:09:52
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `alquileres_autos`
+-- Base de datos: `alquileres_autos`
 --
 CREATE DATABASE IF NOT EXISTS `alquileres_autos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `alquileres_autos`;
@@ -26,24 +26,20 @@ USE `alquileres_autos`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alquileres`
---
--- Creation: Jan 13, 2021 at 05:52 PM
+-- Estructura de tabla para la tabla `alquileres`
 --
 
 DROP TABLE IF EXISTS `alquileres`;
 CREATE TABLE `alquileres` (
   `idAlquiler` int(8) NOT NULL,
-  `costoPorDaños` float NOT NULL,
-  `costoDevolucionTardia` float NOT NULL,
-  `costoPorTanqueSinLlenar` float NOT NULL,
-  `importeAcordado` float NOT NULL,
-  `precioDiario` float NOT NULL,
-  `estadoAlquiler` varchar(15) NOT NULL,
-  `fechaHoraRetiroPrevisto` date NOT NULL,
-  `fechaHoraDevolucionPrevista` date NOT NULL,
-  `fechaHoraRetiroReal` date DEFAULT NULL,
-  `fechaHoraDevolucionReal` date DEFAULT NULL,
+  `costoDesperfecto` double NOT NULL,
+  `costoDevolucionTardia` double NOT NULL,
+  `precioDiario` double NOT NULL,
+  `estado` varchar(15) NOT NULL,
+  `fecRetiroPrevista` date NOT NULL,
+  `fecDevPrevista` date NOT NULL,
+  `fecRetiroReal` date DEFAULT NULL,
+  `fecDevReal` date DEFAULT NULL,
   `idModelo` int(8) NOT NULL,
   `idSucursal` int(8) NOT NULL,
   `cuil` varchar(20) NOT NULL,
@@ -52,36 +48,21 @@ CREATE TABLE `alquileres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `alquileres`:
---   `patente`
---       `autos` -> `patente`
---   `idModelo`
---       `modelos` -> `idModelo`
---   `idPlan`
---       `planesDePago` -> `idPlan`
---   `idSucursal`
---       `sucursales` -> `idSucursal`
---   `cuil`
---       `usuarios` -> `cuil`
+-- Volcado de datos para la tabla `alquileres`
 --
 
---
--- Dumping data for table `alquileres`
---
-
-INSERT INTO `alquileres` (`idAlquiler`, `costoPorDaños`, `costoDevolucionTardia`, `costoPorTanqueSinLlenar`, `importeAcordado`, `precioDiario`, `estadoAlquiler`, `fechaHoraRetiroPrevisto`, `fechaHoraDevolucionPrevista`, `fechaHoraRetiroReal`, `fechaHoraDevolucionReal`, `idModelo`, `idSucursal`, `cuil`, `idPlan`, `patente`) VALUES
-(2, 600, 120, 100, 2000, 150, 'cancelado', '2020-11-11', '2020-11-17', NULL, NULL, 3, 2, '25407896546', 2, 'aa123bb'),
-(3, 500, 250, 1000, 2000, 150, 'reservado', '2020-11-27', '2020-11-29', NULL, NULL, 5, 1, '25407896546', 3, 'aa123cc'),
-(12, 500, 250, 300, 300, 300, 'abierto', '2020-11-24', '2020-11-30', '2020-11-24', '2020-11-30', 4, 1, '25407896546', 2, 'aa123cc'),
-(13, 500, 500, 500, 500, 500, 'inspeccion', '2020-11-01', '2020-11-09', '2020-11-01', '2020-11-09', 4, 1, '20378303355', 2, 'aa123cc'),
-(14, 600, 600, 600, 600, 600, 'cerrado', '2020-11-01', '2020-11-08', '2020-11-01', '2020-11-08', 16, 1, '20378303355', 2, 'aa123dd');
+INSERT INTO `alquileres` (`idAlquiler`, `costoDesperfecto`, `costoDevolucionTardia`, `precioDiario`, `estado`, `fecRetiroPrevista`, `fecDevPrevista`, `fecRetiroReal`, `fecDevReal`, `idModelo`, `idSucursal`, `cuil`, `idPlan`, `patente`) VALUES
+(2, 600, 120, 150, 'cancelado', '2020-11-11', '2020-11-17', NULL, NULL, 3, 2, '25407896546', 2, 'aa123bb'),
+(3, 500, 250, 150, 'reservado', '2020-11-27', '2020-11-29', NULL, NULL, 5, 1, '25407896546', 3, 'aa123cc'),
+(12, 500, 250, 300, 'abierto', '2020-11-24', '2020-11-30', '2020-11-24', '2020-11-30', 4, 1, '25407896546', 2, 'aa123cc'),
+(13, 500, 500, 500, 'inspeccion', '2020-11-01', '2020-11-09', '2020-11-01', '2020-11-09', 4, 1, '20378303355', 2, 'aa123cc'),
+(14, 600, 600, 600, 'cerrado', '2020-11-01', '2020-11-08', '2020-11-01', '2020-11-08', 16, 1, '20378303355', 2, 'aa123dd'),
+(15, 330, 360, 300, 'reservado', '2021-03-02', '2021-03-04', NULL, NULL, 2, 1, '10', 1, 'generico');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `autos`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `autos`
 --
 
 DROP TABLE IF EXISTS `autos`;
@@ -97,28 +78,20 @@ CREATE TABLE `autos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `autos`:
---   `idModelo`
---       `modelos` -> `idModelo`
---   `idSucursal`
---       `sucursales` -> `idSucursal`
---
-
---
--- Dumping data for table `autos`
+-- Volcado de datos para la tabla `autos`
 --
 
 INSERT INTO `autos` (`patente`, `estado`, `capacidadTanque`, `kilometraje`, `fechaDeCompra`, `fechaUltimoServicio`, `idModelo`, `idSucursal`) VALUES
-('aa123bb', 'disponible', 40, 335, '2020-12-01', '2020-12-01', 2, 1),
-('aa123cc', 'disponible', 33, 22, '2020-11-08', NULL, 3, 1),
-('aa123dd', 'disponible', 50, 500, '2020-12-04', NULL, 16, 2);
+('aa123bb', 'disponible', 40, 335, '2020-12-01', '2020-12-01', 2, 2),
+('aa123cc', 'disponible', 33, 22, '2020-11-08', '2021-01-27', 3, 1),
+('aa123dd', 'disponible', 50, 500, '2021-01-12', '2021-01-13', 16, 1),
+('aaa123ff', 'inhabilitado', 44, 200, '2021-01-05', NULL, 21, 1),
+('generico', 'disponible', 0, 0, '2021-01-01', '2021-02-02', 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cantidades`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `cantidades`
 --
 
 DROP TABLE IF EXISTS `cantidades`;
@@ -129,20 +102,10 @@ CREATE TABLE `cantidades` (
   `idExtra` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- RELATIONSHIPS FOR TABLE `cantidades`:
---   `idAlquiler`
---       `alquileres` -> `idAlquiler`
---   `idExtra`
---       `extras` -> `idExtra`
---
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `extras`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `extras`
 --
 
 DROP TABLE IF EXISTS `extras`;
@@ -153,15 +116,18 @@ CREATE TABLE `extras` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `extras`:
+-- Volcado de datos para la tabla `extras`
 --
+
+INSERT INTO `extras` (`idExtra`, `descripcion`, `precio`) VALUES
+(1, 'choche bebe', 500),
+(2, 'gps', 750),
+(4, 'porta equipaje', 850.4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `localidades`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `localidades`
 --
 
 DROP TABLE IF EXISTS `localidades`;
@@ -172,26 +138,27 @@ CREATE TABLE `localidades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `localidades`:
---   `idProvincia`
---       `provincias` -> `idProvincia`
---
-
---
--- Dumping data for table `localidades`
+-- Volcado de datos para la tabla `localidades`
 --
 
 INSERT INTO `localidades` (`codigoPostal`, `denominacion`, `idProvincia`) VALUES
-(1998, 'Campana', 3),
 (2000, 'Rosario', 1),
-(2154, 'Capitan Bermudez', 1);
+(2154, 'Capitan Bermudez', 1),
+(3000, 'Campana', 3),
+(3001, 'Zarate', 3),
+(4000, 'Carlos Paz', 2),
+(4001, 'Cordoba', 2),
+(5000, 'Parana', 4),
+(6000, 'Bariloche', 11),
+(6001, 'El Bolson', 11),
+(7000, 'San Juan', 13),
+(8000, 'La Rioja', 15),
+(9000, 'Tucumana', 17);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `modelos`
---
--- Creation: Jan 13, 2021 at 09:59 PM
+-- Estructura de tabla para la tabla `modelos`
 --
 
 DROP TABLE IF EXISTS `modelos`;
@@ -209,29 +176,21 @@ CREATE TABLE `modelos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `modelos`:
---   `idTipo`
---       `tiposAuto` -> `idTipo`
---
-
---
--- Dumping data for table `modelos`
+-- Volcado de datos para la tabla `modelos`
 --
 
 INSERT INTO `modelos` (`idModelo`, `cantEquipajeGrande`, `cantEquipajeChico`, `precioPorDia`, `denominacion`, `transmision`, `aireAcondicionado`, `fotoModelo`, `cantPasajeros`, `idTipo`) VALUES
 (2, 1, 1, 300, 'Ford Ka', 'manual', 'si', 'IMAGENES/Modelos/ford-ka.jpg', 6, 2),
-(3, 2, 3, 1500, 'Renault Logan', 'automatica', 'si', 'IMAGENES/Modelos/chev_joy.jpg', 5, 3),
-(4, 2, 3, 2500, 'chate re grande', 'automatica', 'si', 'IMAGENES/Modelos/chev_joy.jpg', 6, 4),
-(5, 1, 1, 3000, 'chata', 'manual', 'si', 'IMAGENES/Modelos/chev_joy.jpg', 5, 2),
+(3, 2, 3, 1500, 'Renault Logan', 'automatica', 'si', 'IMAGENES/Modelos/renault-logan.jpg', 5, 3),
+(4, 1, 2, 2500, 'chevrolet joy', 'automatica', 'si', 'IMAGENES/Modelos/chev_joy.jpg', 6, 2),
+(5, 1, 1, 3000, 'chata', 'manual', 'si', 'IMAGENES/Modelos/toyota-hilux.jpg', 5, 2),
 (16, 1, 2, 500, 'Chevrolet Celta', 'manual', 'si', 'IMAGENES/Modelos/ford-ka.jpg', 4, 2),
-(21, 1, 1, 600, 'ford kk', 'manual', 'si', 'IMAGENES/Modelos/ford-ka.jpg', 4, 1);
+(21, 2, 3, 1200, 'ford mondeo', 'automatica', 'si', 'IMAGENES/Modelos/renault-logan.jpg', 4, 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `planesDePago`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `planesDePago`
 --
 
 DROP TABLE IF EXISTS `planesDePago`;
@@ -244,24 +203,19 @@ CREATE TABLE `planesDePago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `planesDePago`:
---
-
---
--- Dumping data for table `planesDePago`
+-- Volcado de datos para la tabla `planesDePago`
 --
 
 INSERT INTO `planesDePago` (`idPlan`, `nombrePlan`, `entidadCrediticia`, `nombreTarjeta`, `cantCuotas`) VALUES
 (1, 'ViajaYa', 'Banco Patagonia', 'MasterCard', 3),
 (2, 'ViajaYa', 'Banco Patagonia', 'MasterCard', 6),
-(3, 'ViajaYa', 'Banco Patagonia', 'MasterCard', 9);
+(3, 'ViajaYa', 'Banco Patagonia', 'MasterCard', 9),
+(5, 'alquila seguro', 'banco santa fe', 'visa', 24);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `provincias`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `provincias`
 --
 
 DROP TABLE IF EXISTS `provincias`;
@@ -271,11 +225,7 @@ CREATE TABLE `provincias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `provincias`:
---
-
---
--- Dumping data for table `provincias`
+-- Volcado de datos para la tabla `provincias`
 --
 
 INSERT INTO `provincias` (`idProvincia`, `denominacion`) VALUES
@@ -283,15 +233,15 @@ INSERT INTO `provincias` (`idProvincia`, `denominacion`) VALUES
 (2, 'Cordoba'),
 (3, 'Buenos Aires'),
 (4, 'Entre Rios'),
-(5, 'Tucuman'),
-(6, 'Neuquen');
+(11, 'Neuquen'),
+(13, 'San Juan'),
+(15, 'La Rioja'),
+(17, 'Tucuman');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sucursales`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `sucursales`
 --
 
 DROP TABLE IF EXISTS `sucursales`;
@@ -300,32 +250,26 @@ CREATE TABLE `sucursales` (
   `telefono` varchar(30) DEFAULT NULL,
   `denominacion` varchar(30) NOT NULL,
   `direccion` varchar(30) NOT NULL,
-  `horaApertura` time NOT NULL,
-  `horaCierre` time NOT NULL,
-  `costoEntregaFueraHora` float NOT NULL,
+  `horaApertura` varchar(20) NOT NULL,
+  `horaCierre` varchar(20) NOT NULL,
   `codigoPostal` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `sucursales`:
---   `codigoPostal`
---       `localidades` -> `codigoPostal`
+-- Volcado de datos para la tabla `sucursales`
 --
 
---
--- Dumping data for table `sucursales`
---
-
-INSERT INTO `sucursales` (`idSucursal`, `telefono`, `denominacion`, `direccion`, `horaApertura`, `horaCierre`, `costoEntregaFueraHora`, `codigoPostal`) VALUES
-(1, '3416407899', 'AutoYA', 'Tucuman 308', '08:00:00', '18:00:00', 550, 2154),
-(2, '341341134', 'TuAutoTuLugar', 'San Luis 2020', '07:30:00', '19:00:00', 1000, 2000);
+INSERT INTO `sucursales` (`idSucursal`, `telefono`, `denominacion`, `direccion`, `horaApertura`, `horaCierre`, `codigoPostal`) VALUES
+(1, '3416407899', 'AutoYA', 'Tucuman 308', '08:00', '18:00:00', 2154),
+(2, '341341134', 'TuAutoTuLugar', 'San Luis 2020', '07:00', '19:00:00', 2000),
+(3, '0114948', 'RentaFacil', 'Campanita 308', '06:00', '18:00', 3000),
+(5, '044123123', 'RentaCordoba', 'Junin 800', '07:30', '20:00', 4000),
+(6, '123123123', 'Lamejor', 'Suipacha 222', '07:30', '16:30', 2000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tiposAuto`
---
--- Creation: Jan 04, 2021 at 09:30 PM
+-- Estructura de tabla para la tabla `tiposAuto`
 --
 
 DROP TABLE IF EXISTS `tiposAuto`;
@@ -336,11 +280,7 @@ CREATE TABLE `tiposAuto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `tiposAuto`:
---
-
---
--- Dumping data for table `tiposAuto`
+-- Volcado de datos para la tabla `tiposAuto`
 --
 
 INSERT INTO `tiposAuto` (`idTipo`, `nombreTipo`, `fotoTipo`) VALUES
@@ -348,55 +288,54 @@ INSERT INTO `tiposAuto` (`idTipo`, `nombreTipo`, `fotoTipo`) VALUES
 (2, 'compactos', NULL),
 (3, 'medianos', NULL),
 (4, 'grande', NULL),
-(5, 're-grande', NULL);
+(8, 'Lujos', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
---
--- Creation: Jan 13, 2021 at 09:19 PM
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `cuil` varchar(20) NOT NULL,
   `nombre` varchar(30) NOT NULL,
-  `apellido` varchar(30) NOT NULL,
-  `telefono` varchar(15) NOT NULL,
-  `mail` varchar(30) NOT NULL,
+  `apellido` varchar(30) DEFAULT NULL,
+  `telefono` varchar(15) DEFAULT NULL,
+  `mail` varchar(30) DEFAULT NULL,
   `calle` varchar(30) NOT NULL,
   `piso` int(4) DEFAULT NULL,
   `dpto` varchar(10) DEFAULT NULL,
-  `codigoPostal` int(15) NOT NULL,
+  `ciudad` varchar(45) NOT NULL,
+  `codigoPostal` varchar(15) NOT NULL,
   `numUltTarjeta` varchar(30) DEFAULT NULL,
-  `nombreUtlTarjeta` varchar(30) DEFAULT NULL,
-  `vencUltTarjeta` date DEFAULT NULL,
+  `nomUltTarjeta` varchar(30) DEFAULT NULL,
+  `vencUltTarjeta` varchar(10) DEFAULT NULL,
   `rol` varchar(15) NOT NULL,
-  `password` varchar(15) NOT NULL
+  `password` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONSHIPS FOR TABLE `usuarios`:
---   `codigoPostal`
---       `localidades` -> `codigoPostal`
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`cuil`, `nombre`, `apellido`, `telefono`, `mail`, `calle`, `piso`, `dpto`, `ciudad`, `codigoPostal`, `numUltTarjeta`, `nomUltTarjeta`, `vencUltTarjeta`, `rol`, `password`) VALUES
+('10', 'prueba', 'prueba', '10', 'asd@mail.com', 'prueba ', 0, '', 'prueba', '10', '123', 'asd', '2021-1', 'cliente', NULL),
+('123', 'pru6', 'pru6', '234234', 'asd@mail.com', 'ccsd', 0, '', 'Cap bermudez', '2154', NULL, NULL, NULL, 'cliente', 'holahola'),
+('20378303355', 'pablo', 'nardi', '3416497800', 'pnardi@gmail.com', 'tucuman 308', NULL, NULL, '', '2154', NULL, NULL, NULL, 'administrador', 'pablo1234'),
+('234', 'prueba 3_', 'prueba 3_', '654654', 'asd@mail.com', 'ciu', 0, '', 'ciu', '654', NULL, NULL, NULL, 'usuario', 'pablonardi'),
+('234234234', 'dani', 'debito', '234', 'asd@mail.com', 'calle', 80, '', 'Cap bermudez', '2154', NULL, NULL, NULL, 'usuario', 'danidani'),
+('25407896546', 'Juan', 'Perez', '654654654', 'jperez@hotmail.com', 'catamarca 239', 0, 'null', '', '5000', NULL, NULL, NULL, 'usuario', 'juan0987'),
+('46456', 'prueba 2', 'prueba 2', '234', 'asd@mail.com', 'casc', 0, '', 'Cap bermudez', '2154', NULL, NULL, NULL, 'administrador', 'pablo'),
+('654654645', 'pru6', 'prupru', '123123', 'asd@mail.com', 'ameguino', 0, '', 'Baigorria', '2010', NULL, NULL, NULL, 'cliente', 'holahola'),
+('999', 'pru5', 'pru5', '234234', 'asd@mail.com', 'sdf', 0, '', 'papa', '64', NULL, NULL, NULL, 'usuario', 'pablonardi');
+
+--
+-- Índices para tablas volcadas
 --
 
 --
--- Dumping data for table `usuarios`
---
-
-INSERT INTO `usuarios` (`cuil`, `nombre`, `apellido`, `telefono`, `mail`, `calle`, `piso`, `dpto`, `codigoPostal`, `numUltTarjeta`, `nombreUtlTarjeta`, `vencUltTarjeta`, `rol`, `password`) VALUES
-('20378303355', 'pablo', 'nardi', '3416497800', 'pnardi@gmail.com', 'tucuman 308', NULL, NULL, 2154, NULL, NULL, NULL, 'administrador', 'pablo1234'),
-('25407896546', 'Juan', 'Perez', '654654654', 'jperez@hotmail.com', 'catamarca 239', NULL, NULL, 2000, NULL, NULL, NULL, 'usuario', 'juan0987'),
-('986', 'jesus', 'monti', '987', 'asd@mail.com', 'ill', 0, '', 2154, NULL, NULL, NULL, 'administrador', 'monti');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `alquileres`
+-- Indices de la tabla `alquileres`
 --
 ALTER TABLE `alquileres`
   ADD PRIMARY KEY (`idAlquiler`),
@@ -407,7 +346,7 @@ ALTER TABLE `alquileres`
   ADD KEY `alquiler_fk_auto` (`patente`);
 
 --
--- Indexes for table `autos`
+-- Indices de la tabla `autos`
 --
 ALTER TABLE `autos`
   ADD PRIMARY KEY (`patente`),
@@ -415,7 +354,7 @@ ALTER TABLE `autos`
   ADD KEY `auto_fk_sucursal` (`idSucursal`);
 
 --
--- Indexes for table `cantidades`
+-- Indices de la tabla `cantidades`
 --
 ALTER TABLE `cantidades`
   ADD PRIMARY KEY (`idCantidad`),
@@ -423,115 +362,115 @@ ALTER TABLE `cantidades`
   ADD KEY `cantidad_fk_extra` (`idExtra`);
 
 --
--- Indexes for table `extras`
+-- Indices de la tabla `extras`
 --
 ALTER TABLE `extras`
   ADD PRIMARY KEY (`idExtra`);
 
 --
--- Indexes for table `localidades`
+-- Indices de la tabla `localidades`
 --
 ALTER TABLE `localidades`
   ADD PRIMARY KEY (`codigoPostal`),
   ADD KEY `localidad_fk_provincia` (`idProvincia`);
 
 --
--- Indexes for table `modelos`
+-- Indices de la tabla `modelos`
 --
 ALTER TABLE `modelos`
   ADD PRIMARY KEY (`idModelo`),
   ADD KEY `modelo_fk_tipo_auto` (`idTipo`);
 
 --
--- Indexes for table `planesDePago`
+-- Indices de la tabla `planesDePago`
 --
 ALTER TABLE `planesDePago`
   ADD PRIMARY KEY (`idPlan`);
 
 --
--- Indexes for table `provincias`
+-- Indices de la tabla `provincias`
 --
 ALTER TABLE `provincias`
   ADD PRIMARY KEY (`idProvincia`);
 
 --
--- Indexes for table `sucursales`
+-- Indices de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
   ADD PRIMARY KEY (`idSucursal`),
   ADD KEY `sucursal_fk_localidad` (`codigoPostal`);
 
 --
--- Indexes for table `tiposAuto`
+-- Indices de la tabla `tiposAuto`
 --
 ALTER TABLE `tiposAuto`
   ADD PRIMARY KEY (`idTipo`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`cuil`),
   ADD KEY `usuario_fk_localidad` (`codigoPostal`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `alquileres`
+-- AUTO_INCREMENT de la tabla `alquileres`
 --
 ALTER TABLE `alquileres`
-  MODIFY `idAlquiler` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idAlquiler` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `cantidades`
+-- AUTO_INCREMENT de la tabla `cantidades`
 --
 ALTER TABLE `cantidades`
   MODIFY `idCantidad` int(8) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `extras`
+-- AUTO_INCREMENT de la tabla `extras`
 --
 ALTER TABLE `extras`
-  MODIFY `idExtra` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `idExtra` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `modelos`
+-- AUTO_INCREMENT de la tabla `modelos`
 --
 ALTER TABLE `modelos`
-  MODIFY `idModelo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idModelo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `planesDePago`
+-- AUTO_INCREMENT de la tabla `planesDePago`
 --
 ALTER TABLE `planesDePago`
-  MODIFY `idPlan` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPlan` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `provincias`
+-- AUTO_INCREMENT de la tabla `provincias`
 --
 ALTER TABLE `provincias`
-  MODIFY `idProvincia` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idProvincia` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `sucursales`
+-- AUTO_INCREMENT de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
-  MODIFY `idSucursal` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idSucursal` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tiposAuto`
+-- AUTO_INCREMENT de la tabla `tiposAuto`
 --
 ALTER TABLE `tiposAuto`
-  MODIFY `idTipo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idTipo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `alquileres`
+-- Filtros para la tabla `alquileres`
 --
 ALTER TABLE `alquileres`
   ADD CONSTRAINT `alquiler_fk_auto` FOREIGN KEY (`patente`) REFERENCES `autos` (`patente`),
@@ -541,42 +480,36 @@ ALTER TABLE `alquileres`
   ADD CONSTRAINT `alquiler_fk_usuario` FOREIGN KEY (`cuil`) REFERENCES `usuarios` (`cuil`);
 
 --
--- Constraints for table `autos`
+-- Filtros para la tabla `autos`
 --
 ALTER TABLE `autos`
   ADD CONSTRAINT `auto_fk_modelo` FOREIGN KEY (`idModelo`) REFERENCES `modelos` (`idModelo`),
   ADD CONSTRAINT `auto_fk_sucursal` FOREIGN KEY (`idSucursal`) REFERENCES `sucursales` (`idSucursal`);
 
 --
--- Constraints for table `cantidades`
+-- Filtros para la tabla `cantidades`
 --
 ALTER TABLE `cantidades`
   ADD CONSTRAINT `cantidad_fk_alquiler` FOREIGN KEY (`idAlquiler`) REFERENCES `alquileres` (`idAlquiler`),
   ADD CONSTRAINT `cantidad_fk_extra` FOREIGN KEY (`idExtra`) REFERENCES `extras` (`idExtra`);
 
 --
--- Constraints for table `localidades`
+-- Filtros para la tabla `localidades`
 --
 ALTER TABLE `localidades`
   ADD CONSTRAINT `localidad_fk_provincia` FOREIGN KEY (`idProvincia`) REFERENCES `provincias` (`idProvincia`);
 
 --
--- Constraints for table `modelos`
+-- Filtros para la tabla `modelos`
 --
 ALTER TABLE `modelos`
   ADD CONSTRAINT `modelo_fk_tipo_auto` FOREIGN KEY (`idTipo`) REFERENCES `tiposAuto` (`idTipo`);
 
 --
--- Constraints for table `sucursales`
+-- Filtros para la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
   ADD CONSTRAINT `sucursal_fk_localidad` FOREIGN KEY (`codigoPostal`) REFERENCES `localidades` (`codigoPostal`);
-
---
--- Constraints for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuario_fk_localidad` FOREIGN KEY (`codigoPostal`) REFERENCES `localidades` (`codigoPostal`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

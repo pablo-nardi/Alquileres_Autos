@@ -32,7 +32,16 @@
  		}
 </style>
 
-	<% String estado = (String) request.getParameter("estado");%>
+	<%
+	String estado = (String) request.getParameter("estado");
+	if(estado!=null){
+		if(estado.toUpperCase().equals("CERRARSESION")){
+			session.invalidate();
+			estado = "Sesion cerrada exitosamente";
+		}	
+	}
+	
+	%>
 
 </head>
 	<body>

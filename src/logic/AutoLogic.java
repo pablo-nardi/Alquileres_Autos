@@ -1,7 +1,9 @@
 package logic;
 
 import entidades.Auto;
+import entidades.Sucursal;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
@@ -28,7 +30,10 @@ public class AutoLogic {
 	public void deleteAuto(String patente)throws SQLException {
 		da.delete(patente);
 	}
-	public  LinkedList<Auto> getAutos(String estado)throws SQLException{
-		return da.getAutos(estado);
+	public  LinkedList<Auto> getAutos(Date fecRet, Date fecDev, Sucursal suc)throws SQLException{
+		return da.getAutos(fecRet, fecDev, suc );
+	}
+	public LinkedList<Auto> getAutosAlt(Date fecRet, Date fecDev)throws SQLException{
+		return da.getAutosAlt(fecRet, fecDev);
 	}
 }

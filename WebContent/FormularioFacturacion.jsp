@@ -20,7 +20,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+	<script type="text/javascript">
+	function cancelarAlquiler(){
+		if(confirm("Desea cancelar alquiler?")){
+			window.location.href = "index.jsp";	
+		}
+		
+	}
+			
+	</script>
     
         <% 	
 		Provincia provincia = new Provincia();
@@ -43,7 +51,13 @@
 <title>Formulario de Facturacion</title>
 </head>
 <body>
-	<h2>Formulario de Facturacion</h2>
+			<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+ 
+  <a class="navbar-brand" href="login.jsp">Login</a>
+
+	</nav>
+	<h1>Formulario de Facturacion</h1>
 	
 	<form action="FormularioDePago" name="myForm" method="post">	
 		<div class="container">		 
@@ -61,6 +75,7 @@
 					<input type="number" name="txtTelefono" class="form-control" value="<%=pap%>">					
                     <br>
 					<button class="btn btn-primary">Siguiente</button>
+					<button type="button" class="btn btn-warning" onclick="javascript: cancelarAlquiler()" >Cancelar Alquiler</button>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 					<label>Calle</label>

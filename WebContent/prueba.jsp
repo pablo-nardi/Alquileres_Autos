@@ -40,7 +40,7 @@
 
 
 	
-		<form action="ServletPrueba" method="post">			
+		<form action="CrearAlquiler" method="post">			
 			 <input type="hidden" name="texto" id="texto" value="hola">
 			<button>boton</button>
 		</form>

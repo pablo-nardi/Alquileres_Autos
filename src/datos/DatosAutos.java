@@ -53,14 +53,52 @@ public class DatosAutos {
 		}
 		return autos;		
 	}
-	public LinkedList<Auto> getAutos(String estado)throws SQLException{
+	public LinkedList<Auto> getAutosAlt(Date fecRet, Date fecDev)throws SQLException{
 		LinkedList<Auto> autos = new LinkedList<>();
 		Auto auto = null;
+		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?);";
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM autos WHERE estado=?");
-			stmt.setString(1, estado);
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(consulta);
+			stmt.setString(1, "disponible");
+			stmt.setString(2, fecDev.toString());
+			stmt.setString(3, fecRet.toString());
+			rs = stmt.executeQuery();
+			if(rs != null ) {
+				while(rs.next()) {
+					auto = new Auto();
+					DatosModelos dm = new DatosModelos();
+					auto.setPatente(rs.getString("patente"));
+					auto.setModelo(dm.getOne(rs.getInt("idModelo")));
+					autos.add(auto);	
+				}
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}		
+		return autos;
+	}
+	public LinkedList<Auto> getAutos(Date fecRet, Date fecDev, Sucursal suc)throws SQLException{
+		LinkedList<Auto> autos = new LinkedList<>();
+		Auto auto = null;
+		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND au.idSucursal = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?);";
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(consulta);
+			stmt.setString(1, "disponible");
+			stmt.setInt(2, suc.getIdSucursal());
+			stmt.setString(3, fecDev.toString());
+			stmt.setString(4, fecRet.toString());
 			rs = stmt.executeQuery();
 			if(rs != null ) {
 				while(rs.next()) {

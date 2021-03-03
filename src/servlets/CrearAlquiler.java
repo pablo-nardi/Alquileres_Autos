@@ -49,7 +49,7 @@ public class CrearAlquiler extends HttpServlet {
 			
 			al.addAlquiler(alq);
 			
-			request.getRequestDispatcher("index.jsp");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 			
 		}catch (SQLException e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}

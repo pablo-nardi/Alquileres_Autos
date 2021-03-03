@@ -23,6 +23,12 @@
 		function cargarFormulario(met){
 			document.myForm.action=met;
 		}
+		function cerrarSesion(){
+			if(confirm("Desea cerrar la sesion?")){
+				window.location.href = "login.jsp?estado=CERRARSESION";	
+			}
+			
+		}
 	</script>
     <% 	//VALIDACION DE SESION DE USUARIO
     	UsuarioLogic ul = new UsuarioLogic();
@@ -60,7 +66,8 @@
   <a class="navbar-brand" href="index.jsp">Inicio</a>
   <a class="navbar-brand" href="Admin.jsp">Home</a>
  
-  <a class="navbar-brand" href="#">Logout</a>
+  <button type="button" class="btn btn-outline-warning" onclick="javascript: cerrarSesion()" >Logout</button>
+
 
 	</nav>
 	

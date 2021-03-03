@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,7 +32,7 @@ public class BuscarModelos extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			alquiler.setFecRetiroPrevisto( Date.valueOf(request.getParameter("fechaRetiro")));
 			alquiler.setFecDevPrevista( Date.valueOf(request.getParameter("fechaDevolucion")));
-			alquiler.setSucursal(sl.getSucursal(Integer.parseInt("2154")));
+			alquiler.setSucursal(sl.getSucursal(Integer.parseInt(request.getParameter("selectCiudad"))));
 			
 			session.setAttribute("alquiler", alquiler);
 				
@@ -42,21 +43,27 @@ public class BuscarModelos extends HttpServlet {
 		
 	}
 	public void validar(HttpServletRequest request) throws Exception {
-		//Date fechaRetiro= Date.valueOf(request.getParameter("fechaRetiro"));
+		
 		String fechaRetiro = request.getParameter("fechaRetiro");
-		//Date fechaDevolucion= Date.valueOf(request.getParameter("fechaDevolucion"));
+		
 		String fechaDevolucion = request.getParameter("fechaDevolucion");
 		String lugar = request.getParameter("selectProvincia");
 		if((fechaRetiro != null && !fechaRetiro.isBlank() && !fechaRetiro.isEmpty()) &&
 				(fechaDevolucion != null && !fechaDevolucion.isBlank() && !fechaDevolucion.isEmpty()) &&
 				(lugar != null && !lugar.isEmpty() && !lugar.isBlank())){
-				
-			if (!(fechaRetiro.compareTo(fechaDevolucion) < 0)) {
-				throw new Exception("La fecha de Devolucion debe ser mayor a la fecha de Retiro");
-			}	
+			
+			Date dateRetiro= Date.valueOf(request.getParameter("fechaRetiro"));
+			Date dateDevolucion= Date.valueOf(request.getParameter("fechaDevolucion"));
+			
+			if(dateRetiro.compareTo(Calendar.getInstance().getTime()) <= 0) {
+				throw new Exception("la fecha de Retiro debe ser posterior al dia de hoy");
+			}
+			else if(dateRetiro.compareTo(dateDevolucion) >= 0) {
+					throw new Exception("La fecha de Devolucion debe ser mayor a la fecha de Retiro");
+				}
 		}else {
 			throw new Exception("Las fecha de retiro y devolucion no pueden estar vacias");
 		}
 	}
-
+	
 }

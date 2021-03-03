@@ -42,9 +42,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+	
+	
 	
 	<%
+	String estado = null;
 	Auto auto = null;
 	LinkedList<Auto> autos = new LinkedList<>();
 	LinkedList<Modelo> modelos = new LinkedList<>();
@@ -52,8 +54,13 @@
 	AutoLogic al = new AutoLogic();
 	ModeloLogic ml = new ModeloLogic();
 	SucursalLogic sl = new SucursalLogic();
-	autos = al.getAutos("disponible");
+	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 	
+	autos = al.getAutos(alq.getFecRetiroPrevisto(), alq.getFecDevPrevista(), alq.getSucursal());
+	if(autos.isEmpty()){
+		estado = "No se han encontrado autos en la sucursal seleccionada, PERO podemos trasladar cualquier vehiculo hasta su localidad seleccionada, con un costo adicional del 10% sumado al total del alquiler.";
+		autos = al.getAutosAlt(alq.getFecRetiroPrevisto(), alq.getFecDevPrevista());
+	}
 	// CALCULO CANTIDAD DE DIAS CON LAS FECHAS
 	
 	Date fechaRetiro= Date.valueOf(request.getParameter("fechaRetiro"));
@@ -66,9 +73,21 @@
 	    
 </head>
 <body>
+		<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+ 
+  
+	</nav>
 	<h1>Modelos de autos diponibles</h1>
 		 
 	<div class="container-fluid">
+	<form action="BuscarAlternativa" name="Form" method="post">
+		<div class="alert alert-warning alert-dismissible" style="display:<%=estado==null?"none":"block"  %>;" >
+  			<button type="button" class="close" data-dismiss="alert">&times;</button>
+  			<!--  label></label-->
+  			<p style="font-size:30px;" ><%=estado==null?"":estado%> </p>
+		</div>
+	</form>
       <div class="row">
         <h2>Autos</h2>
           <div class="col-12 col-sm-12 col-lg-12">
@@ -99,7 +118,9 @@
 
                     <td><p><b>Precio por dia: </b> <br> <%=mod.getPrecioPorDia() %></p>
                     	<p><b>Cantidad de dias: </b> <br> <%=dias %></p>
-                    	<input type="text" name="total" class="form-control" value="<%=dias * mod.getPrecioPorDia()  %>" readonly >
+                    	<p><b>TOTAL:</b></p>
+                    	<input type="text" name="total" class="form-control" value="<%= estado==null?dias * mod.getPrecioPorDia():dias * mod.getPrecioPorDia() + (dias * mod.getPrecioPorDia() * 0.1)  %>" readonly 
+                    	style="width:100px;" >
                     	<input type="hidden" name="id" value="<%=mod.getIdentificacion()  %>" >
                     	<button class="btn btn-primary" >Reservar</button>
                     	</td>

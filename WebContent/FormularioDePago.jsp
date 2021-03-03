@@ -21,6 +21,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	function cancelarAlquiler(){
+		if(confirm("Desea cancelar alquiler?")){
+			window.location.href = "index.jsp";	
+		}
+		
+	}
+			
+	</script>
 	
 	<%
 	PlanDePago plan = null;
@@ -28,8 +37,7 @@
     PlanDePagoLogic ppl = new PlanDePagoLogic();
     planes = ppl.getPlanes();
 		
-    HttpSession sesion = request.getSession();
-	Alquiler alq = (Alquiler) sesion.getAttribute("alquiler");
+	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 	
 	// CALCULO CANTIDAD DE DIAS CON LAS FECHAS
 	
@@ -43,10 +51,14 @@
 <title>Carga de Formulario</title>
 </head>
 <body>
+		<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+ 
+  <a class="navbar-brand" href="login.jsp">Login</a>
 
- <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
+	</nav>
 
-<h2>Formulario de pago</h2>
+<h1>Formulario de pago</h1>
 
 
 	<form action="ResumenReserva" name="myForm" method="post">	
@@ -81,7 +93,7 @@
 									<br>
 							
 									<button class="btn btn-primary">Aceptar</button>
-		   			
+		   							<button type="button" class="btn btn-warning" onclick="javascript: cancelarAlquiler()" >Cancelar Alquiler</button>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 			          		

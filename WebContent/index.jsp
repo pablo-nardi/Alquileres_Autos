@@ -67,6 +67,8 @@
 			ll = new LocalidadLogic();
 			localidades = ll.getLocalidades(id);
 		}
+		
+		session.invalidate();
 		%>
 </head>
 
@@ -81,44 +83,47 @@
 	</nav>
 	<form action="" name="myForm" method="post">
 	<%/* */ %>
-	  <div class="row" style="margin-left: 100px; margin-top: 300px;">
-	  	<div class="col-sm-">
-	  		<label>Provincia:</label>
-	  		<select class="form-control" name="selectProvincia">
-			<%for (Provincia prov: provincias){ %>
-			
-			<option value="<%=Integer.toString(prov.getIdProvincia()) %>" <%=provincia!=null&&provincia.getIdProvincia()==prov.getIdProvincia()?"selected":"" %>><%=prov.getDenominacion() %></option>
-			
-			<%} %>
-	  		</select>
-	  	</div>
-	  	<div class="col-sm-">
-	  		
-	  		<button class="btn btn-primary" name="btnBuscaLocalidad" onclick="javascript: buscaLocalidades('ServletIndex/buscarLocalidad')" style="margin-top:15px;" >Buscar Localidad</button>
-	  	</div>
-	    <div class="col-sm-" style="background-color: red;">
-	    	<label>Ciudad:</label>
-	    	<select class="form-control" name="selectCiudad">
-	    		<%if(localidades != null){
-	    			for(Localidad local: localidades){%>
-	    			<option value="<%=Integer.toString(local.getCodigoPostal())%>"><%=local.getDenominacion() %></option>
-	    		
-	    		<%}} %>
-	    	</select>
-	    </div>
-	    <div class="col-sm-">
-	    	<label>Fecha de Retiro:</label>
-	      	<input type="date" class="form-control" id="fechaRetiro" name="fechaRetiro">
-	    </div>
-	    <div class="col-sm-">
-	    	<label>Fecha de Devolucion::</label>
-	      	<input type="date" class="form-control" id="fechaDevolucion" name="fechaDevolucion">
-	    </div>
-	    <div class="col-sm-">
-	    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('BuscarModelos')" style="margin-top: 15px;">Buscar</button>
-	    </div>
-	    	
-	  </div>
+		<div class="container-fluid"> 
+		  <div class="row" style="position: relative; left: 150px; margin-top:50px;">
+		  	<div class="col-sm-3">
+		  		<label>Provincia:</label>
+		  		<select class="form-control" name="selectProvincia">
+				<%for (Provincia prov: provincias){ %>
+				
+				<option value="<%=Integer.toString(prov.getIdProvincia()) %>" <%=provincia!=null&&provincia.getIdProvincia()==prov.getIdProvincia()?"selected":"" %>><%=prov.getDenominacion() %></option>
+				
+				<%} %>
+		  		</select>
+		  	</div>
+		  	<div class="col-sm-3 d-flex flex-column-reverse">
+		  		<button class="btn btn-primary" name="btnBuscaLocalidad" onclick="javascript: buscaLocalidades('ServletIndex/buscarLocalidad')" >Buscar Localidad</button>
+		  	</div>
+		    <div class="col-sm-3">
+		    	<label>Ciudad:</label>
+		    	<select class="form-control" name="selectCiudad">
+		    		<%if(localidades != null){
+		    			for(Localidad local: localidades){%>
+		    			<option value="<%=Integer.toString(local.getCodigoPostal())%>"><%=local.getDenominacion() %></option>
+		    		
+		    		<%}} %>
+		    	</select>
+		    </div>
+		    	
+		  </div>
+		  <div class="row" style="position: relative; left: 150px; margin-top:50px;">
+		     <div class="col-sm-3">
+		    	<label>Fecha de Retiro:</label>
+		      	<input type="date" class="form-control" id="fechaRetiro" name="fechaRetiro">
+		    </div>
+		    <div class="col-sm-3">
+		    	<label>Fecha de Devolucion::</label>
+		      	<input type="date" class="form-control" id="fechaDevolucion" name="fechaDevolucion">
+		    </div>
+		    <div class="col-sm-3 d-flex flex-column-reverse"">
+		    	<button class="btn btn-primary" name="btnBuscaModelos" onclick="javascript: buscaModelos('BuscarModelos')" style="margin-top: 15px;">Buscar</button>
+		    </div>
+		  </div>
+		</div>
 	 
 	</form>
 

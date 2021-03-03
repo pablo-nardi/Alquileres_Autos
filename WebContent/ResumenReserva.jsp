@@ -24,12 +24,19 @@
 		function crearAlquiler(met){
 			document.myForm.action=met;
 		}
+		function cancelarAlquiler(){
+			if(confirm("Desea cancelar alquiler?")){
+				window.location.href = "index.jsp";	
+			}
+			
+		}
+				
 	</script>
     
     <%
     
-    HttpSession sesion = request.getSession();
-    Alquiler alq = (Alquiler) sesion.getAttribute("alquiler");
+    
+    Alquiler alq = (Alquiler) session.getAttribute("alquiler");
     
     //CALCULO CANTIDAD DE DIAS
 	
@@ -44,6 +51,12 @@
 <title>Resumen de la Reserva</title>
 </head>
 <body>
+			<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.jsp">Inicio</a>
+ 
+  <a class="navbar-brand" href="login.jsp">Login</a>
+
+	</nav>
 	<h1>Resumen de la reserva</h1>
 
 	<form action="" name="myForm" method="post">	
@@ -58,6 +71,7 @@
 			 		<label>Sucursal de retiro: <%=alq.getSucursal().getDenominacion() %></label><br>
 					<label>Total:<%=alq.getPrecioDiario() * dias %></label><br>
 					<button class="btn btn-primary" onclick="javascript: crearAlquiler('CrearAlquiler')" >Alquilar</button>
+					<button type="button" class="btn btn-warning" onclick="javascript: cancelarAlquiler()" >Cancelar Alquiler</button>
 			 	</div>
 			 </div>
 		 </div>

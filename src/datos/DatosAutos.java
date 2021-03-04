@@ -56,7 +56,7 @@ public class DatosAutos {
 	public LinkedList<Auto> getAutosAlt(Date fecRet, Date fecDev)throws SQLException{
 		LinkedList<Auto> autos = new LinkedList<>();
 		Auto auto = null;
-		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?);";
+		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?) AND alq.estado <> 'abierto' AND alq.estado <> 'inspeccion';";
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -90,7 +90,7 @@ public class DatosAutos {
 	public LinkedList<Auto> getAutos(Date fecRet, Date fecDev, Sucursal suc)throws SQLException{
 		LinkedList<Auto> autos = new LinkedList<>();
 		Auto auto = null;
-		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND au.idSucursal = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?);";
+		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND au.idSucursal = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?) AND alq.estado <> 'abierto' AND alq.estado <> 'inspeccion';";
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {

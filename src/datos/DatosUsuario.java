@@ -123,6 +123,9 @@ public class DatosUsuario {
 						user.setPiso(rs.getInt("piso"));
 						user.setRol(rs.getString("rol"));
 						user.setTelefono(rs.getString("telefono"));
+						user.setNombreUltTarjeta(rs.getString("nomUltTarjeta"));
+						user.setNumUltTarjeta(rs.getString("numUltTarjeta"));
+						user.setVencUltTarjeta(rs.getString("vencUltTarjeta"));
 						
 						usuarios.add(user);
 					}
@@ -165,6 +168,9 @@ public class DatosUsuario {
 					user.setPiso(rs.getInt("piso"));
 					user.setRol(rs.getString("rol"));
 					user.setTelefono(rs.getString("telefono"));
+					user.setNombreUltTarjeta(rs.getString("nomUltTarjeta"));
+					user.setNumUltTarjeta(rs.getString("numUltTarjeta"));
+					user.setVencUltTarjeta(rs.getString("vencUltTarjeta"));
 				}
 			}catch(Exception ex) {
 				throw ex ; 
@@ -218,7 +224,7 @@ public class DatosUsuario {
 			PreparedStatement stmt = null;
 			
 			try {
-				stmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE usuarios SET nombre=?, apellido=?, telefono=?, mail=?, calle=?, piso=?, dpto=?, ciudad=?, codigoPostal=?, rol=?, password=? where cuil=?");
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE usuarios SET nombre=?, apellido=?, telefono=?, mail=?, calle=?, piso=?, dpto=?, ciudad=?, codigoPostal=?,numUltTarjeta=?,nomUltTarjeta=?, vencUltTarjeta=?, rol=?, password=? where cuil=?");
 				stmt.setString(1, user.getNombre());
 				stmt.setString(2, user.getApellido());
 				stmt.setString(3, user.getTelefono());
@@ -228,9 +234,13 @@ public class DatosUsuario {
 				stmt.setString(7, user.getDepartamento());
 				stmt.setString(8, user.getCiudad());
 				stmt.setString(9, user.getCodigoPostal());
-				stmt.setString(10, user.getRol());
-				stmt.setString(11, user.getPassword());				
-				stmt.setString(12, user.getCuil());
+				stmt.setString(10, user.getNumUltTarjeta());
+				stmt.setString(11, user.getNombreUltTarjeta());
+				stmt.setString(12, user.getVencUltTarjeta());
+				stmt.setString(13, user.getRol());
+				stmt.setString(14, user.getPassword());				
+				stmt.setString(15, user.getCuil());
+				
 				
 				stmt.executeUpdate();
 				

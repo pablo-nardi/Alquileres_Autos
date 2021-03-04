@@ -32,12 +32,14 @@
 	</script>
 	
 	<%
+	int mes = 0 , anio = 0;
 	PlanDePago plan = null;
     LinkedList<PlanDePago> planes = new LinkedList<>();
     PlanDePagoLogic ppl = new PlanDePagoLogic();
     planes = ppl.getPlanes();
 		
 	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
+	Usuario user = (Usuario) session.getAttribute("usuario");
 	
 	// CALCULO CANTIDAD DE DIAS CON LAS FECHAS
 	
@@ -88,7 +90,7 @@
 									</select>				
 												
 									<label>Total:</label>
-									<input type="text" name="total" class="form-control" value="<%=alq.getPrecioDiario() * dias%>" readonly >
+									<input type="text" name="total" class="form-control" value="<%=alq==null?"":alq.getPrecioDiario() * dias%>" readonly >
 									
 									<br>
 							
@@ -98,21 +100,33 @@
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 			          		
 							    	<label>Numero de Tarjeta (sin espacios ni guiones):</label>
-									<input type="number" name="txtNumTarjeta"  class="form-control">
+									<input type="number" value="<%=user.getNumUltTarjeta()==null?"":user.getNumUltTarjeta() %>" name="txtNumTarjeta"  class="form-control">
 									
 									<label>Titular de la Tarjeta (como figura en la tarjeta):</label>
-									<input type="text" name="txtTitular"  class="form-control">
+									<input type="text" name="txtTitular" value="<%=user.getNombreUltTarjeta()==null?"":user.getNombreUltTarjeta() %>" class="form-control">
+									
+									<%
+												if(user.getVencUltTarjeta()!=null){
+													anio = Integer.parseInt(user.getVencUltTarjeta().subSequence(1, 2).toString())  ;	
+													mes = Integer.parseInt(user.getVencUltTarjeta().subSequence
+																(
+																 user.getVencUltTarjeta().length() - 2 ,
+																 user.getVencUltTarjeta().length() 
+																 ).toString());
+												}
 												
+									%>
+									
 									<label>Fecha de Vencimiento:</label>
 									<div>
 										<select name="selectMes" class="form-control" style=" float:left; width: 25%;">
 											<%for(int i = 1; i <= 12; i++){   %>
-												<option value="<%=i%>" ><%=i %></option>
+												<option value="<%=i%>" <%=4==i?"selected":""%> ><%=i %></option>
 											<%} %>
 										</select>
 										<select name="selectYear" class="form-control" style=" width: 25%;" >
 											<%for(int i = 2021; i <= 2032; i++){   %>
-												<option value="<%=i%>" ><%=i %></option>
+												<option value="<%=i%>" <%=2029==i?"selected":""%> ><%=i %></option>
 											<%} %>
 										</select>
 									</div>		

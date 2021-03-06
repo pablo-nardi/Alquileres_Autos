@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/entidades/Alquiler.java=UTF-8
 encoding//src/servlets/ABMUSuarios.java=UTF-8
+encoding//src/servlets/CrearAlquiler.java=UTF-8
 encoding//src/servlets/ServletLogin.java=UTF-8

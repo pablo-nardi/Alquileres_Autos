@@ -22,6 +22,7 @@ public class ResumenReserva extends HttpServlet {
     public ResumenReserva() {
         super();
         plan = new PlanDePago();
+        char estado;
         
     }
 
@@ -42,6 +43,7 @@ public class ResumenReserva extends HttpServlet {
 		
 		session.setAttribute("usuario", user);
 		
+				
 		//CREO PLAN DE PAGO Y LO AGREGO A ALQUILER
 		 
 		plan.setCantCuotas(Integer.parseInt(request.getParameter("selectCuotas")));
@@ -53,6 +55,7 @@ public class ResumenReserva extends HttpServlet {
 		alq.setPlan(plan);
 		alq.setUsuario(user);
 		session.setAttribute("alquiler", alq);
+		
 		
 		///////////////////////
 		

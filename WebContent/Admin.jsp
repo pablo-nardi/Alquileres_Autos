@@ -16,7 +16,19 @@
 	
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
- 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	    <script type="text/javascript">
+	function cargarFormulario(met) {
+		document.formAuto.action=met;
+	}
+	function cerrarSesion(){
+		if(confirm("Desea cerrar la sesion?")){
+			window.location.href = "login.jsp?estado=CERRARSESION";	
+		}
+		
+	}
+    </script>
+	
 	
 	<title>Sistemas</title>
 	<style>
@@ -45,7 +57,8 @@
   <a class="navbar-brand" href="index.jsp">Inicio</a>
   <a class="navbar-brand" href="Admin.jsp">Home</a>
  
-  <a class="navbar-brand" href="#">Logout</a>
+  <button type="button" class="btn btn-outline-warning" onclick="javascript: cerrarSesion()" >Logout</button>
+
 
 	</nav>
 	<% 	
@@ -60,17 +73,29 @@
 
 	<h1>Administracion de sistemas</h1>
 	
-	<h2>ABMs de Sistemas</h2>
-    <ul>
-    	<li><a href="ABMModelos.jsp">IR a ABM Modelos</a></li>
-    	<li><a href="ABMTipoDeAuto.jsp">IR a ABM Tipos de Autos</a></li>
-    	<li><a href="ABMProvincias.jsp">IR a ABM de Provincias</a></li>
-    	<li><a href="ABMUsuario.jsp">IR a ABM Usuarios</a></li>
-    	<li><a href="ABMSucursales.jsp">IR a ABM Sucursales</a></li>
-    	<li><a href="ABMAutos.jsp">IR a ABM de Autos</a></li>
-    	<li><a href="ABMExtras.jsp">IR a ABM de Extras</a></li>
-    	<li><a href="ABMPlanDePago.jsp">IR a ABM de Planes de Pago</a></li>
-    </ul>
+	
+	<main>
+		<div>
+			<h2>ABMs de Sistemas</h2>		
+		    <ul>
+		    	<li><a href="ABMModelos.jsp">IR a ABM Modelos</a></li>
+		    	<li><a href="ABMTipoDeAuto.jsp">IR a ABM Tipos de Autos</a></li>
+		    	<li><a href="ABMProvincias.jsp">IR a ABM de Provincias</a></li>
+		    	<li><a href="ABMUsuario.jsp">IR a ABM Usuarios</a></li>
+		    	<li><a href="ABMSucursales.jsp">IR a ABM Sucursales</a></li>
+		    	<li><a href="ABMAutos.jsp">IR a ABM de Autos</a></li>
+		    	<li><a href="ABMExtras.jsp">IR a ABM de Extras</a></li>
+		    	<li><a href="ABMPlanDePago.jsp">IR a ABM de Planes de Pago</a></li>
+		    </ul>
+	    </div>
+	    	<h2>Home del Usuario</h2>
+	    	<ul>
+	    		<li><a href="Usuario.jsp">IR a Pagina de usuario</a></li>
+	    	</ul>
+	    <div>
+	    	
+	    </div>
+    </main>
     <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones 
     de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final.
 

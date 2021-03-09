@@ -19,7 +19,7 @@ public class DatosAutos {
 	
 	
 	
-	public LinkedList<Auto> getAutosFromSucursal(int idSuc){
+	public LinkedList<Auto> getAutosFromModelo(int idMod)throws SQLException{
 	
 		LinkedList<Auto> autos = new LinkedList<>();
 		Auto auto = null;
@@ -27,28 +27,31 @@ public class DatosAutos {
 		ResultSet rs=null;
 		
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM autos WHERE idSucursal=?");
-			stmt.setInt(1, idSuc);
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM autos WHERE idModelo=?");
+			stmt.setInt(1, idMod);
 			rs = stmt.executeQuery();
 			
-			if(rs != null && rs.next()) {
-				auto = new Auto();
-				auto.setPatente(rs.getString("patente"));
-				auto.setEstado(Auto.Estado.valueOf(rs.getString("estado")));
-				auto.setCapacidadDelTanque(rs.getFloat("capacidadTanque"));
-				auto.setKilometraje(rs.getFloat("kilometraje"));
-				//FALTA TERMINAR
+			if(rs != null) {
+				while(rs.next()) {
+					auto = new Auto();
+					auto.setPatente(rs.getString("patente"));
+					auto.setCapacidadDelTanque(rs.getFloat("capacidadTanque"));
+					auto.setKilometraje(rs.getFloat("kilometraje"));
+					
+					autos.add(auto);
+					
+				}
 				
 			}
 		}catch(Exception ex) {
-			
+			throw ex;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 		return autos;		

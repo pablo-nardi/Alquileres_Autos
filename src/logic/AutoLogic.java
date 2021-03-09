@@ -36,4 +36,7 @@ public class AutoLogic {
 	public LinkedList<Auto> getAutosAlt(Date fecRet, Date fecDev)throws SQLException{
 		return da.getAutosAlt(fecRet, fecDev);
 	}
+	public  LinkedList<Auto> getAutosFromModelo(int id)throws SQLException{
+		return da.getAutosFromModelo(id);
+	}
 }

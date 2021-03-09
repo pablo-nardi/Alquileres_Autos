@@ -22,16 +22,20 @@ public class FormularioDePago extends HttpServlet {
         super();
         ml =  new ModeloLogic();
         ul = new UsuarioLogic();
-        user = new Usuario();
+        
+        
     }
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-		try {
+		try { 
+			String estado=null;
 			HttpSession session = req.getSession();
+			
 			
 			user = ul.getOne(req.getParameter("txtCuil"));
 			if(user == null) {
+				user = new Usuario();
 				user.setNombre(req.getParameter("txtNombre"));
 				user.setApellido(req.getParameter("txtApellido"));
 				user.setCuil(req.getParameter("txtCuil"));
@@ -42,17 +46,21 @@ public class FormularioDePago extends HttpServlet {
 				user.setCalle(req.getParameter("txtCalle") + " " + req.getParameter("txtNum"));
 				user.setDepartamento(req.getParameter("txtDpto"));
 				user.setPiso(Integer.parseInt(req.getParameter("txtPiso")));
+				
+			    estado = "A"; // A --> alta
+			}else {
+				estado = "M"; // --> Modificar
 			}
 			
 			
 			
 			
 			session.setAttribute("usuario", user);
-			
+			session.setAttribute("estado", estado);
 			//req.getRequestDispatcher("WEB-INF/FormularioDePago.jsp").forward(req, response);
 			req.getRequestDispatcher("FormularioDePago.jsp").forward(req, response);
 		
-		}catch (Exception e) {	response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+		}catch (Exception e) {	response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString()+"&path="+this.getServletName());}
 		
 			
 		

@@ -45,14 +45,14 @@ public class DatosPlanesDePago {
 		}
 		return planes;
 	}
-	public LinkedList<PlanDePago> getPlanes() throws SQLException{
+	public LinkedList<PlanDePago> getBancos() throws SQLException{
 		LinkedList<PlanDePago> planes = new LinkedList<>();
 		PlanDePago plan = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		
 		try {
-			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT DISTINCT entidadCrediticia,nombreTarjeta FROM planesDePago");
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT DISTINCT entidadCrediticia FROM planesDePago");
 			rs = stmt.executeQuery();
 			
 			if(rs != null) {
@@ -60,6 +60,37 @@ public class DatosPlanesDePago {
 					plan = new PlanDePago();
 					
 					plan.setEntidadCrediticia(rs.getString("entidadCrediticia"));
+					
+					planes.add(plan);
+				}
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			}catch(SQLException e) {
+				throw e;
+			}
+		}
+		return planes;
+	}
+	public LinkedList<PlanDePago> getTarjetas() throws SQLException{
+		LinkedList<PlanDePago> planes = new LinkedList<>();
+		PlanDePago plan = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT DISTINCT nombreTarjeta FROM planesDePago");
+			rs = stmt.executeQuery();
+			
+			if(rs != null) {
+				while(rs.next()) {
+					plan = new PlanDePago();
+					
 					plan.setNombreTarjeta(rs.getString("nombreTarjeta"));
 					
 					planes.add(plan);
@@ -78,7 +109,6 @@ public class DatosPlanesDePago {
 		}
 		return planes;
 	}
-	
 	public PlanDePago getOne(int idPlan) throws SQLException{
 		PlanDePago plan = null;
 		PreparedStatement stmt=null;
@@ -116,6 +146,7 @@ public class DatosPlanesDePago {
 		PlanDePago plan = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
+		int num = 0;
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT idPlan FROM planesDePago WHERE entidadCrediticia=? and nombreTarjeta=? and cantCuotas=?");
@@ -127,7 +158,7 @@ public class DatosPlanesDePago {
 			if(rs != null && rs.next()) {
 					plan = new PlanDePago();
 					
-					plan.setIdPlan(rs.getInt("idPlan"));
+					num = rs.getInt("idPlan");
 					
 					
 			}
@@ -142,7 +173,7 @@ public class DatosPlanesDePago {
 				throw e;
 			}
 		}
-		return plan.getIdPlan();
+		return num;
 	}
 	public void addPlan(PlanDePago plan) throws SQLException {
 		PreparedStatement stmt=null;

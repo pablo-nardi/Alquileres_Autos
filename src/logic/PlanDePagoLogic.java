@@ -30,7 +30,10 @@ public class PlanDePagoLogic {
 	public void deletePlanDePago(int id) throws SQLException {
 		dpp.deleteExtra(id);
 	}
-	public LinkedList<PlanDePago> getPlanes() throws SQLException {
-		return dpp.getPlanes();
+	public LinkedList<PlanDePago> getBancos() throws SQLException {
+		return dpp.getBancos();
+	}
+	public LinkedList<PlanDePago> getTarjetas() throws SQLException {
+		return dpp.getTarjetas();
 	}
 }

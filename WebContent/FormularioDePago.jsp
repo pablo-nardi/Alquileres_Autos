@@ -32,11 +32,14 @@
 	</script>
 	
 	<%
-	int mes = 0 , anio = 0;
+	//int mes = 0 , anio = 0;
+	//CharSequence mes=null, anio=null;
+	String mes=null, anio=null;
 	PlanDePago plan = null;
-    LinkedList<PlanDePago> planes = new LinkedList<>();
+    LinkedList<PlanDePago> pBancos = new LinkedList<>(),pTarjetas = new LinkedList<>() ;
     PlanDePagoLogic ppl = new PlanDePagoLogic();
-    planes = ppl.getPlanes();
+    pBancos = ppl.getBancos();
+    pTarjetas = ppl.getTarjetas();
 		
 	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 	Usuario user = (Usuario) session.getAttribute("usuario");
@@ -65,26 +68,27 @@
 
 	<form action="ResumenReserva" name="myForm" method="post">	
 		<div class="container">		 
-			<div class="row">
+			<div 
+			class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
 			          		
 							    	<label>Tarjeta:</label>
 									<select name="selectTarjeta" class="form-control">
-										<%for(PlanDePago pdp: planes){  String value = pdp.getNombreTarjeta(); %>
-											<option value="<%=value%>" ><%=pdp.getNombreTarjeta() %></option>
+										<%for(PlanDePago pdp: pTarjetas){  String value = pdp.getNombreTarjeta(); %>
+											<option value="<%=value%>" ><%=value %></option>
 										<%} %>
 									</select>
 									
 									<label>Banco:</label>
 									<select name="selectBanco" class="form-control">
-										<%for(PlanDePago pdp: planes){  String value = pdp.getEntidadCrediticia(); %>
-											<option value="<%=value%>" ><%=pdp.getEntidadCrediticia() %></option>
+										<%for(PlanDePago pdp: pBancos){  String value = pdp.getEntidadCrediticia(); %>
+											<option value="<%=value%>" ><%=value %></option>
 										<%} %>
 									</select>	
 												
 									<label>Cuotas:</label>
 									<select name="selectCuotas" class="form-control">
-										<%for(int i = 3; i < 15; i+=3){   %>
+										<%for(int i = 3; i <= 9 ; i+=3){   %>
 											<option value="<%=i%>" ><%=i %></option>
 										<%} %>
 									</select>				
@@ -107,12 +111,12 @@
 									
 									<%
 												if(user.getVencUltTarjeta()!=null){
-													anio = Integer.parseInt(user.getVencUltTarjeta().subSequence(1, 2).toString())  ;	
-													mes = Integer.parseInt(user.getVencUltTarjeta().subSequence
+													anio = user.getVencUltTarjeta().subSequence(0, 4).toString()  ;	
+													mes = user.getVencUltTarjeta().subSequence
 																(
-																 user.getVencUltTarjeta().length() - 2 ,
+																 user.getVencUltTarjeta().length()-1 ,
 																 user.getVencUltTarjeta().length() 
-																 ).toString());
+																 ).toString();
 												}
 												
 									%>
@@ -121,17 +125,17 @@
 									<div>
 										<select name="selectMes" class="form-control" style=" float:left; width: 25%;">
 											<%for(int i = 1; i <= 12; i++){   %>
-												<option value="<%=i%>" <%=4==i?"selected":""%> ><%=i %></option>
+												<option value="<%=i%>" <%=mes!=null&&i==Integer.parseInt(mes)?"selected":""%> ><%=i %></option>
 											<%} %>
 										</select>
 										<select name="selectYear" class="form-control" style=" width: 25%;" >
 											<%for(int i = 2021; i <= 2032; i++){   %>
-												<option value="<%=i%>" <%=2029==i?"selected":""%> ><%=i %></option>
+												<option value="<%=i%>" <%=mes!=null&&i==Integer.parseInt(anio)?"selected":""%> ><%=i %></option>
 											<%} %>
 										</select>
 									</div>		
 									<label>Codigo de Seguridad:</label>
-									<input type="number" name="txtCodigo"  class="form-control">
+									<input type="text" name="txtCodigo"  class="form-control">
 		   			
 			   	</div>
 			 </div>

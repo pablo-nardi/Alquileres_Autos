@@ -21,6 +21,7 @@ public class CrearAlquiler extends HttpServlet {
 	PlanDePagoLogic ppl;
 	Alquiler alq;
 	AutoLogic aul;
+	int num;
 	
 	
     public CrearAlquiler() {
@@ -30,34 +31,52 @@ public class CrearAlquiler extends HttpServlet {
         ppl = new PlanDePagoLogic();
         alq = new Alquiler();
         aul = new AutoLogic();
+        
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 			HttpSession session = request.getSession();
+			String estado = (String) session.getAttribute("estado");
 			
-			ul.addUser((Usuario) session.getAttribute("usuario")); 
 			alq = (Alquiler) session.getAttribute("alquiler");
-			alq.setEstado(Alquiler.Estado.valueOf("reservado"));
-			alq.getPlan().setIdPlan(ppl.getId(	alq.getPlan().getEntidadCrediticia(),
+			
+			num = ppl.getId(	alq.getPlan().getEntidadCrediticia(),
 												alq.getPlan().getNombreTarjeta(),
 												alq.getPlan().getCantCuotas()
 											 )
-									);
-			alq.setAuto(aul.getOne("generico"));
+									;
+			if(num != 0) {
+		
+				alq.setEstado(Alquiler.Estado.valueOf("reservado"));
+				
+				alq.getPlan().setIdPlan(num);
+				
+				alq.setAuto(aul.getOne("generico"));
+				
+				//VAlido si ya existe el usuario o hay que crearlo
+				if(estado.toUpperCase().equals("A")) {
+					ul.addUser((Usuario) session.getAttribute("usuario"));
+				}else if(estado.toUpperCase().equals("M")) {
+					ul.updateUser((Usuario) session.getAttribute("usuario"));
+				}
+				
+				//guardo alquiler
+				al.addAlquiler(alq);
+			}else {
+				throw new Exception("No se encontro el plan que selecciono");
+			}
 			
-			al.addAlquiler(alq);
+			
+			
+			
+			
 			
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 			
-		}catch (SQLException e) {
+		}catch (Exception e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
-		
-
-		
-		
-		
 		
 	}
 

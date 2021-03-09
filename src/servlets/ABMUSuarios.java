@@ -93,7 +93,7 @@ public class ABMUSuarios extends HttpServlet {
 			
 		}else {
 			throw new Exception(vpl.validaPass(newpass, repitedpass));
-		}
+		}//EL METODO VALIDA PASS DEVUELVE LO NECESARIO PARA MOSTRAR EN LA EXCEPCION
 	}
 
 }

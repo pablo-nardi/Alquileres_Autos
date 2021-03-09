@@ -30,7 +30,7 @@ public class DatosUsuario {
 					user.setCuil(rs.getString("cuil"));
 					user.setMail(rs.getString("mail"));
 					user.setNombre(rs.getString("nombre"));
-					user.setPassword(rs.getString("password"));
+					//user.setPassword(rs.getString("password"));
 					user.setPiso(rs.getInt("piso"));
 					user.setDepartamento(rs.getString("dpto"));
 					user.setTelefono(rs.getString("telefono"));

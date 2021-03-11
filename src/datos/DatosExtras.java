@@ -121,6 +121,7 @@ public class DatosExtras {
 		}
 	}
 	public void deleteExtra(int idExtra)throws SQLException{
+
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from extras where idExtra=?");
@@ -140,5 +141,34 @@ public class DatosExtras {
 			}
 		}
 	
+	}
+	public void addCantidad(int cant, int idAlq, int extra)throws SQLException {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		int id;
+		
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO cantidades (cantidad, idAlquiler, idExtra) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, cant);
+			stmt.setInt(2, idAlq);
+			stmt.setInt(3, extra);
+			
+			stmt.executeUpdate();
+			
+			keyResultSet = stmt.getGeneratedKeys();
+			if(keyResultSet!=null && keyResultSet.next()) {
+				id = keyResultSet.getInt(1);
+			}
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(keyResultSet!=null) {keyResultSet.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	}
 }

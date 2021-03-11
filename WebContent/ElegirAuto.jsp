@@ -46,7 +46,7 @@
   			height: 50px;
   
 		}
-		.container p{
+		.container p:first-child{
 			color: #f5f5f5;
 		}
 		
@@ -56,7 +56,18 @@
 	AutoLogic au = new AutoLogic();
 	AlquilerLogic al = new AlquilerLogic();
 	LinkedList<Auto> autos = au.getAutosFromModelo(Integer.parseInt(request.getParameter("idMod")));
-	session.setAttribute("alquiler",al.getAlquiler(Integer.parseInt(request.getParameter("idAlq"))));
+	Alquiler alq = al.getAlquiler(Integer.parseInt(request.getParameter("idAlq")));
+	session.setAttribute("alquiler",alq);
+	String estado = null;
+	Date fecRetPrev = alq.getFecRetiroPrevisto();
+	
+	if(fecRetPrev.compareTo(Calendar.getInstance().getTime()) != 0){
+		estado = "La fecha de retiro prevista es diferente al dia de hoy,POR FAVOR, corrobore con el Cliente antes de continuar";
+	}
+		
+	
+	
+	
 	%>
 	
 	
@@ -73,6 +84,11 @@
 	<form action="" name="myForm" method="post">
 	
 		    <div class="container" style="background-color:#96c287; margin-top:100px;">	
+				<div class="alert alert-warning alert-dismissible" style="display:<%=estado==null?"none":"block"  %>;" >
+		  			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		  			<!--  label></label-->
+		  			<p style="font-size:30px;" ><%=estado==null?"":estado%> </p>
+				</div>
 		     	<div class="row">
 		     		<div class="col-sm-8"><!-- col-12 col-sm-12 col-lg-12 -->
 			            <div class="table-responsive">

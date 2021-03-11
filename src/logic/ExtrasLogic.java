@@ -28,4 +28,7 @@ public class ExtrasLogic {
 	public void deleteExtra(int id) throws SQLException {
 		de.deleteExtra(id);
 	}
+	public void addCantidad(int cant, int idAlq, int extra)throws SQLException{
+		de.addCantidad(cant, idAlq, extra);
+	}
 }

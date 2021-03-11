@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 
-<title>Cargar Extras</title>
+<title>Resumen Retiro</title>
 
 <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -27,9 +27,6 @@
 			window.location.href = "login.jsp?estado=CERRARSESION";	
 		}
 		
-	}
-	function buscarAlquileres(met){
-		document.myForm.action=met;
 	}
     </script>
 	<style>
@@ -52,15 +49,18 @@
 		
 	</style>
 	<%
+	AlquilerLogic al = new AlquilerLogic();
+	Alquiler alq = al.getAlquiler(2);
+	//Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 	
-	ExtrasLogic el = new ExtrasLogic();
-	LinkedList<Extras> extras = el.getAll();
+	//CALCULO CANTIDAD DE DIAS
 	
-	
+		Date fechaRetiro= alq.getFecRetiroPrevisto();
+		Date fechaDevolucion= alq.getFecDevPrevista();
+			
+		long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
 	
 	%>
-	
-	
 </head>
 <body>
 	<nav class="navbar navbar-dark">
@@ -71,40 +71,24 @@
 
 	</nav>
 	
-	<h1>Elija los elementos extras para el vehiculo</h1>
-				
+	<h1>Perfecto! El cliente ya puede retirar el vehiculo</h1>
+				<form action="" name="myForm" method="post">
 					<div class="container"> 
 				  		<div class="row">
-				  			<table class="table table-hover">
-				                <thead class="thead-dark">
-				                  <tr>
-				                    <th>Descripcion</th>
-				                    <th>Precio</th>
-									<th>Accion</th>
-				                  </tr>
-				                </thead>
-				                <tbody>
-				                <%for(Extras e : extras) { %>
-					                	<tr>
-					                		<td><%=e.getDescripcion() %></td>
-						                    <td><%=e.getPrecio() %></td>
-						                    <td>
-						                    	<form action="CargarExtras" method="POST">
-						                    		<input type="text" name="cant">
-						                    		<input hidden="hidden" type="text" value="<%=e.getCodigo()  %>" name="cod">
-						                    		<input type='submit' value='Submit'>
-						                    	</form>
-						                    </td>
-						                </tr>
-				                  <%}%>
-				                </tbody>
-				              </table>
+				  			<div class="col-sm-4" style="background-color:lavender;">
+								<label>Modelo:<%=alq.getModelo().getDenominacion() %></label><br>
+								<label>Patente:</label><br>
+								
+						   	</div>
+						   	<div class="col-sm-4" style="background-color:lavender;">
+						 		<label>Sucursal de retiro: <%=alq.getSucursal().getDenominacion() %></label><br>
+								<label>Total:<%=alq.getPrecioDiario() * dias %></label><br>
+								<button class="btn btn-primary" onclick="javascript: crearAlquiler('CrearAlquiler')" >Terminar</button>
+						 	</div>
 				  		
-				  		
-						    	
 		   				</div>
 	   				</div>
-	   
+	   			</form>
 	
 	<footer class="navbar navbar-fixed-bottom">
 	  <div class="container">

@@ -37,15 +37,18 @@ public class CargarConductor extends HttpServlet {
 			
 			if(validar(request)) {
 				mapearADatos(request);
-				cl.addConductor(con);
+				//cl.addConductor(con);
 				
 				alqCon.setDni(con.getDni());
 				alqCon.setIdAlquiler(alq.getIdAlquiler());
-				cl.addAlqCon(alqCon);
+				//cl.addAlqCon(alqCon);
+				
 				
 				session.setAttribute("alquiler", alq);
+				session.setAttribute("conductor", con);
+				session.setAttribute("alqcon",alqCon );
 				
-				request.getRequestDispatcher("CargarConductor.jsp").forward(request, response);
+				request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
 			}else {
 				throw new Exception("Algo salio mal en la validacion");
 			}

@@ -56,11 +56,7 @@ public class ABMUSuarios extends HttpServlet {
 				response.sendRedirect("/Alquileres_Autos/ABMUsuario.jsp");
 				break;
 			}
-		} catch (SQLException e) {
-			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
-		catch (NumberFormatException e) {
-			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());
-		} catch (Exception e) {
+		}catch (Exception e) {
 			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());
 		}
 	}

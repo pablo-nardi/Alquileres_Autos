@@ -53,9 +53,7 @@ public class ABMAutos extends HttpServlet {
 				response.sendRedirect("/Alquileres_Autos/ABMAutos.jsp");
 				break;
 			}
-		}catch (SQLException e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
-		catch (NumberFormatException e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
-		catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}
 	private void mapearADatos(HttpServletRequest req) throws NumberFormatException, SQLException, Exception {
 		auto.setCapacidadDelTanque(Float.parseFloat(req.getParameter("txtCapacidad")));

@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 
-<title>Cargar Conductor</title>
+<title>Cargar Extras</title>
 
 <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -51,19 +51,19 @@
 		}
 		
 	</style>
-	
 	<%
 	
-	AutoLogic al = new AutoLogic();
-	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
-	alq.setAuto(al.getOne(request.getParameter("idAut")));
+	ExtrasLogic el = new ExtrasLogic();
+	LinkedList<Extras> extras = el.getAll();
 	
-	session.setAttribute("alquiler", alq);
+	
+	
 	%>
+	
 	
 </head>
 <body>
-		<nav class="navbar navbar-dark">
+	<nav class="navbar navbar-dark">
   	<a class="navbar-brand" href="index.jsp">Inicio</a>
   	<a class="navbar-brand" href="Usuario.jsp">Home</a>
  
@@ -71,32 +71,40 @@
 
 	</nav>
 	
-	
-	<h1>Cargar Conductor</h1>
-	
-	<form action="CargarConductor" name="myForm" method="post">			
+	<h1>Elija los elementos extras para el vehiculo</h1>
+				
 					<div class="container"> 
 				  		<div class="row">
-						    <div class="col-sm-12" style="background-color:lavender;">
-						    	<label>Nombre y Apellido:</label>
-								<input type="text" name="txtNomApe"  class="form-control">
-						    	<label>Fecha de Nacimiento:</label>
-								<input type="date" name="txtFechaNac"  class="form-control">
-								<label>DNI:</label>
-								<input type="number" name="txtDni"  class="form-control">
-								<label>Numero Licencia:</label>
-								<input type="number" name="txtLicencia"  class="form-control">
-								<label>Fecha Licencia:</label>
-								<input type="date" name="txtFechaLic"  class="form-control">
-								<label>Celular:</label>
-								<input type="number" name="txtCel"  class="form-control">
-								<label>Mail:</label>
-								<input type="email" name="txtMail"  class="form-control"><br>
-								<button class="btn btn-primary">Continuar</button>
-				   			</div>
+				  			<table class="table table-hover">
+				                <thead class="thead-dark">
+				                  <tr>
+				                    <th>Descripcion</th>
+				                    <th>Precio</th>
+									<th>Accion</th>
+				                  </tr>
+				                </thead>
+				                <tbody>
+				                <%for(Extras e : extras) { %>
+					                	<tr>
+					                		<td><%=e.getDescripcion() %></td>
+						                    <td><%=e.getPrecio() %></td>
+						                    <td>
+						                    	<form action="ServletPrueba" method="POST">
+						                    		<input type="text" name="cant">
+						                    		<input hidden="hidden" type="text" value="<%=e.getCodigo()  %>" name="cod">
+						                    		<input type='submit' value='Submit'>
+						                    	</form>
+						                    </td>
+						                </tr>
+				                  <%}%>
+				                </tbody>
+				              </table>
+				  		
+				  		
+						    	
 		   				</div>
 	   				</div>
-	   			</form>
+	   
 	
 	<footer class="navbar navbar-fixed-bottom">
 	  <div class="container">

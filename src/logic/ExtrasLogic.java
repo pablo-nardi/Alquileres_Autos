@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import datos.DatosExtras;
+import entidades.Cantidad;
 import entidades.Extras;
 
 public class ExtrasLogic {
@@ -31,4 +32,7 @@ public class ExtrasLogic {
 	public void addCantidad(int cant, int idAlq, int extra)throws SQLException{
 		de.addCantidad(cant, idAlq, extra);
 	}
+	public void addCantidades(LinkedList<Cantidad> cantidades)throws SQLException{
+		de.addCantidades(cantidades);
+	}	
 }

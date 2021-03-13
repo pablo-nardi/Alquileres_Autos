@@ -1,6 +1,9 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +28,41 @@ public class CargarExtras extends HttpServlet {
 		
 		try {
 			
+			//OBTENGO SESSION
 			
 			HttpSession session = request.getSession();
+			LinkedList<Cantidad> cantidades = (LinkedList<Cantidad>) session.getAttribute("cantidades");
 			Alquiler alq = (Alquiler) session.getAttribute("alquiler");
+		
+			//CALCULO NUEVO PRECIO DEL ALQUILER SEGUN EL EXTRA ELEGIDO
+						
+			Date fechaRetiro= Date.valueOf(request.getParameter("fechaRetiro"));
+			Date fechaDevolucion= Date.valueOf(request.getParameter("fechaDevolucion"));
+			
+			long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
+			
+			//CALCULO VALOR DE EXTRA Y DIVIDO POR CANTIDAD DE DIAS
+			
+			Double valorExtra = Double.parseDouble(request.getParameter("precio")) / (double)dias;
+			
+			alq.setPrecioDiario(alq.getPrecioDiario() + valorExtra);
+			
+			//PREPARO OBJETO CANTIDAD
+			
+			Cantidad c = new Cantidad(
+										Integer.parseInt(request.getParameter("cant")),
+										alq.getIdAlquiler(),
+										Integer.parseInt(request.getParameter("cod"))
+					);
+			cantidades.add(c);
 			
 			
-			el.addCantidad(	Integer.parseInt(request.getParameter("cant")),
-							alq.getIdAlquiler(),
-							Integer.parseInt(request.getParameter("cod")));
 			
-			request.getRequestDispatcher("ResumenRetiro.jsp").forward(request, response);
+			session.setAttribute("alquiler", alq);
+			session.setAttribute("cantidades", cantidades);
+			
+			
+			request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
 			
 		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 		

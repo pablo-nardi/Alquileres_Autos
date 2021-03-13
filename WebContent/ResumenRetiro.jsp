@@ -72,7 +72,7 @@
 	</nav>
 	
 	<h1>Perfecto! El cliente ya puede retirar el vehiculo</h1>
-				<form action="" name="myForm" method="post">
+				<form action="RetirarAuto" name="myForm" method="post">
 					<div class="container"> 
 				  		<div class="row">
 				  			<div class="col-sm-4" style="background-color:lavender;">
@@ -83,7 +83,7 @@
 						   	<div class="col-sm-4" style="background-color:lavender;">
 						 		<label>Sucursal de retiro: <%=alq.getSucursal().getDenominacion() %></label><br>
 								<label>Total:<%=alq.getPrecioDiario() * dias %></label><br>
-								<button class="btn btn-primary" onclick="javascript: crearAlquiler('CrearAlquiler')" >Terminar</button>
+								<button class="btn btn-primary">Terminar</button>
 						 	</div>
 				  		
 		   				</div>

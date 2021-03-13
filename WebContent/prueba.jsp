@@ -36,11 +36,10 @@
 
 
 	<h1>Probando variables varias</h1>
-	
 
-
+	</p>
 	
-		<form action="CrearAlquiler" method="post">			
+		<form action="ServletPrueba" method="post">			
 			 <input type="hidden" name="texto" id="texto" value="hola">
 			<button>boton</button>
 		</form>

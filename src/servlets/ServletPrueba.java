@@ -2,12 +2,19 @@ package servlets;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
+import datos.*;
+import entidades.*;
 
 @WebServlet("/ServletPrueba")
 @MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
@@ -35,7 +42,24 @@ public class ServletPrueba extends HttpServlet {
         }
         getServletContext().getRequestDispatcher("/NewFile.jsp").forward(request, response);*/
 		
-		request.getRequestDispatcher("/NewFile.jsp").forward(request, response);
+		try {
+			LinkedList<Cantidad> cantidades = new LinkedList<>();
+			Cantidad c1 = new Cantidad(5, 2,2);
+			Cantidad c2 = new Cantidad(5, 2,2);
+			
+			cantidades.add(c1);
+			cantidades.add(c2);
+			
+			DatosExtras de = new DatosExtras();
+			
+			de.addCantidades(cantidades);
+			
+			
+		}catch (SQLException e) {
+			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+		
+		
+		request.getRequestDispatcher("/prueba.jsp").forward(request, response);
 	}
 
 }

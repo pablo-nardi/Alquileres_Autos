@@ -11,7 +11,6 @@
 </head>
 <body>
 	<p> hola </p>
-	<p><%=request.getParameter("cant") %></p>
-	<p><%=request.getParameter("cod") %></p>	
+	<p><%=request.getAttribute("prueba") %>
 </body>
 </html>

@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,7 @@ public class CargarConductor extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			alq = (Alquiler) session.getAttribute("alquiler");
+			LinkedList<Cantidad> cantidades = new LinkedList<>();
 			
 			if(validar(request)) {
 				mapearADatos(request);
@@ -47,6 +49,7 @@ public class CargarConductor extends HttpServlet {
 				session.setAttribute("alquiler", alq);
 				session.setAttribute("conductor", con);
 				session.setAttribute("alqcon",alqCon );
+				session.setAttribute("cantidades", cantidades);
 				
 				request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
 			}else {

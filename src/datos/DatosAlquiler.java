@@ -1,5 +1,6 @@
 package datos;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -155,5 +156,30 @@ public class DatosAlquiler {
 		
 		
 		return alq;
+	}
+	public void updateAlquiler(Alquiler alq) throws SQLException{
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("UPDATE alquileres set estado=?, fecRetiroReal=?, patente=? WHERE idAlquiler=?");
+			
+			stmt.setString(1, alq.getEstado().toString());
+			stmt.setDate(2, alq.getFecRetiroReal());
+			stmt.setString(3,alq.getAuto().getPatente());
+			stmt.setInt(4, alq.getIdAlquiler());
+			
+			
+			stmt.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
 	}
 }

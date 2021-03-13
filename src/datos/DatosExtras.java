@@ -99,6 +99,40 @@ public class DatosExtras {
 			}
 		}
 	}
+	public void addCantidades(LinkedList<Cantidad> cantidades) throws SQLException {
+		PreparedStatement stmt=null;
+		ResultSet keyResultSet=null;
+		
+		
+		
+		try {
+			
+			for(Cantidad c: cantidades) {
+				stmt=DbConnector.getInstancia().getConn().prepareStatement("INSERT INTO cantidades (cantidad, idAlquiler, idExtra) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				stmt.setInt(1, c.getCantidad());
+				stmt.setInt(2, c.getIdAql());
+				stmt.setInt(3, c.getIdExtra());
+				stmt.executeUpdate();
+				
+				keyResultSet = stmt.getGeneratedKeys();
+				if(keyResultSet!=null && keyResultSet.next()) {
+					c.setIdCant(keyResultSet.getInt(1));
+				}
+			}
+		
+			
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(keyResultSet!=null) {keyResultSet.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+	}
 	public void updateExtra(Extras extra) throws SQLException{
 		PreparedStatement stmt = null;
 		

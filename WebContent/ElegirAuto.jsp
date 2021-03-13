@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page errorPage="paginaErrordesdeJSP.jsp" %>
 <%@	page import="java.util.*"%>
+<%@	page import="java.sql.Date"%>
 <%@ page import="entidades.*" %>
 <%@ page import="logic.*" %>
 <!DOCTYPE html>
@@ -59,8 +60,9 @@
 	Alquiler alq = al.getAlquiler(Integer.parseInt(request.getParameter("idAlq")));
 	session.setAttribute("alquiler",alq);
 	String estado = null;
-	Date fecRetPrev = alq.getFecRetiroPrevisto();
+	java.sql.Date fecRetPrev = alq.getFecRetiroPrevisto();
 	
+	//VERIFICO SI LA FECHA DE RETIRO PREVISTA ES IGUAL AL DIA DE HOY, SINO AVISO 
 	if(fecRetPrev.compareTo(Calendar.getInstance().getTime()) != 0){
 		estado = "La fecha de retiro prevista es diferente al dia de hoy,POR FAVOR, corrobore con el Cliente antes de continuar";
 	}

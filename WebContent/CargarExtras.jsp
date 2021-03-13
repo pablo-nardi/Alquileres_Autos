@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page errorPage="paginaErrordesdeJSP.jsp" %>
 <%@	page import="java.util.*"%>
+<%@ page import="java.sql.Date" %>
 <%@ page import="entidades.*" %>
 <%@ page import="logic.*" %>
 <!DOCTYPE html>
@@ -56,7 +57,14 @@
 	ExtrasLogic el = new ExtrasLogic();
 	LinkedList<Extras> extras = el.getAll();
 	
+	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 	
+	//CALCULO NUEVO PRECIO DEL ALQUILER SEGUN EL EXTRA ELEGIDO
+	
+		Date fechaRetiro= alq.getFecRetiroPrevisto();
+		Date fechaDevolucion= alq.getFecDevPrevista();
+		
+		long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
 	
 	%>
 	
@@ -92,17 +100,21 @@
 						                    	<form action="CargarExtras" method="POST">
 						                    		<input type="text" name="cant">
 						                    		<input hidden="hidden" type="text" value="<%=e.getCodigo()  %>" name="cod">
-						                    		<input type='submit' value='Submit'>
+						                    		<input hidden="hidden" type="text" value="<%=e.getPrecio()  %>" name="precio">
+						                    		<input type='submit' value='Elegir'>
 						                    	</form>
 						                    </td>
 						                </tr>
 				                  <%}%>
 				                </tbody>
 				              </table>
-				  		
-				  		
-						    	
-		   				</div>
+				              <label>Precio total del alquiler:</label>
+						<input type="text" value="<%=alq.getPrecioDiario() * dias %>" name="totalAlquiler"  class="form-control">
+	
+				  		</div>
+		   				<form action="ResumenRetiro.jsp" method="POST">
+		   					<input type='submit' value='Cargar Extras'>
+		   				</form>
 	   				</div>
 	   
 	

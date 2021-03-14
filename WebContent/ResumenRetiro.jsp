@@ -16,7 +16,7 @@
 
        <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/CSS/ABM.css">
+	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -47,11 +47,19 @@
 			color: #f5f5f5;
 		}
 		
+		
 	</style>
+		<% 	
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
 	<%
-	AlquilerLogic al = new AlquilerLogic();
-	Alquiler alq = al.getAlquiler(2);
-	//Alquiler alq = (Alquiler) session.getAttribute("alquiler");
+	//AlquilerLogic al = new AlquilerLogic();
+	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
+	Conductor con = (Conductor) session.getAttribute("conductor");
 	
 	//CALCULO CANTIDAD DE DIAS
 	
@@ -77,11 +85,13 @@
 				  		<div class="row">
 				  			<div class="col-sm-4" style="background-color:lavender;">
 								<label>Modelo:<%=alq.getModelo().getDenominacion() %></label><br>
-								<label>Patente:</label><br>
-								
+								<label>Patente:<%=alq.getAuto().getPatente() %></label><br>
+								<label>Cliente:<%=alq.getUsuario().getNombre()%><%=", "%><%=alq.getUsuario().getApellido() %>, Cuil: <%=alq.getUsuario().getCuil() %></label><br>						   	
+						   		<label>Conductor:<%=con.getNombreApellido() %>, DNI: <%=con.getDni() %></label><br>
 						   	</div>
 						   	<div class="col-sm-4" style="background-color:lavender;">
-						 		<label>Sucursal de retiro: <%=alq.getSucursal().getDenominacion() %></label><br>
+						 		<label>Plan de Pago: <%=alq.getPlan().getNombrePlan() %></label><br>
+						 		<label>Banco: <%=alq.getPlan().getEntidadCrediticia() %> Tarjeta: <%=alq.getPlan().getNombreTarjeta() %> Cant. Cuotas <%=alq.getPlan().getCantCuotas() %></label>
 								<label>Total:<%=alq.getPrecioDiario() * dias %></label><br>
 								<button class="btn btn-primary">Terminar</button>
 						 	</div>

@@ -28,22 +28,23 @@ public class CargarExtras extends HttpServlet {
 		
 		try {
 			
-			//OBTENGO SESSION
+			//OBTENGO SESSION Y OBJETOS NECESARIOS
 			
 			HttpSession session = request.getSession();
 			LinkedList<Cantidad> cantidades = (LinkedList<Cantidad>) session.getAttribute("cantidades");
 			Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 		
-			//CALCULO NUEVO PRECIO DEL ALQUILER SEGUN EL EXTRA ELEGIDO
+			//CALCULO NUEVO PRECIO DEL ALQUILER SEGUN CANTIDAD DE DIAS
 						
-			Date fechaRetiro= Date.valueOf(request.getParameter("fechaRetiro"));
-			Date fechaDevolucion= Date.valueOf(request.getParameter("fechaDevolucion"));
+			Date fechaRetiro= alq.getFecRetiroPrevisto();
+			Date fechaDevolucion= alq.getFecDevPrevista();
 			
 			long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
 			
 			//CALCULO VALOR DE EXTRA Y DIVIDO POR CANTIDAD DE DIAS
 			
-			Double valorExtra = Double.parseDouble(request.getParameter("precio")) / (double)dias;
+			Double valorExtra = Double.parseDouble(request.getParameter("precio")) / (double)dias ;
+			valorExtra = valorExtra + valorExtra *  Double.parseDouble(request.getParameter("cant"));
 			
 			alq.setPrecioDiario(alq.getPrecioDiario() + valorExtra);
 			
@@ -62,7 +63,8 @@ public class CargarExtras extends HttpServlet {
 			session.setAttribute("cantidades", cantidades);
 			
 			
-			request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
+			//request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
+			response.sendRedirect("/Alquileres_Autos/CargarExtras.jsp"); //UTILIZO ESTE PORQUE ENTRA CON LA URL LIMPIA SON VAL EN PARAMETROS
 			
 		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 		

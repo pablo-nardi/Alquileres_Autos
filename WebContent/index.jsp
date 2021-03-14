@@ -12,7 +12,7 @@
 
        <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" href="./CSS/index.css">
+	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
 	
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -22,16 +22,12 @@
 
   <style>
     body{
-      
-
-      /*align-items: center;
-       padding-top: 40px;
-        padding-bottom: 40px;*/
         background-color: #f5f5f5;
     }
     h1{
       background-color: green;
     }
+ 
     
   </style>
   	<script type="text/javascript">
@@ -81,6 +77,8 @@
   <a class="navbar-brand" href="login.jsp">Login</a>
 
 	</nav>
+
+	
 	<form action="" name="myForm" method="post">
 	<%/* */ %>
 		<div class="container-fluid"> 
@@ -126,6 +124,12 @@
 		</div>
 	 
 	</form>
-
+	
+	
+		<footer class="navbar navbar-fixed-bottom">
+		  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
 </body>
 </html>

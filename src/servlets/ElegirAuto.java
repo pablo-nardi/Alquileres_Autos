@@ -33,7 +33,7 @@ public class ElegirAuto extends HttpServlet {
 					alquileres = al.buscarAlquiler(request.getParameter("txtCuil"));
 					
 					if(alquileres.isEmpty()) {
-						throw new Exception("No se encontro el alquiler");
+						throw new Exception("No se encontro el alquiler, Revise el cuil ingresado");
 					}else{
 						request.setAttribute("alquileres", alquileres);
 						request.getRequestDispatcher("BuscarAlquiler.jsp").forward(request, response);

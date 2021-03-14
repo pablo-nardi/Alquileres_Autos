@@ -35,7 +35,7 @@ public class CargarConductor extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			alq = (Alquiler) session.getAttribute("alquiler");
-			LinkedList<Cantidad> cantidades = new LinkedList<>();
+			LinkedList<Cantidad> cantidades = new LinkedList<>();  //ESTO SE HACE PARA PORDER CARGAR TODOS LOS EXTRAS QUE QUIERA
 			
 			if(validar(request)) {
 				mapearADatos(request);
@@ -50,6 +50,7 @@ public class CargarConductor extends HttpServlet {
 				session.setAttribute("conductor", con);
 				session.setAttribute("alqcon",alqCon );
 				session.setAttribute("cantidades", cantidades);
+				session.setAttribute("preOriginal", alq.getPrecioDiario());  //DOUBLE QUE TIENE EL PRECIO ORIGINAL DEL ALQUILER ANTES DE LOS EXTRAS
 				
 				request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
 			}else {

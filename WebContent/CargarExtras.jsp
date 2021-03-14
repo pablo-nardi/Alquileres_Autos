@@ -17,22 +17,12 @@
 
        <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/CSS/ABM.css">
+	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	function cerrarSesion(){
-		if(confirm("Desea cerrar la sesion?")){
-			window.location.href = "login.jsp?estado=CERRARSESION";	
-		}
-		
-	}
-	function buscarAlquileres(met){
-		document.myForm.action=met;
-	}
-    </script>
+
 	<style>
 		body{
   			background-color: #c6c6c6;
@@ -50,8 +40,16 @@
 		.container p{
 			color: #f5f5f5;
 		}
+	
 		
 	</style>
+	<% 	
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
 	<%
 	
 	ExtrasLogic el = new ExtrasLogic();
@@ -59,13 +57,23 @@
 	
 	Alquiler alq = (Alquiler) session.getAttribute("alquiler");
 	
-	//CALCULO NUEVO PRECIO DEL ALQUILER SEGUN EL EXTRA ELEGIDO
+	//CALCULO NUEVO PRECIO DEL ALQUILER SEGUN CANTIDAD DE DIAS
 	
 		Date fechaRetiro= alq.getFecRetiroPrevisto();
 		Date fechaDevolucion= alq.getFecDevPrevista();
 		
 		long dias = (fechaDevolucion.getTime() - fechaRetiro.getTime() ) / (1000*60*60*24);
 	
+	if(request.getParameter("estado")!=null){
+		LinkedList<Cantidad> cantidades = (LinkedList<Cantidad>) session.getAttribute("cantidades");
+		cantidades.clear();
+		session.setAttribute("cantidades", cantidades);
+		alq.setPrecioDiario((Double) session.getAttribute("preOriginal"));
+		
+		response.sendRedirect("/Alquileres_Autos/CargarExtras.jsp");
+	}
+		
+		
 	%>
 	
 	
@@ -108,13 +116,20 @@
 				                  <%}%>
 				                </tbody>
 				              </table>
-				              <label>Precio total del alquiler:</label>
-						<input type="text" value="<%=alq.getPrecioDiario() * dias %>" name="totalAlquiler"  class="form-control">
+				              	<label>Precio por dia del alquiler: </label>
+				              	<p style="margin: 0 10px; color:black;"><b><%=alq.getPrecioDiario() %></b></p>
+				              	<label>Cantidad de dias: </label>
+				              	<p style="margin: 0 10px; color:black;"><b><%=dias %></b></p>
+				              	<label>Precio total del alquiler: </label>
+								<input type="text" value="<%=alq.getPrecioDiario() * dias %>" name="totalAlquiler">
+								
 	
 				  		</div>
-		   				<form action="ResumenRetiro.jsp" method="POST">
-		   					<input type='submit' value='Cargar Extras'>
+		   				<form action="" method="POST"> 
+		   					
 		   				</form>
+		   					<button onclick="window.location.href = 'ResumenRetiro.jsp'"  class="btn btn-primary">Continuar</button>
+		   					<button onclick="javascript: cancelarExtras()" class="btn btn-warning" >Cancelar Todos los Extras</button>
 	   				</div>
 	   
 	
@@ -123,5 +138,18 @@
 	    <p>Trabajo Practico de java</p>
 	  </div>
 	</footer>
+		<script type="text/javascript">
+	function cerrarSesion(){
+		if(confirm("Desea cerrar la sesion?")){
+			window.location.href = "login.jsp?estado=CERRARSESION";	
+		}
+		
+	}
+	function cancelarExtras(){
+		if(confirm("¿Desea Cancelar los extras elegidos?")){
+			window.location.href = "CargarExtras.jsp?estado=wipeout";	
+		}
+	}
+    </script>
 </body>
 </html>

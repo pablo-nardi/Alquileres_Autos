@@ -33,6 +33,8 @@ public class AlquilerLogic {
 	public void updateAlquiler(Alquiler alq, Conductor con, AlquilerConductor ac, LinkedList<Cantidad> cantidades) throws Exception {
 		//updatealquiler
 		alq.setEstado(Alquiler.Estado.abierto);
+		long hoy = Calendar.getInstance().getTimeInMillis();
+		alq.setFecRetiroReal(new java.sql.Date(hoy));
 		/*
 		java.util.Date date = Calendar.getInstance().getTime();
 		

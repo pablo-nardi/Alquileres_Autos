@@ -16,7 +16,7 @@
 
        <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/CSS/ABM.css">
+	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -51,7 +51,13 @@
 		}
 		
 	</style>
-	
+		<% 	
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
 	<%
 
 	
@@ -108,7 +114,10 @@
 			                		<td><%=a.getFecRetiroPrevisto() %></td>
 			                		<td><%=a.getFecDevPrevista() %></td>
 			                		<td><%=a.getModelo().getDenominacion() %></td>
-				                  	<td><a class="form-botton-editar" href="ElegirAuto.jsp?idMod=<%=a.getModelo().getIdentificacion()%>&idAlq=<%=a.getIdAlquiler()%>">Seleccionar</a></td>
+				                  	<td><a class="form-botton-editar" 
+				                  		href="ElegirAuto.jsp?idMod=<%=a.getModelo().getIdentificacion()%>&idAlq=<%=a.getIdAlquiler()%>"
+				                  		style="width: 100px;"
+				                  		>Seleccionar</a></td>
 				                </tr>
 							<%}
 	                	}

@@ -17,7 +17,7 @@
 
        <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/CSS/ABM.css">
+	<link rel="stylesheet" type="text/css" href="CSS/ABM.css">
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -52,7 +52,13 @@
 		}
 		
 	</style>
-	
+	<% 	
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
 	<%
 	AutoLogic au = new AutoLogic();
 	AlquilerLogic al = new AlquilerLogic();
@@ -63,13 +69,16 @@
 	java.sql.Date fecRetPrev = alq.getFecRetiroPrevisto();
 	
 	//VERIFICO SI LA FECHA DE RETIRO PREVISTA ES IGUAL AL DIA DE HOY, SINO AVISO 
-	if(fecRetPrev.compareTo(Calendar.getInstance().getTime()) != 0){
+	
+	long hoy = Calendar.getInstance().getTimeInMillis();
+	java.sql.Date date = new java.sql.Date(hoy);
+	String frp, frr;
+	frp = fecRetPrev.toString(); 	//FECHA RETIRO PREVISTA
+	frr = date.toString();			//FECHA RETIRO REAL
+		
+	if(frp.compareTo(frr) != 0){
 		estado = "La fecha de retiro prevista es diferente al dia de hoy,POR FAVOR, corrobore con el Cliente antes de continuar";
 	}
-		
-	
-	
-	
 	%>
 	
 	
@@ -113,7 +122,10 @@
 					                		<td><%=a.getPatente() %></td>
 					                		<td><%=a.getCapacidadDelTanque() %></td>
 					                		<td><%=a.getKilometraje() %></td>
-						                  	<td><a class="form-botton-editar" href="CargarConductor.jsp?idAut=<%=a.getPatente() %>">Seleccionar</a></td>
+						                  	<td><a class="form-botton-editar" 
+						                  		href="CargarConductor.jsp?idAut=<%=a.getPatente() %>"
+						                  		style="width:100px;"
+						                  		>Seleccionar</a></td>
 						                </tr>
 									<%j++;
 									}

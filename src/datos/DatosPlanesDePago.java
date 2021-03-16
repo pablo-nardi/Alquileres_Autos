@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entidades.*;
+import logic.AutoLogic;
+import logic.PlanDePagoLogic;
+import logic.UsuarioLogic;
 
 public class DatosPlanesDePago {
 	
@@ -44,6 +47,52 @@ public class DatosPlanesDePago {
 			}
 		}
 		return planes;
+	}
+	public LinkedList<Alquiler> getSoloPlanes(String nomPlan, String entCred, String nomTar) throws SQLException{ //ESTE METODO SE USA PARA BuscaCliEnPlanes.jsp
+		LinkedList<Alquiler> alquileres= new LinkedList<>();
+		Alquiler alq= null;
+		AutoLogic al = null;
+		UsuarioLogic ul = null;
+		PlanDePagoLogic pl = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("select * from alquileres WHERE idPlan in (SELECT pdp.idPlan from planesDePago pdp where pdp.nombrePlan like ? AND pdp.entidadCrediticia like ? AND pdp.nombreTarjeta like ?)");
+			
+			stmt.setString(1, nomPlan);
+			stmt.setString(2, entCred);
+			stmt.setString(3, nomTar);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs != null) {
+				while(rs.next()) {
+					alq = new Alquiler();
+					al = new AutoLogic();
+					ul = new UsuarioLogic();
+					pl = new PlanDePagoLogic();
+					alq.setIdAlquiler(rs.getInt("idAlquiler"));
+					alq.setAuto(al.getOne(rs.getString("patente")));
+					alq.setUsuario(ul.getOne(rs.getString("cuil")));
+					alq.setPlan(pl.getOne(Integer.parseInt(rs.getString("idPlan"))));
+					
+					alquileres.add(alq);
+					
+				}
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			}catch(SQLException e) {
+				throw e;
+			}
+		}
+		return alquileres;
 	}
 	public LinkedList<PlanDePago> getBancos() throws SQLException{
 		LinkedList<PlanDePago> planes = new LinkedList<>();
@@ -143,7 +192,7 @@ public class DatosPlanesDePago {
 		return plan;
 	}
 	public int getId(String entidad, String tarjeta, int cuotas) throws SQLException{
-		PlanDePago plan = null;
+		//PlanDePago plan = null; 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		int num = 0;
@@ -156,7 +205,7 @@ public class DatosPlanesDePago {
 			rs = stmt.executeQuery();
 			
 			if(rs != null && rs.next()) {
-					plan = new PlanDePago();
+					//plan = new PlanDePago();
 					
 					num = rs.getInt("idPlan");
 					
@@ -202,7 +251,7 @@ public class DatosPlanesDePago {
 			}
 		}
 	}
-	public void updateExtra(PlanDePago plan) throws SQLException{
+	public void updatePlan(PlanDePago plan) throws SQLException{
 		PreparedStatement stmt = null;
 		
 		try {
@@ -224,7 +273,7 @@ public class DatosPlanesDePago {
 			}
 		}
 	}
-	public void deleteExtra(int idPlan)throws SQLException{
+	public void deletePlan(int idPlan)throws SQLException{
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement("DELETE from planesDePago where idPlan=?");

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import datos.DatosPlanesDePago;
+import entidades.Alquiler;
 import entidades.PlanDePago;
 
 public class PlanDePagoLogic {
@@ -25,15 +26,18 @@ public class PlanDePagoLogic {
 		dpp.addPlan(plan);
 	}
 	public void updatePlanDePago(PlanDePago plan) throws SQLException {
-		dpp.updateExtra(plan);
+		dpp.updatePlan(plan);
 	}	
 	public void deletePlanDePago(int id) throws SQLException {
-		dpp.deleteExtra(id);
+		dpp.deletePlan(id);
 	}
 	public LinkedList<PlanDePago> getBancos() throws SQLException {
 		return dpp.getBancos();
 	}
 	public LinkedList<PlanDePago> getTarjetas() throws SQLException {
 		return dpp.getTarjetas();
+	}
+	public LinkedList<Alquiler> getSoloPlanes(String nomPlan, String entCred, String nomTar) throws SQLException{
+		return dpp.getSoloPlanes(nomPlan, entCred, nomTar);
 	}
 }

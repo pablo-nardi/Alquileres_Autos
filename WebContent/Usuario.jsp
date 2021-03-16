@@ -51,7 +51,13 @@
 		}
 		
 	</style>
-	
+	<% 	
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
 </head>
 <body>
    	<nav class="navbar navbar-dark">
@@ -62,36 +68,42 @@
 
 
 	</nav>
-	<% 	
-	UsuarioLogic ul = new UsuarioLogic();
-	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
-		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
-		response.sendRedirect(redirectURL);
-	}
-	%>
+	
 		
 
-
-	<h1>Home de Usuarios</h1>
-	
-	<h2>Alquileres</h2>
-    <ul>
-    	<li><a href="BuscarAlquiler.jsp">Buscar Alquiler</a></li>
-   
-    </ul>
-    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones 
-    de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final.
-
-Aunque no posee actualmente fuentes para justificar sus hipótesis, el profesor de filología clásica Richard 
-McClintock asegura que su uso se remonta a los impresores de comienzos del siglo XVI.1​ Su uso en algunos 
-editores de texto muy conocidos en la actualidad ha dado al texto lorem ipsum nueva popularidad.
-
-El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un t
-exto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras. 
-El significado del mismo no tiene importancia, ya que solo es una demostración o prueba. 
-El texto procede de la obra De finibus bonorum et malorum (Sobre los límites del bien y del mal) 
-que comienza con: </p>
-	
+	<main>
+		
+		<section>
+			<h1>Home de Usuarios</h1>
+			
+			<h2>Alquileres</h2>
+		    <ul>
+		    	<li><a href="BuscarAlquiler.jsp">Buscar Alquiler</a></li>
+		   
+		    </ul>
+	    </section>
+	    <section>
+		    <h2>Listados</h2>
+		    <ul>
+		    	<li><a href="BuscarAutoEnAlq.jsp">Buscar Autos en un Alquiler</a></li>
+		    </ul>
+	    </section>
+	    <section>
+		    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones 
+		    de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final.
+		
+			Aunque no posee actualmente fuentes para justificar sus hipótesis, el profesor de filología clásica Richard 
+			McClintock asegura que su uso se remonta a los impresores de comienzos del siglo XVI.1​ Su uso en algunos 
+			editores de texto muy conocidos en la actualidad ha dado al texto lorem ipsum nueva popularidad.
+			
+			El texto en sí no tiene sentido, aunque no es completamente aleatorio, sino que deriva de un t
+			exto de Cicerón en lengua latina, a cuyas palabras se les han eliminado sílabas o letras. 
+			El significado del mismo no tiene importancia, ya que solo es una demostración o prueba. 
+			El texto procede de la obra De finibus bonorum et malorum (Sobre los límites del bien y del mal) 
+			que comienza con: 
+			</p>
+		</section>
+	</main>
 <footer class="navbar navbar-fixed-bottom">
 	  <div class="container">
 	    <p>Trabajo Practico de java</p>

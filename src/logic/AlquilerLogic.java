@@ -1,7 +1,6 @@
 package logic;
 import entidades.*;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -30,6 +29,9 @@ public class AlquilerLogic {
 	public Alquiler getAlquiler(int id) throws SQLException{
 		return da.getAlquiler(id); 
 	}
+	public LinkedList<Alquiler> getAll() throws SQLException {
+		return da.getAll();
+	} 
 	public void updateAlquiler(Alquiler alq, Conductor con, AlquilerConductor ac, LinkedList<Cantidad> cantidades) throws Exception {
 		//updatealquiler
 		alq.setEstado(Alquiler.Estado.abierto);

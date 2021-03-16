@@ -45,6 +45,64 @@ public class DatosAlquiler {
 			}
 		}
 	}
+	public LinkedList<Alquiler> getAll() throws SQLException{
+		Alquiler alq = null;
+		AutoLogic al = null;
+		ModeloLogic ml = null;
+		UsuarioLogic ul = null;
+		SucursalLogic sl = null;
+		PlanDePagoLogic pl = null;
+		LinkedList<Alquiler> alquileres = new LinkedList<>();
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("SELECT * FROM alquileres");
+			rs = stmt.executeQuery();
+			
+			if(rs != null) {
+				while(rs.next()) {
+					alq = new Alquiler();
+					al = new AutoLogic();
+					sl = new SucursalLogic();
+					pl = new PlanDePagoLogic();
+					ml = new ModeloLogic();
+					ul = new UsuarioLogic();
+					
+					alq.setIdAlquiler(rs.getInt("idAlquiler"));
+					alq.setCostoDesperfecto(rs.getDouble("costoDesperfecto"));
+					alq.setCostoDevolucionTardia(rs.getDouble("costoDevolucionTardia"));
+					alq.setPrecioDiario(rs.getDouble("precioDiario"));
+					alq.setEstado(Alquiler.Estado.valueOf(rs.getString("estado")));
+					alq.setFecDevPrevista(rs.getDate("fecDevPrevista"));
+					alq.setFecRetiroPrevisto(rs.getDate("fecRetiroPrevista"));
+					alq.setModelo(ml.getOne(Integer.parseInt(rs.getString("idModelo"))));
+					alq.setPlan(pl.getOne(Integer.parseInt(rs.getString("idPlan"))));
+					alq.setSucursal(sl.getOne(Integer.parseInt(rs.getString("idSucursal"))));
+					alq.setUsuario(ul.getOne(rs.getString("cuil")));
+					alq.setAuto(al.getOne(rs.getString("patente")));
+					
+					alquileres.add(alq);
+				}
+			}			
+			
+		}catch(SQLException e) {
+			throw e;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		
+		
+		
+		return alquileres;
+	}
 	public LinkedList<Alquiler> buscarAlquiler(String cuil) throws SQLException{
 		Alquiler alq = null;
 		ModeloLogic ml = null;
@@ -103,7 +161,9 @@ public class DatosAlquiler {
 		return alquileres;
 	}
 	public Alquiler getAlquiler(int id) throws SQLException{
+		
 		Alquiler alq = null;
+		AutoLogic al = null;
 		ModeloLogic ml = null;
 		UsuarioLogic ul = null;
 		SucursalLogic sl = null;
@@ -120,6 +180,7 @@ public class DatosAlquiler {
 			if(rs != null && rs.next()) {
 				
 					alq = new Alquiler();
+					al = new AutoLogic();
 					sl = new SucursalLogic();
 					pl = new PlanDePagoLogic();
 					ml = new ModeloLogic();
@@ -136,6 +197,7 @@ public class DatosAlquiler {
 					alq.setPlan(pl.getOne(Integer.parseInt(rs.getString("idPlan"))));
 					alq.setSucursal(sl.getOne(Integer.parseInt(rs.getString("idSucursal"))));
 					alq.setUsuario(ul.getOne(rs.getString("cuil")));
+					alq.setAuto(al.getOne(rs.getString("patente")));
 					
 					
 				

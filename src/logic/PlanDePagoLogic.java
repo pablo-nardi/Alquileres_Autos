@@ -16,6 +16,10 @@ public class PlanDePagoLogic {
 	public LinkedList<PlanDePago> getAll()throws SQLException{
 		return dpp.getAll();
 	}
+	/* ESTE METODO SE USA PARA TRAER ALGUNOS DATOS DE PLANES PARA BuscarCliEnPlanes.jsp*/
+	public LinkedList<PlanDePago> getPlanes() throws SQLException{
+		return dpp.getPlanes();
+	}
 	public PlanDePago getOne(int id) throws SQLException{
 		return dpp.getOne(id);
 	}
@@ -37,7 +41,7 @@ public class PlanDePagoLogic {
 	public LinkedList<PlanDePago> getTarjetas() throws SQLException {
 		return dpp.getTarjetas();
 	}
-	public LinkedList<Alquiler> getSoloPlanes(String nomPlan, String entCred, String nomTar) throws SQLException{
-		return dpp.getSoloPlanes(nomPlan, entCred, nomTar);
+	public LinkedList<Alquiler> getAlqFromPlanes(String nomPlan, String entCred, String nomTar) throws SQLException{
+		return dpp.getAlqFromPlanes(nomPlan, entCred, nomTar);
 	}
 }

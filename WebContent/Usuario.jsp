@@ -86,6 +86,7 @@
 		    <h2>Listados</h2>
 		    <ul>
 		    	<li><a href="BuscarAutoEnAlq.jsp">Buscar Autos en un Alquiler</a></li>
+		    	<li><a href="BuscarCliEnPlanes.jsp">Buscar Cliente segun planes de pago</a></li>
 		    </ul>
 	    </section>
 	    <section>

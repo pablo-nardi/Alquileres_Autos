@@ -57,11 +57,27 @@
 		
 	</style>
 	
-		
+	<% 	
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
 	<%
 
+	PlanDePago pdp = new PlanDePago();
 	PlanDePagoLogic pl = new PlanDePagoLogic();
-	LinkedList<Alquiler> alquileres = pl.getSoloPlanes("Plan Nacional", "Banco Santa fe", "MasterCard");
+	LinkedList<PlanDePago> planes = pl.getPlanes();
+	LinkedList<Alquiler> alquileres = null;
+	if (request.getParameter("nom") != null){
+		alquileres = pl.getAlqFromPlanes(
+				request.getParameter("nom"), 
+				request.getParameter("ent"),
+				request.getParameter("tar")
+				);
+	}
+	
 	
 	
 	%>
@@ -70,7 +86,53 @@
 	
 </head>
 <body>
-	<div class="container" style="background-color:#96c287; margin-top:100px;">	
+	<nav class="navbar navbar-dark">
+  	<a class="navbar-brand" href="index.jsp">Inicio</a>
+  	<a class="navbar-brand" href="Usuario.jsp">Home</a>
+ 
+	<button type="button" class="btn btn-outline-warning" onclick="javascript: cerrarSesion()" >Logout</button>
+
+	</nav>
+	
+	
+	<h1>Buscar en base a planes de pago</h1>
+<div class="container" style="background-color:#96c287; margin-top:100px;">	
+	     	<div class="row">
+	     		<div class="col-sm-12"><!-- col-12 col-sm-12 col-lg-12 -->
+	            <div class="table-responsive">
+	              <table class="table table-hover">
+	                <thead class="thead-dark">
+	                  <tr>
+	                  	<th>Nombre Plan</th>
+	                  	<th>Entidad Crediticia</th>
+	                    <th>Tarjeta</th>
+	                    <th>Accion</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                	<%
+	                	if(!planes.isEmpty()  ){
+		                	for( PlanDePago p : planes) { %>
+			                	<tr>
+			                		<td><%=p.getNombrePlan() %></td>
+			                		<td><%=p.getEntidadCrediticia() %></td>
+			                		<td><%=p.getNombreTarjeta() %></td>
+				                	<td><a class="form-botton-editar" 
+				                  		href="BuscarCliEnPlanes.jsp?nom=<%=p.getNombrePlan() %>&ent=<%=p.getEntidadCrediticia()  %>&tar=<%=p.getNombreTarjeta()  %>"
+				                  		style="width: 100px;"
+				                  		>Seleccionar</a></td>
+				                </tr>
+							<%}
+	                	}
+		                	%>
+	                </tbody>
+	              </table>
+	            </div>
+	          </div>
+	     	</div>
+	    </div>
+	<div class="container" style="background-color:#96c287; margin-top:100px;
+	 display:<%=request.getParameter("nom")==null?"none":"block"%>">	
 	     	<div class="row">
 	     		<div class="col-sm-12"><!-- col-12 col-sm-12 col-lg-12 -->
 	            <div class="table-responsive">
@@ -110,5 +172,11 @@
 	          </div>
 	     	</div>
 	    </div>
+	    	
+	<footer class="navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <p>Trabajo Practico de java</p>
+	  </div>
+	</footer>
 </body>
 </html>

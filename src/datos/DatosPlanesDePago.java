@@ -48,7 +48,7 @@ public class DatosPlanesDePago {
 		}
 		return planes;
 	}
-	public LinkedList<Alquiler> getSoloPlanes(String nomPlan, String entCred, String nomTar) throws SQLException{ //ESTE METODO SE USA PARA BuscaCliEnPlanes.jsp
+	public LinkedList<Alquiler> getAlqFromPlanes(String nomPlan, String entCred, String nomTar) throws SQLException{ //ESTE METODO SE USA PARA BuscaCliEnPlanes.jsp
 		LinkedList<Alquiler> alquileres= new LinkedList<>();
 		Alquiler alq= null;
 		AutoLogic al = null;
@@ -93,6 +93,44 @@ public class DatosPlanesDePago {
 			}
 		}
 		return alquileres;
+	}
+	/* ESTE METODO SE USA PARA TRAER ALGUNOS DATOS DE PLANES PARA BuscarCliEnPlanes.jsp
+	 */
+	public LinkedList<PlanDePago> getPlanes() throws SQLException{
+		LinkedList<PlanDePago> planes = new LinkedList<>();
+		PlanDePago plan = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement("SELECT DISTINCT pdp.nombrePlan, pdp.entidadCrediticia, pdp.nombreTarjeta from planesDePago pdp");
+			rs = stmt.executeQuery();
+			
+			if(rs != null) {
+				while(rs.next()) {
+					plan = new PlanDePago();
+					
+					//plan.setIdPlan(rs.getInt("idPlan"));
+					plan.setNombrePlan(rs.getString("nombrePlan"));
+					plan.setEntidadCrediticia(rs.getString("entidadCrediticia"));
+					plan.setNombreTarjeta(rs.getString("nombreTarjeta"));
+					//plan.setCantCuotas(rs.getInt("cantCuotas"));
+					
+					planes.add(plan);
+				}
+			}
+		}catch(Exception ex) {
+			throw ex;
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			}catch(SQLException e) {
+				throw e;
+			}
+		}
+		return planes;
 	}
 	public LinkedList<PlanDePago> getBancos() throws SQLException{
 		LinkedList<PlanDePago> planes = new LinkedList<>();

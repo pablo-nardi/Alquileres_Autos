@@ -64,6 +64,7 @@
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
 					<label>Fecha de retiro:<%=alq.getFecRetiroPrevisto() %></label><br>
+					<label>Fecha de devolucion:<%=alq.getFecDevPrevista() %></label><br>
 					<label>Tipo de auto:<%=alq.getModelo().getTipoAuto().getNombreTipo() %></label><br>
 					<label>Modelo:<%=alq.getModelo().getDenominacion() %> </label><br>
 			   	</div>

@@ -53,7 +53,7 @@ public class CrearAlquiler extends HttpServlet {
 				
 				alq.getPlan().setIdPlan(num);
 				
-				alq.setAuto(aul.getOne("generico"));
+				alq.setAuto(aul.getOne("generico")); //Se le setea un auto generico que despues se cambia por el que elija el cliente
 				
 				//VAlido si ya existe el usuario o hay que crearlo
 				if(estado.toUpperCase().equals("A")) {

@@ -83,45 +83,11 @@
 	
 	<h1> Formulario de ABM de Sucursales </h1>
 	
-	<h2>ABM de Provincias</h2>	
+	<h2>ABM de Sucursales</h2>	
 
 	    <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
 	<div class="container-fluid">		 
-	      <div class="row">
-	          <div class="col-sm-12"><!-- col-12 col-sm-12 col-lg-12 -->
-	            <div class="table-responsive">
-	              <table class="table table-hover">
-	                <thead class="thead-dark">
-	                  <tr>
-	                    <th>Nombre Sucursal</th>
-	                    <th>Direccion</th>
-	                    <th>Horarios</th>
-	                    <th>Telefono</th>
-	                    <th>Localidad / Provincia</th>
-						<th>Editar</th>
-						<th>Eliminar</th>
-	                  </tr>
-	                </thead>
-	                <tbody>
-	                <%for(Sucursal suc : sucursales) { %>
-		                	<tr>
-		                		<td><%=suc.getDenominacion() %></td>
-		                		<td><%=suc.getDireccion() %></td>
-		                		<td><%=suc.getHoraApertura().toString() +" a "+ suc.getHoraCierre().toString()%></td>
-		                		<td><%=suc.getTelefono() %></td>
-		                		<td><%=suc.getLocalidad().getDenominacion()+" / "+suc.getLocalidad().getProvincia().getDenominacion() %>
-			                    <td><a class="form-botton-editar" href="ABMSucursales.jsp?mode=editar&id=<%=suc.getIdSucursal() %>">Editar</a></td>
-			                    <td><a class="form-botton-eliminar" href="ABMSucursales.jsp?mode=eliminar&id=<%=suc.getIdSucursal() %>">Eliminar</a></td>
-			                </tr>
-	                  <%}%>
-	                </tbody>
-	              </table>
-	            </div>
-	          </div>
-	      </div>
-	      	          <!-- Linea divisora -->	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
-	 
-	 	  <div class="col-sm-12" style="background-color:lavender;">
+		  <div class="col-sm-12" style="background-color:lavender;">
 	          	<form action="" name="formSucursal" method="post">			
 					<div class="container"> 
 				  		<div class="row">
@@ -167,6 +133,44 @@
 	   			</form>
 	          </div>
 	 
+	
+		  <!-- Linea divisora -->	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->
+	 
+	 	
+	
+	      <div class="row">
+	          <div class="col-sm-12"><!-- col-12 col-sm-12 col-lg-12 -->
+	            <div class="table-responsive">
+	              <table class="table table-hover">
+	                <thead class="thead-dark">
+	                  <tr>
+	                    <th>Nombre Sucursal</th>
+	                    <th>Direccion</th>
+	                    <th>Horarios</th>
+	                    <th>Telefono</th>
+	                    <th>Localidad / Provincia</th>
+						<th>Editar</th>
+						<th>Eliminar</th>
+	                  </tr>
+	                </thead>
+	                <tbody>
+	                <%for(Sucursal suc : sucursales) { %>
+		                	<tr>
+		                		<td><%=suc.getDenominacion() %></td>
+		                		<td><%=suc.getDireccion() %></td>
+		                		<td><%=suc.getHoraApertura().toString() +" a "+ suc.getHoraCierre().toString()%></td>
+		                		<td><%=suc.getTelefono() %></td>
+		                		<td><%=suc.getLocalidad().getDenominacion()+" / "+suc.getLocalidad().getProvincia().getDenominacion() %>
+			                    <td><a class="form-botton-editar" href="ABMSucursales.jsp?mode=editar&id=<%=suc.getIdSucursal() %>">Editar</a></td>
+			                    <td><a class="form-botton-eliminar" href="ABMSucursales.jsp?mode=eliminar&id=<%=suc.getIdSucursal() %>">Eliminar</a></td>
+			                </tr>
+	                  <%}%>
+	                </tbody>
+	              </table>
+	            </div>
+	          </div>
+	      </div>
+	      	        
 	  </div>
 	
 	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->

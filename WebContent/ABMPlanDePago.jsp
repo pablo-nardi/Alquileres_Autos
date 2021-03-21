@@ -59,7 +59,7 @@
     
     %>
     
-    <title>Formulario ABM Panes de Pago</title>
+    <title>Formulario ABM Planes de Pago</title>
     
 </head>
 
@@ -73,11 +73,11 @@
 
 	</nav>
 	
-	<h1>Formulario ABM de Extras</h1>
+	<h1>Formulario ABM Planes de Pago</h1>
 	
 	
 	<div class="container-fluid">		 
-	    <h2>ABM de Provincias</h2>
+	    <h2>Planes</h2>
 	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 	      <div class="row">
 	          <div class="col-sm-8"><!-- col-12 col-sm-12 col-lg-12 -->

@@ -81,57 +81,8 @@
 	<h1>Formulario ABM de Usuarios</h1>
 		
 		<h2>Usuarios</h2>
-
-	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
-	
-	<div class="container-fluid">
-      <div class="row">
-          <div class="col-12 col-sm-12 col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Nombre y Apellido</th>
-					<th>Cuil</th>
-					<th>Mail</th>
-					<th>Rol</th>
-					<th>Telefono</th>
-                    <th>Ciudad</th>
-					<th>Calle / Dpto / Piso</th>
-					<th>Editar</th>
-					<th>Eliminar</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                <%for(Usuario user : usuarios) { %>
-                  <tr>
-                  	<td><%=user.getNombre() + " " + user.getApellido() %></td>
-                  	<td><%= user.getCuil() %></td>
-                  	<td><%= user.getMail() %></td>
-                  	<td><%= user.getRol() %></td>
-                    <td><%= user.getTelefono() %></td>
-                    <td><%=user.getCiudad() %></td>
-                    <%	String calle;
-                    	if(user.getDepartamento() == null || user.getPiso() == 0){
-                    		calle = user.getCalle();
-                    	}else{
-                    		calle = user.getCalle() +" / "+ user.getDepartamento()+" / " + user.getPiso();
-                    	}
-                    %>
-                    <td><%= calle %></td>
-                    <td><a class="form-botton-editar" href="ABMUsuario.jsp?mode=editar&id=<%=user.getCuil() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ABMUsuario.jsp?mode=eliminar&id=<%=user.getCuil() %>">Eliminar</a></td>
-                  </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-      </div>
-    </div>
-
-
+		
+		
 <form action="" name="myForm" method="post">			
 <div class="container">
   <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
@@ -194,6 +145,57 @@
 </div>
 
 </form>
+
+	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+	
+	<div class="container-fluid">
+      <div class="row">
+          <div class="col-12 col-sm-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Nombre y Apellido</th>
+					<th>Cuil</th>
+					<th>Mail</th>
+					<th>Rol</th>
+					<th>Telefono</th>
+                    <th>Ciudad</th>
+					<th>Calle / Dpto / Piso</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                <%for(Usuario user : usuarios) { %>
+                  <tr>
+                  	<td><%=user.getNombre() + " " + user.getApellido() %></td>
+                  	<td><%= user.getCuil() %></td>
+                  	<td><%= user.getMail() %></td>
+                  	<td><%= user.getRol() %></td>
+                    <td><%= user.getTelefono() %></td>
+                    <td><%=user.getCiudad() %></td>
+                    <%	String calle;
+                    	if(user.getDepartamento() == null || user.getPiso() == 0){
+                    		calle = user.getCalle();
+                    	}else{
+                    		calle = user.getCalle() +" / "+ user.getDepartamento()+" / " + user.getPiso();
+                    	}
+                    %>
+                    <td><%= calle %></td>
+                    <td><a class="form-botton-editar" href="ABMUsuario.jsp?mode=editar&id=<%=user.getCuil() %>">Editar</a></td>
+                    <td><a class="form-botton-eliminar" href="ABMUsuario.jsp?mode=eliminar&id=<%=user.getCuil() %>">Eliminar</a></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
 <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
 	
 <footer class="navbar navbar-fixed-bottom">

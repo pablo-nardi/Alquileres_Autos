@@ -39,18 +39,17 @@ public class CargarConductor extends HttpServlet {
 			
 			if(validar(request)) {
 				mapearADatos(request);
-				//cl.addConductor(con);
+				
 				
 				alqCon.setDni(con.getDni());
 				alqCon.setIdAlquiler(alq.getIdAlquiler());
-				//cl.addAlqCon(alqCon);
 				
 				
 				session.setAttribute("alquiler", alq);
 				session.setAttribute("conductor", con);
 				session.setAttribute("alqcon",alqCon );
 				session.setAttribute("cantidades", cantidades);
-				session.setAttribute("preOriginal", alq.getPrecioDiario());  //DOUBLE QUE TIENE EL PRECIO ORIGINAL DEL ALQUILER ANTES DE LOS EXTRAS
+				session.setAttribute("preOriginal", alq.getPrecioDiario());  //VAR DOUBLE QUE TIENE EL PRECIO ORIGINAL DEL ALQUILER ANTES DE LOS EXTRAS
 				
 				request.getRequestDispatcher("CargarExtras.jsp").forward(request, response);
 			}else {

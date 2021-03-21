@@ -84,47 +84,7 @@
 	 <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->		
 	 		
 	<div class="container-fluid">
-      <div class="row">
-          <div class="col-12 col-sm-12 col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>patente</th>
-                  	<th>estado</th>
-					<th>Cap. Tanque</th>
-					<th>Kilometraje</th>
-					<th>Fecha de Compra</th>
-					<th>Fecha Ult. Servicio</th>
-					<th>Modelo</th>
-                    <th>Sucursal</th>
-					<th>Editar</th>
-					<th>Eliminar</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                <%for(Auto a : autos) { %>
-                  <tr>
-                  	<td><%=a.getPatente() %></td>
-                  	<td><%=a.getEstado() %></td>
-                  	<td><%=a.getCapacidadDelTanque()  %></td>
-                  	<td><%=a.getKilometraje() %></td>
-                  	<td><%=a.getFecha_de_compra() %></td>
-                    <td><%=a.getFechaUtltimoServicio() %></td>
-                    <td><%=a.getModelo().getDenominacion() %></td>
-                    <td><%=a.getSucursal().getDenominacion() %></td>
-                    <td><a class="form-botton-editar" href="ABMAutos.jsp?mode=editar&id=<%=a.getPatente() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ABMAutos.jsp?mode=eliminar&id=<%=a.getPatente() %>">Eliminar</a></td>
-                  </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-      </div>
-      
-      <!-- Linea divisora -->	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>
+	   <!-- Linea divisora -->	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>
       
        <div class="col-sm-12" style="background-color:lavender;">
 	          	<form action="" name="formAuto" method="post">			
@@ -174,8 +134,46 @@
 		   				</div>
 	   				</div>
 	   			</form>
-	     </div>
-	 
+	     </div>	
+      <div class="row">
+          <div class="col-12 col-sm-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>patente</th>
+                  	<th>estado</th>
+					<th>Cap. Tanque</th>
+					<th>Kilometraje</th>
+					<th>Fecha de Compra</th>
+					<th>Fecha Ult. Servicio</th>
+					<th>Modelo</th>
+                    <th>Sucursal</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                <%for(Auto a : autos) { %>
+                  <tr>
+                  	<td><%=a.getPatente() %></td>
+                  	<td><%=a.getEstado() %></td>
+                  	<td><%=a.getCapacidadDelTanque()  %></td>
+                  	<td><%=a.getKilometraje() %></td>
+                  	<td><%=a.getFecha_de_compra() %></td>
+                    <td><%=a.getFechaUtltimoServicio() %></td>
+                    <td><%=a.getModelo().getDenominacion() %></td>
+                    <td><%=a.getSucursal().getDenominacion() %></td>
+                    <td><a class="form-botton-editar" href="ABMAutos.jsp?mode=editar&id=<%=a.getPatente() %>">Editar</a></td>
+                    <td><a class="form-botton-eliminar" href="ABMAutos.jsp?mode=eliminar&id=<%=a.getPatente() %>">Eliminar</a></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
     </div>
 	
 	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->

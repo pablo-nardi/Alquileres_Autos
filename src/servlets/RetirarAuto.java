@@ -40,7 +40,7 @@ public class RetirarAuto extends HttpServlet {
 			
 			
 			
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("Usuario.jsp").forward(request, response);
 			
 		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 		

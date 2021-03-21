@@ -86,58 +86,9 @@
 	<h1>Formulario ABM de Modelos</h1>
 		
 	<h2>Modelos</h2>
-
-<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
-			
-	<div class="container-fluid">
-      <div class="row">
-          <div class="col-12 col-sm-12 col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Foto</th>
-                  	<th>ID Modelo</th>
-					<th>Equipaje Grande</th>
-					<th>Equipaje Chico</th>
-					<th>Pasajeros</th>
-					<th>Precio/dia</th>
-					<th>Denominacion</th>
-                    <th>Transmision</th>
-					<th>A/C</th>
-					<th>Tipo de Auto</th>
-					<th>Editar</th>
-					<th>Eliminar</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                <%for(Modelo mod : modelos) { %>
-                  <tr><!-- IMAGENES/Modelos/chev_joy.jpg -->
-                  	<td><img alt="" src="<%=mod.getFotoModelo() %>" WIDTH=80 HEIGHT=40></td>
-                  	<td><%=mod.getIdentificacion() %></td>
-                  	<td><%= mod.getCantEquipajeGrande() %></td>
-                  	<td><%= mod.getCantEquipajeChico() %></td>
-                  	<td><%= mod.getCantPasajeros() %></td>
-                  	<td><%= mod.getPrecioPorDia() %></td>
-                    <td><%= mod.getDenominacion() %></td>
-                    <td><%= mod.getTransmision() %></td>
-                    <td><%= mod.getAireAcondicionado() %></td>
-                    <td><%= mod.getTipoAuto().getNombreTipo() %></td>
-                    <!-- <td><a href="ServletABMModelos/editar?id=<%=mod.getIdentificacion() %>">EDITAR</a></td>  -->
-                    <td><a class="form-botton-editar" href="ABMModelos.jsp?mode=editar&id=<%=mod.getIdentificacion() %>">Editar</a></td>
-                    <td><a class="form-botton-eliminar" href="ABMModelos.jsp?mode=eliminar&id=<%=mod.getIdentificacion() %>">Eliminar</a></td>
-                  </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-      </div>
-    </div>
-
- <!-- LINEA DIVISORA --> <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
-
+	
+	<!-- LINEA DIVISORA --> <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
+	
 <form action="" name="myForm" method="post">			
 <div class="container"> 
   <div class="row">
@@ -198,6 +149,58 @@
 </div>
 
 </form>
+
+<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
+			
+	<div class="container-fluid">
+      <div class="row">
+          <div class="col-12 col-sm-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Foto</th>
+                  	<th>ID Modelo</th>
+					<th>Equipaje Grande</th>
+					<th>Equipaje Chico</th>
+					<th>Pasajeros</th>
+					<th>Precio/dia</th>
+					<th>Denominacion</th>
+                    <th>Transmision</th>
+					<th>A/C</th>
+					<th>Tipo de Auto</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                <%for(Modelo mod : modelos) { %>
+                  <tr><!-- IMAGENES/Modelos/chev_joy.jpg -->
+                  	<td><img alt="" src="<%=mod.getFotoModelo() %>" WIDTH=80 HEIGHT=40></td>
+                  	<td><%=mod.getIdentificacion() %></td>
+                  	<td><%= mod.getCantEquipajeGrande() %></td>
+                  	<td><%= mod.getCantEquipajeChico() %></td>
+                  	<td><%= mod.getCantPasajeros() %></td>
+                  	<td><%= mod.getPrecioPorDia() %></td>
+                    <td><%= mod.getDenominacion() %></td>
+                    <td><%= mod.getTransmision() %></td>
+                    <td><%= mod.getAireAcondicionado() %></td>
+                    <td><%= mod.getTipoAuto().getNombreTipo() %></td>
+                    <!-- <td><a href="ServletABMModelos/editar?id=<%=mod.getIdentificacion() %>">EDITAR</a></td>  -->
+                    <td><a class="form-botton-editar" href="ABMModelos.jsp?mode=editar&id=<%=mod.getIdentificacion() %>">Editar</a></td>
+                    <td><a class="form-botton-eliminar" href="ABMModelos.jsp?mode=eliminar&id=<%=mod.getIdentificacion() %>">Eliminar</a></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+
+ 
+
 <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
 	
 <footer class="navbar navbar-fixed-bottom">

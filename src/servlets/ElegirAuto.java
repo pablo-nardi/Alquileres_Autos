@@ -9,12 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidades.*;
-import logic.*;
+import entidades.Alquiler;
+import logic.AlquilerLogic;
 
-/**
- * Servlet implementation class ElegirAuto
- */
 @WebServlet({"/ElegirAuto","/ElegirAuto/*","/elegirauto","/elegirAuto"})
 
 public class ElegirAuto extends HttpServlet {
@@ -30,6 +27,7 @@ public class ElegirAuto extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 			try {
+					
 					alquileres = al.buscarAlquiler(request.getParameter("txtCuil"));
 					
 					if(alquileres.isEmpty()) {

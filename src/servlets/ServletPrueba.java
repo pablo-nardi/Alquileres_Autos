@@ -1,9 +1,8 @@
 package servlets;
 
 
+import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -11,10 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 
-import datos.*;
-import entidades.*;
 
 @WebServlet("/ServletPrueba")
 @MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
@@ -27,39 +25,34 @@ public class ServletPrueba extends HttpServlet {
         super();
         
     }
-
+    /* location to store file uploaded
+    private static final String UPLOAD_DIRECTORY = "IMAGENES/Modelos"; //upload
+ 
+    // upload settings
+    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
+    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
+    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
+ 
+    /**
+     * Upon receiving file upload submission, parses the request to read
+     * upload data and saves the file on disk.
+     */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-        String applicationPath = request.getServletContext().getRealPath("");
-        // constructs path of the directory to save uploaded file
-        String uploadFilePath = "/home/pablo/prueba";
-        request.setAttribute("applicationPath", applicationPath);
-        request.setAttribute("uploadFilePath", uploadFilePath);
-        // creates upload folder if it does not exists
-        File uploadFolder = new File(uploadFilePath);
-        if (!uploadFolder.exists()) {
-            uploadFolder.mkdirs();
-        }
-        getServletContext().getRequestDispatcher("/NewFile.jsp").forward(request, response);*/
 		
 		try {
-			LinkedList<Cantidad> cantidades = new LinkedList<>();
-			Cantidad c1 = new Cantidad(5, 2,2);
-			Cantidad c2 = new Cantidad(5, 2,2);
-			
-			cantidades.add(c1);
-			cantidades.add(c2);
-			
-			DatosExtras de = new DatosExtras();
-			
-			de.addCantidades(cantidades);
-			
-			
-		}catch (SQLException e) {
-			response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
+		//String uploadPath = getServletContext().getRealPath("")  + UPLOAD_DIRECTORY;//+ File.separator
+		String uploadPath = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
+		File uploadDir = new File(uploadPath);
+		if (!uploadDir.exists()) uploadDir.mkdir();
 		
+		for (Part part : request.getParts()) {
+			String fileName = part.getSubmittedFileName();
+		    part.write(uploadPath + File.separator + fileName);
+		}
 		
-		request.getRequestDispatcher("/prueba.jsp").forward(request, response);
+		response.sendRedirect("/Alquileres_Autos/prueba.jsp");
+		
+		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}
 
 }

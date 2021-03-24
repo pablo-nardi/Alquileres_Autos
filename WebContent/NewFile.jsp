@@ -11,6 +11,6 @@
 </head>
 <body>
 	<p> hola </p>
-	<p><%=request.getAttribute("prueba") %>
+	
 </body>
 </html>

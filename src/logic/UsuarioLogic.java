@@ -20,6 +20,12 @@ public class UsuarioLogic {
 	public LinkedList<Usuario> getAll()throws SQLException {
 		return du.getAll();
 	}
+	public LinkedList<Usuario> getAllUsu()throws SQLException {
+		return du.getAllUsu();
+	}
+	public LinkedList<Usuario> getAllCli()throws SQLException {
+		return du.getAllCli();
+	}
 	public Usuario getOne(String cuil) throws SQLException {
 		return du.getOne(cuil);
 	}

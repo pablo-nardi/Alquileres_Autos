@@ -89,8 +89,9 @@
 	
 	<!-- LINEA DIVISORA --> <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
 	
-<form action="" name="myForm" method="post">			
+		
 <div class="container"> 
+<form action="" name="myForm" method="post">	
   <div class="row">
     <div class="col-sm-4" style="background-color:lavender;">
     	<label>Id Modelo:</label>
@@ -143,12 +144,26 @@
     	<img alt="No hay foto disponible" src="<%=modelo==null?"":modelo.getFotoModelo() %>" style="width:320px; height:160px; position: relative; top: 5px; left:5px;" >
     	<input type="hidden" name="fotoAnterior" value="<%=modelo==null?"":modelo.getFotoModelo() %>" >
     	</div>
+    	<button class="btn btn-outline-primary" name="" 
+    			onclick="javascript: cargarFormulario('CambiarFoto.jsp')"
+    			style="margin-top:50px;
+    			display:<%=modelo==null?"none":"block" %>;"
+    			>Seleccionar otra imagen</button>
     </div>
+   </div>
+	    
+      </form>
+		
 
-  </div>
+
+ 
+
 </div>
 
-</form>
+
+
+
+
 
 <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
 			

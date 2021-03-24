@@ -44,19 +44,27 @@
 		<%
 			Usuario usuario = null;
 			String detailFormAction = "nuevo";
-			LinkedList<Usuario> usuarios;
-			usuarios = ul.getAll();
+			LinkedList<Usuario> usuarios = null;
+			
 			
 			String mode = (String)request.getParameter("mode");
-			if(mode == null){	mode = "nuevo";	}
+			if(mode == null){	mode = "nuevo";	usuarios = ul.getAll();}
 			else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){
 				usuario = ul.getOne(request.getParameter("id"));
 				detailFormAction = "editar";
+				usuarios = ul.getAll();
 			}
 			else if (mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
 					usuario = ul.getOne(request.getParameter("id"));
 					detailFormAction = "eliminar";
+					usuarios = ul.getAll();
 				}
+			else if (mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("usu")){
+				usuarios = ul.getAllUsu();
+			}
+			else if (mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("cli")){
+				usuarios = ul.getAllCli();
+			}
 			
 			// OBTENGO VARIABLE PARA EL MENSAJE DE CAMBIO DE PASSWORD
 			
@@ -81,9 +89,12 @@
 	<h1>Formulario ABM de Usuarios</h1>
 		
 		<h2>Usuarios</h2>
+
 		
-		
-<form action="" name="myForm" method="post">			
+<form action="" name="myForm" method="post">	
+		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUsuario.jsp?mode=usu')">Buscar usuarios</button>
+		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUsuario.jsp?mode=cli')">Buscar clientes</button>
+		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUsuario.jsp')">Buscar todos</button>
 <div class="container">
   <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
   
@@ -114,7 +125,7 @@
 			<label>Cambiar Clave</label>
 			<a class="form-botton-editar" href="CambioPassword.jsp?id=<%=usuario==null?"":usuario.getCuil() %>" style="width:150px; height: 30px; padding-top:0;">Click Aqui</a>
 		</div>
-		<% String txtButton = "No paso el if"; 
+		<% String txtButton = "Cargar"; 
 		if(mode.equals("nuevo")){txtButton = "Cargar";}
 		else if(mode.equals("editar")){txtButton = "Editar";}
 		else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>

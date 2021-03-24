@@ -144,6 +144,98 @@ public class DatosUsuario {
 			
 			return usuarios;
 		}
+		public LinkedList<Usuario> getAllUsu()throws SQLException{
+			LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
+			ResultSet rs = null;
+			PreparedStatement stmt = null;
+			
+			try {
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("select * from usuarios where rol = 'usuario' or rol = 'administrador'");
+				rs = stmt.executeQuery();
+				
+				if(rs!=null) {
+					while(rs.next()) {
+						Usuario user = new Usuario();
+						
+						user.setApellido(rs.getString("apellido"));
+						user.setCalle(rs.getString("calle"));
+						user.setCodigoPostal(rs.getString("codigoPostal"));
+						user.setCiudad(rs.getString("ciudad"));
+						user.setCuil(rs.getString("cuil"));
+						user.setDepartamento(rs.getString("dpto"));
+						user.setMail(rs.getString("mail"));
+						user.setNombre(rs.getString("nombre"));
+						user.setPassword(rs.getString("password"));
+						user.setPiso(rs.getInt("piso"));
+						user.setRol(rs.getString("rol"));
+						user.setTelefono(rs.getString("telefono"));
+						user.setNombreUltTarjeta(rs.getString("nomUltTarjeta"));
+						user.setNumUltTarjeta(rs.getString("numUltTarjeta"));
+						user.setVencUltTarjeta(rs.getString("vencUltTarjeta"));
+						
+						usuarios.add(user);
+					}
+				}
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				try {
+					if(rs!=null) {rs.close();}
+					if(stmt!=null) {stmt.close();}
+					DbConnector.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					throw e;
+				}
+			}
+			
+			return usuarios;
+		}
+		public LinkedList<Usuario> getAllCli()throws SQLException{
+			LinkedList<Usuario> usuarios = new LinkedList<Usuario>();
+			ResultSet rs = null;
+			PreparedStatement stmt = null;
+			
+			try {
+				stmt = DbConnector.getInstancia().getConn().prepareStatement("select * from usuarios where rol = 'cliente'");
+				rs = stmt.executeQuery();
+				
+				if(rs!=null) {
+					while(rs.next()) {
+						Usuario user = new Usuario();
+						
+						user.setApellido(rs.getString("apellido"));
+						user.setCalle(rs.getString("calle"));
+						user.setCodigoPostal(rs.getString("codigoPostal"));
+						user.setCiudad(rs.getString("ciudad"));
+						user.setCuil(rs.getString("cuil"));
+						user.setDepartamento(rs.getString("dpto"));
+						user.setMail(rs.getString("mail"));
+						user.setNombre(rs.getString("nombre"));
+						user.setPassword(rs.getString("password"));
+						user.setPiso(rs.getInt("piso"));
+						user.setRol(rs.getString("rol"));
+						user.setTelefono(rs.getString("telefono"));
+						user.setNombreUltTarjeta(rs.getString("nomUltTarjeta"));
+						user.setNumUltTarjeta(rs.getString("numUltTarjeta"));
+						user.setVencUltTarjeta(rs.getString("vencUltTarjeta"));
+						
+						usuarios.add(user);
+					}
+				}
+			}catch(Exception e) {
+				throw e;
+			}finally {
+				try {
+					if(rs!=null) {rs.close();}
+					if(stmt!=null) {stmt.close();}
+					DbConnector.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					throw e;
+				}
+			}
+			
+			return usuarios;
+		}
 		public Usuario getOne(String cuil) throws SQLException{
 			Usuario user = null;
 			PreparedStatement stmt=null;

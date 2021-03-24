@@ -23,7 +23,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+    <script type="text/javascript">
+	function cerrarSesion(){
+		if(confirm("Desea cerrar la sesion?")){
+			window.location.href = "login.jsp?estado=CERRARSESION";	
+		}
+		
+	}
+	</script>
     <style type="text/css">
     
     .imagen{
@@ -35,15 +42,17 @@
     }
     
     </style>
-    
+    <% 	//VALIDACION DE SESION DE USUARIO
+	UsuarioLogic ul = new UsuarioLogic();
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
+		response.sendRedirect(redirectURL);
+	}
+	%>
     <%
     
-    if(request.getParameter("id") != null){
-    	request.getRequestDispatcher("CambiarFoto/select").forward(request, response);
-    }
     
-    
-		String pepe = "IMAGENES/Modelos/";
+		String rel = "IMAGENES/Modelos/";
 	String sCarpAct = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
 	File carpeta = new File(sCarpAct);
 	String[] listado = carpeta.list();
@@ -59,21 +68,34 @@
   <button type="button" class="btn btn-outline-warning" onclick="javascript: cerrarSesion()" >Logout</button>
 
 	</nav>
-	<h1>Formulario ABM de Modelos</h1>
+	<h1>Cambiar foto modelo</h1>
 		
 	<h2>Modelos</h2>
+	<h3>ID del Modelo: <%=request.getParameter("txtId") %></h3>
 	
 	<!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
 	
 	
 	<form method="post" action="CambiarFoto/upload" enctype="multipart/form-data">
 	<div class="container-fluid">
+		
+		<!-- FORMULARIO PARA SUBIR FOTO -->
+		
+		 <div class="row">
 		<div class="col-4 col-sm-4 col-lg-4">
-    <label>Elegir Archivo</label> 
-    <input type="file" name="multiPartServlet"  class="form-control"/>
-    <input type="submit" value="Subir" class="form-control"/>
-    <button class="btn btn-outline-primary" name="" >Subir</button>
-    	</div>
+		    <label>Elegir Archivo</label> 
+		    <input type="text" value="<%=request.getParameter("txtId") %>" name="id" hidden="hidden">
+		    <input type="file" name="multiPartServlet"  class="form-control"/>
+		    <button class="btn btn-outline-primary" name="" >Subir</button>
+	    </div>
+	    <div class="col-4 col-sm-4 col-lg-4">
+	    	<div class="alert alert-info alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<!--  label></label-->
+				<p style="font-size:30px;" >FUNCION BETA, todavia no esta en uso completamente funcional </p>
+			</div>
+	    </div>
+	    </div>
     </div>
 	</form>
 	
@@ -95,9 +117,16 @@
                 <tbody>
                 <%for (int i=0; i< listado.length; i++) { %>
                   <tr><!-- IMAGENES/Modelos/chev_joy.jpg -->
-                  	<td><img class="imagen" alt="" src="<%=pepe+listado[i] %>"></td>
-                  	<td><%=listado[i] %></td>
-                    <td><a class="form-botton-editar" href="CambiarFoto.jsp?id=<%=listado[i] %>">Seleccionar</a></td>
+                  	
+                  	<td><img class="imagen" alt="<%=rel+listado[i] %>" src="<%=rel+listado[i] %>"></td>
+                  	<td><form action="CambiarFoto/seleccion" method="POST">
+                  			<label>Nombre archivo</label>
+                  			<input type="text" class="form-control" value="<%=listado[i]%>" name="foto">
+                  			<label>Id de modelo</label>
+                  			<input type="text" class="form-control" value="<%=request.getParameter("txtId") %>" name="id">
+                  			<button class="btn btn-outline-primary" >seleccionar</button>
+                  		</form>
+                  	</td>
                   </tr>
                   <% } %>
                 </tbody>

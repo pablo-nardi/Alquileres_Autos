@@ -52,7 +52,11 @@ public class ABMAutos extends HttpServlet {
 				al.deleteAuto(request.getParameter("txtPatente"));
 				response.sendRedirect("/Alquileres_Autos/ABMAutos.jsp");
 				break;
+			case "/cancelar":
+				response.sendRedirect("/Alquileres_Autos/ABMAutos.jsp");
+				break;
 			}
+			
 		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}
 	private void mapearADatos(HttpServletRequest req) throws NumberFormatException, SQLException, Exception {

@@ -34,6 +34,7 @@ public class DbConnector {
 		try {
 			if(conn==null || conn.isClosed()) {
 				conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db, user, password);
+				//conn=DriverManager.getConnection("jdbc:mysql://node75449-prueba-java.fr-1.paas.massivegrid.net/alquileres_autos","root","FKKfar48307");
 				conectados=0;
 			}
 		} catch (SQLException e) {

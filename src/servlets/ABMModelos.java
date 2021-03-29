@@ -1,15 +1,17 @@
 package servlets;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.Part;
 
 import entidades.Modelo;
 import entidades.TipoAuto;
@@ -17,7 +19,10 @@ import logic.ModeloLogic;
 
 
 @WebServlet({"/ABMModelos/*", "/ServletabmModelos/*", "/Servletambmodelos/*", "/servletabmModelos/*"})
-
+@MultipartConfig(fileSizeThreshold = 6291456, // 6 MB
+maxFileSize = 10485760L, // 10 MB
+maxRequestSize = 20971520L // 20 MB 
+)
 
 public class ABMModelos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,24 +36,13 @@ public class ABMModelos extends HttpServlet {
         ml = new ModeloLogic();
         
     }
-
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-		
-		//if(usuario.getRol().toLowerCase().equals("administrador")) {
-	//else {
-			//getServletContext().getRequestDispatcher("/login.jsp");
-		//}
-	}
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 			switch(request.getPathInfo()) {
 			case "/nuevo":
 				MapearADatos(request);
+				agregarFoto(request);
 				ml.addModelo(mod);
 				response.sendRedirect("/Alquileres_Autos/ABMModelos.jsp");
 				break;
@@ -82,7 +76,7 @@ public class ABMModelos extends HttpServlet {
 		
 		if(request.getPathInfo().equals("/editar")) {
 			
-			if(request.getParameter("foto").equals("")) {
+			if(request.getParameter("foto") == null) {
 				mod.setFotoModelo(request.getParameter("fotoAnterior"));
 			}else {
 				mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
@@ -90,9 +84,22 @@ public class ABMModelos extends HttpServlet {
 			
 			
 		}else {
-			mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
+			//mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
 		}
 		
 		
+	}
+	private void agregarFoto(HttpServletRequest request) throws ServletException, IOException{
+		if(!request.getParts().isEmpty()){ //ESTE IF ESTA POR SI QUIEREN DAR DE ALTA UN AUTO SIN ELEGIR FOTO
+			String uploadPath = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
+			File uploadDir = new File(uploadPath);
+			if (!uploadDir.exists()) uploadDir.mkdir();
+			
+			for (Part part : request.getParts()) {
+				String fileName = part.getSubmittedFileName();
+			    part.write(uploadPath + File.separator + fileName);
+			    mod.setFotoModelo("IMAGENES/Modelos/" + fileName);
+			}
+		}
 	}
 }

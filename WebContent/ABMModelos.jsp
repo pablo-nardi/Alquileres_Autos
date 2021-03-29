@@ -91,7 +91,7 @@
 	
 		
 <div class="container"> 
-<form action="" name="myForm" method="post">	
+<form action="" name="myForm" method="post" enctype="multipart/form-data">	
   <div class="row">
     <div class="col-sm-4" style="background-color:lavender;">
     	<label>Id Modelo:</label>
@@ -141,18 +141,19 @@
     <div class="col-sm-4" style="background-color:blue; height: 250px;">
     	<label style="font-size: 32px;" ><%=foto %></label>
     	<div style="width:330px; height:170px; background-color: white;">
-    	<img alt="No hay foto disponible" src="<%=modelo==null?"":modelo.getFotoModelo() %>" style="width:320px; height:160px; position: relative; top: 5px; left:5px;" >
+    	<img alt="No hay foto disponible: " src="<%=modelo==null?"":modelo.getFotoModelo() %>" style="width:320px; height:160px; position: relative; top: 5px; left:5px;" >
     	<input type="hidden" name="fotoAnterior" value="<%=modelo==null?"":modelo.getFotoModelo() %>" >
     	</div>
-    	<button class="btn btn-outline-primary" name="" 
-    			onclick="javascript: cargarFormulario('CambiarFoto.jsp')"
-    			style="margin-top:50px;
-    			display:<%=modelo==null?"none":"block" %>;"
-    			>Seleccionar otra imagen</button>
+    	<a class="form-botton-editar" 
+    	href="CambiarFoto.jsp?txtId=<%=modelo==null?"":modelo.getIdentificacion() %>"
+    	style="margin-top:50px;
+    	display:<%=modelo==null?"none":"block" %>;
+    	width: 200px;">Cambiar Imagen
+    	</a>
     </div>
    </div>
 	    
-      </form>
+ </form>
 		
 
 

@@ -109,7 +109,7 @@
 								else if(mode.equals("editar")){texto = "Editar";}
 								else if(mode.equals("eliminar")){texto = "Eliminar";} %>
 								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMAutos/<%=detailFormAuto%>')"><%=texto %></button>
-				   				<button class="btn btn-outline-primary" name="">Cancelar</button>
+				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMAutos/cancelar')">Cancelar</button>
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">
 				   				<label>Fecha de Compra:</label>
@@ -126,8 +126,9 @@
 								</select>
 								<label>Sucursal:</label>
 								<select name="selectSucursales" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
+										<option>SUCURSAL / LOCALIDAD / PROVINCIA </option>
 									<%for (Sucursal s: sucursales){ String value = String.valueOf(s.getIdSucursal()); %>
-										<option value="<%=value %>" <%=auto!=null&&auto.getSucursal().getIdSucursal()==s.getIdSucursal()?"selected":"" %> > <%=s.getDenominacion() %> </option>
+										<option value="<%=value %>" <%=auto!=null&&auto.getSucursal().getIdSucursal()==s.getIdSucursal()?"selected":"" %> > <%=s.getDenominacion()+" / "+s.getLocalidad().getDenominacion()+" / "+s.getLocalidad().getProvincia().getDenominacion() %></option>
 									<%} %>
 								</select>
 							</div>

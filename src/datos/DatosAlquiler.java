@@ -77,6 +77,8 @@ public class DatosAlquiler {
 					alq.setEstado(Alquiler.Estado.valueOf(rs.getString("estado")));
 					alq.setFecDevPrevista(rs.getDate("fecDevPrevista"));
 					alq.setFecRetiroPrevisto(rs.getDate("fecRetiroPrevista"));
+					alq.setFecRetiroReal(rs.getDate("fecRetiroReal"));
+					alq.setFecRetiroReal(rs.getDate("fecDevReal"));
 					alq.setModelo(ml.getOne(Integer.parseInt(rs.getString("idModelo"))));
 					alq.setPlan(pl.getOne(Integer.parseInt(rs.getString("idPlan"))));
 					alq.setSucursal(sl.getOne(Integer.parseInt(rs.getString("idSucursal"))));

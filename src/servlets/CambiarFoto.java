@@ -37,8 +37,8 @@ public class CambiarFoto extends HttpServlet {
 			
 			switch(request.getPathInfo()) {
 			case "/upload":
-				String uploadPath = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
-				//String uploadPath = (String) session.getAttribute("dirAbsolute");
+				//String uploadPath = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
+				String uploadPath = (String) session.getAttribute("dirAbsolute");
 				//String UPLOAD_DIRECTORY = "/IMAGENES/Modelos";
 				//String uploadPath = getServletContext().getRealPath("")  + UPLOAD_DIRECTORY;//+ File.separator
 				/*Path path = Paths.get(getServletContext().getRealPath("")  + UPLOAD_DIRECTORY);

@@ -2,6 +2,8 @@ package servlets;
 
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -39,15 +41,28 @@ public class ServletLogin extends HttpServlet {
 			user.setMail(nombre);
 			user.setPassword(pswd);
 			
+
+			//GUARDO EN SESION LA DIRECCION DE LAS IMAGENES
+			String UPLOAD_DIRECTORY = "/IMAGENES/Modelos";
+			Path path = Paths.get(getServletContext().getRealPath("")  + UPLOAD_DIRECTORY);
+			String absolute = path.toString();
+			
 			user = ul.validarUsuario(user);
 			if(user != null) {
-				if(user.getRol().toLowerCase().equals("administrador")) {
+				if(ul.validarSesion(user, "a")) {//user.getRol().toLowerCase().equals("administrador")
 					HttpSession session = request.getSession(true);
 					session.setAttribute("usuario", user);
+					
+					session.setAttribute("dirAbsolute",absolute );
+					
 					getServletContext().getRequestDispatcher("/Admin.jsp").forward(request, response);
-				}else if(user.getRol().toLowerCase().equals("usuario")) {
-					HttpSession var = request.getSession(true);
-					var.setAttribute("usuario", user);
+					
+				}else if(ul.validarSesion(user, "u")) {
+					HttpSession session = request.getSession(true);
+					session.setAttribute("usuario", user);
+					
+					session.setAttribute("dirAbsolute",absolute );
+					
 					getServletContext().getRequestDispatcher("/Usuario.jsp").forward(request, response);
 				}
 			}

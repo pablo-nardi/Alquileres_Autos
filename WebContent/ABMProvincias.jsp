@@ -130,9 +130,9 @@
 				  		<div class="row">
 						    <div class="col-sm-12" style="background-color:lavender;">
 						    	<label>id Provincia:</label>
-								<input type="number" name="txtIdProvincia" autofocus readonly  class="form-control" value="<%=prov==null?"":prov.getIdProvincia() %>" ><br>
+								<input type="number" required name="txtIdProvincia" autofocus readonly  class="form-control" value="<%=prov==null?"":prov.getIdProvincia() %>" ><br>
 								<label>Denominacion:</label>
-								<input type="text" name="txtDenominacion"  class="form-control" value="<%=prov==null?"":prov.getDenominacion() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtDenominacion" required class="form-control" value="<%=prov==null?"":prov.getDenominacion() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<% String txtButton = "No paso el if"; 
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}
@@ -201,15 +201,15 @@
 				  		<div class="row">
 						    <div class="col-sm-12" style="background-color:lavender;">
 							 	<label>Provincia</label>
-							 	<select name="selectProvincia" class="form-control" <%=formActionLocalidad=="eliminarLocalidad"?"disabled":"" %>>
+							 	<select name="selectProvincia" required class="form-control" <%=formActionLocalidad=="eliminarLocalidad"?"disabled":"" %>>
 							 	<%for(Provincia p: provincias){ String value = Integer.toString(p.getIdProvincia()); %>
 							 	<option value="<%=value %>" <%=local!=null&&Integer.parseInt(value)==local.getProvincia().getIdProvincia()?"selected":"" %> ><%=p.getDenominacion() %></option>
 							 	<%} %>
 							 	</select>
 								<label>Codigo Postal</label>
-								<input type="number" name="txtCodigoPostal"  class="form-control" value="<%=local==null?"":local.getCodigoPostal() %>" <%=formActionLocalidad=="eliminarLocalidad"||formActionLocalidad=="editarLocalidad"?"readonly":"" %> >
+								<input type="number" name="txtCodigoPostal" required class="form-control" value="<%=local==null?"":local.getCodigoPostal() %>" <%=formActionLocalidad=="eliminarLocalidad"||formActionLocalidad=="editarLocalidad"?"readonly":"" %> >
 								<label>Localidad:</label>
-								<input type="text" name="txtLocalidad"  class="form-control" value="<%=local==null?"":local.getDenominacion() %>" <%=formActionLocalidad=="eliminarLocalidad"?"readonly":"" %>><br>
+								<input type="text" name="txtLocalidad" required class="form-control" value="<%=local==null?"":local.getDenominacion() %>" <%=formActionLocalidad=="eliminarLocalidad"?"readonly":"" %>><br>
 								<% String texto = "No paso el if"; 
 								if(mode.equals("nuevo")){texto = "Cargar";}
 								else if(mode.equals("editarLocalidad")){texto = "Editar";}

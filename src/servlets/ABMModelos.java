@@ -75,19 +75,8 @@ public class ABMModelos extends HttpServlet {
 		mod.getTipoAuto().setId_Tipo(Integer.parseInt(request.getParameter("selectTipo")));
 		
 		if(request.getPathInfo().equals("/editar")) {
-			
-			if(request.getParameter("foto") == null) {
-				mod.setFotoModelo(request.getParameter("fotoAnterior"));
-			}else {
-				mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
-			}
-			
-			
-		}else {
-			//mod.setFotoModelo("IMAGENES/Modelos/" + request.getParameter("foto"));
+			mod.setFotoModelo(request.getParameter("fotoAnterior"));
 		}
-		
-		
 	}
 	private void agregarFoto(HttpServletRequest request) throws ServletException, IOException{
 		if(!request.getParts().isEmpty()){ //ESTE IF ESTA POR SI QUIEREN DAR DE ALTA UN AUTO SIN ELEGIR FOTO
@@ -96,9 +85,11 @@ public class ABMModelos extends HttpServlet {
 			if (!uploadDir.exists()) uploadDir.mkdir();
 			
 			for (Part part : request.getParts()) {
-				String fileName = part.getSubmittedFileName();
-			    part.write(uploadPath + File.separator + fileName);
-			    mod.setFotoModelo("IMAGENES/Modelos/" + fileName);
+				if( part.getSubmittedFileName()!= null){;
+					String fileName	= part.getSubmittedFileName();
+					part.write(uploadPath + File.separator + fileName);
+				    mod.setFotoModelo("IMAGENES/Modelos/" + fileName);
+				}
 			}
 		}
 	}

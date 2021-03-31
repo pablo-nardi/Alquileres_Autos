@@ -83,11 +83,19 @@
 		    </ul>
 	    </section>
 	    <section>
+	    	<div>
 		    <h2>Listados</h2>
 		    <ul>
 		    	<li><a href="BuscarAutoEnAlq.jsp">Buscar Autos en un Alquiler</a></li>
 		    	<li><a href="BuscarCliEnPlanes.jsp">Buscar Cliente segun planes de pago</a></li>
 		    </ul>
+		    </div>
+		       <div>
+	    	<h2>Todos los Alquileres</h2>
+	    	<ul>
+	    		<li><a href="Alquileres.jsp">Listado de Alquileres</a></li>
+	    	</ul>
+	    </div>
 	    </section>
 	    <section>
 		    <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones 

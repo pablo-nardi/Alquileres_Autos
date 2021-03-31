@@ -111,11 +111,11 @@
 				  		<div class="row">
 						    <div class="col-sm-12" style="background-color:lavender;">
 						    	<label>id Extra:</label>
-								<input type="number" name="txtIdExtra" autofocus readonly  class="form-control" value="<%=extra==null?"":extra.getCodigo() %>" ><br>
+								<input type="number" name="txtIdExtra" autofocus readonly required class="form-control" value="<%=extra==null?"":extra.getCodigo() %>" ><br>
 								<label>Descripcion:</label>
-								<input type="text" name="txtDescripcion"  class="form-control" value="<%=extra==null?"":extra.getDescripcion() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtDescripcion" required class="form-control" value="<%=extra==null?"":extra.getDescripcion() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<label>Precio:</label>
-								<input type="text" name="txtPrecio"  class="form-control" value="<%=extra==null?"":extra.getPrecio() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtPrecio" required class="form-control" value="<%=extra==null?"":extra.getPrecio() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<% String txtButton = "No paso el if"; 
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}

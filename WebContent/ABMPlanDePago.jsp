@@ -116,15 +116,15 @@
 				  		<div class="row">
 						    <div class="col-sm-12" style="background-color:lavender;">
 						    	<label>id Plan:</label>
-								<input type="number" name="txtIdPlan" autofocus readonly  class="form-control" value="<%=plan==null?"":plan.getIdPlan() %>" ><br>
+								<input type="number" required name="txtIdPlan" autofocus readonly  class="form-control" value="<%=plan==null?"":plan.getIdPlan() %>" ><br>
 								<label>Nombre Plan:</label>
-								<input type="text" name="txtNombrePlan"  class="form-control" value="<%=plan==null?"":plan.getNombrePlan() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtNombrePlan" required class="form-control" value="<%=plan==null?"":plan.getNombrePlan() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<label>Entidad Crediticia:</label>
-								<input type="text" name="txtEntidad"  class="form-control" value="<%=plan==null?"":plan.getEntidadCrediticia() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtEntidad" required class="form-control" value="<%=plan==null?"":plan.getEntidadCrediticia() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<label>Nombre Tarjeta:</label>
-								<input type="text" name="txtTarjeta"  class="form-control" value="<%=plan==null?"":plan.getNombreTarjeta() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtTarjeta" required class="form-control" value="<%=plan==null?"":plan.getNombreTarjeta() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<label>Cantidad de Cuotas:</label>
-								<input type="text" name="txtCuotas"  class="form-control" value="<%=plan==null?"":plan.getCantCuotas() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
+								<input type="text" name="txtCuotas" required class="form-control" value="<%=plan==null?"":plan.getCantCuotas() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
 								<% String txtButton = "No paso el if"; 
 								if(mode.equals("nuevo")){txtButton = "Cargar";}
 								else if(mode.equals("editar")){txtButton = "Editar";}

@@ -11,6 +11,8 @@
 </head>
 <body>
 	<p> hola </p>
-	
+	<form action="ServletPrueba" method="POST">
+		<button>siguiente</button>
+	</form>
 </body>
 </html>

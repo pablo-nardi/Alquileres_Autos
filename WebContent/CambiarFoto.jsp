@@ -53,7 +53,8 @@
     
     
 		String rel = "IMAGENES/Modelos/";
-	String sCarpAct = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos"; 
+	String sCarpAct = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos"; //
+	/*String sCarpAct = (String) session.getAttribute("dirAbsolute");*/
 	File carpeta = new File(sCarpAct);
 	String[] listado = carpeta.list();
 	

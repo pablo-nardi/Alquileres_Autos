@@ -85,19 +85,19 @@
 				  		<div class="row">
 						    <div class="col-sm-12" style="background-color:lavender;">
 						    	<label>Nombre y Apellido:</label>
-								<input type="text" name="txtNomApe" value="juan perez" class="form-control">
+								<input type="text" name="txtNomApe" required class="form-control">
 						    	<label>Fecha de Nacimiento:</label>
-								<input type="date" name="txtFechaNac"  class="form-control">
+								<input type="date" name="txtFechaNac" required class="form-control">
 								<label>DNI:</label>
-								<input type="number" name="txtDni" value="777" class="form-control">
+								<input type="number" name="txtDni" required class="form-control">
 								<label>Numero Licencia:</label>
-								<input type="number" name="txtLicencia" value="777" class="form-control">
+								<input type="number" name="txtLicencia" required class="form-control">
 								<label>Fecha Licencia:</label>
-								<input type="date" name="txtFechaLic"  class="form-control">
+								<input type="date" name="txtFechaLic" required class="form-control">
 								<label>Celular:</label>
-								<input type="number" name="txtCel" value="777" class="form-control">
+								<input type="number" name="txtCel" required class="form-control">
 								<label>Mail:</label>
-								<input type="email" name="txtMail" value="asd@mail.com" class="form-control"><br>
+								<input type="email" name="txtMail" required class="form-control"><br>
 								<button class="btn btn-primary">Continuar</button>
 				   			</div>
 		   				</div>

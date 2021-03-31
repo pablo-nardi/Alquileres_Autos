@@ -92,18 +92,18 @@
 				  		<div class="row">
 						    <div class="col-sm-6" style="background-color:lavender;">
 							 	<label>Patente</label>
-							 	<input type="text" name="txtPatente"  class="form-control" value="<%=auto==null?"":auto.getPatente() %>" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> >
+							 	<input type="text" name="txtPatente" required class="form-control" value="<%=auto==null?"":auto.getPatente() %>" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> >
 							 	<label>Estado</label>
-							 	<select name="selectEstado" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
+							 	<select name="selectEstado" required class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
 							 		<option value="disponible" <%=auto!=null&&auto.getEstado().toString().equals("disponible")?"selected":"" %> >Disponible</option>
 							 		<option value="alquilado" <%=auto!=null&&auto.getEstado().toString().equals("alquilado")?"selected":"" %> >Alquilado</option>
 							 		<option value="inspeccion" <%=auto!=null&&auto.getEstado().toString().equals("inspeccion")?"selected":"" %> >Inspeccion</option>
 							 		<option value="inhabilitado" <%=auto!=null&&auto.getEstado().toString().equals("inhabilitado")?"selected":"" %> >Inhabilitado</option>
 							 	</select>
 							 	<label>Capadidad del Tanque</label>
-							 	<input type="number" name="txtCapacidad" class="form-control" value="<%=auto==null?"":auto.getCapacidadDelTanque() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
+							 	<input type="number" name="txtCapacidad" required class="form-control" value="<%=auto==null?"":auto.getCapacidadDelTanque() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 							 	<label>Kilometraje</label>
-							 	<input type="number" name="txtKilometraje" class="form-control" value="<%=auto==null?"":auto.getKilometraje() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+							 	<input type="number" name="txtKilometraje" required class="form-control" value="<%=auto==null?"":auto.getKilometraje() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 								<% String texto = "No paso el if"; 
 								if(mode.equals("nuevo")){texto = "Cargar";}
 								else if(mode.equals("editar")){texto = "Editar";}
@@ -113,11 +113,11 @@
 				   			</div>
 				   			<div class="col-sm-6" style="background-color:lavender;">
 				   				<label>Fecha de Compra:</label>
-							 	<input type="date" name="txtFechaCompra"  class="form-control" value="<%=auto==null?"":auto.getFecha_de_compra() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
+							 	<input type="date" name="txtFechaCompra" required class="form-control" value="<%=auto==null?"":auto.getFecha_de_compra() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 								<label>Fecha Ult. Servicio</label>
 								<input type="date" name="txtServicio" class="form-control" value="<%=auto==null?"":auto.getFechaUtltimoServicio() %>" <%=mode.equals("eliminar")?"readonly":"" %> >
 								<label>Modelo:</label>
-								<select name="selectModelos" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
+								<select name="selectModelos" required class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
 								
 									<%for (Modelo m: modelos){ String value = Integer.toString(m.getIdentificacion()); %>
 										<option value="<%=value%>" <%=auto!=null&&auto.getModelo().getIdentificacion()==m.getIdentificacion()?"selected":"" %> > <%=m.getDenominacion() %> </option>
@@ -125,7 +125,7 @@
 								
 								</select>
 								<label>Sucursal:</label>
-								<select name="selectSucursales" class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
+								<select name="selectSucursales" required class="form-control" <%=mode.equals("eliminar")?"disabled":"" %> >
 										<option>SUCURSAL / LOCALIDAD / PROVINCIA </option>
 									<%for (Sucursal s: sucursales){ String value = String.valueOf(s.getIdSucursal()); %>
 										<option value="<%=value %>" <%=auto!=null&&auto.getSucursal().getIdSucursal()==s.getIdSucursal()?"selected":"" %> > <%=s.getDenominacion()+" / "+s.getLocalidad().getDenominacion()+" / "+s.getLocalidad().getProvincia().getDenominacion() %></option>

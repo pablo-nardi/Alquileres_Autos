@@ -3,6 +3,8 @@ package servlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -41,16 +43,24 @@ public class ServletPrueba extends HttpServlet {
 		
 		try {
 		//String uploadPath = getServletContext().getRealPath("")  + UPLOAD_DIRECTORY;//+ File.separator
-		String uploadPath = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
-		File uploadDir = new File(uploadPath);
+		//String uploadPath = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
+		
+	//	String uploadPath = getServletContext().getRealPath("")  + UPLOAD_DIRECTORY;//+ File.separator
+		String UPLOAD_DIRECTORY = "/IMAGENES/Modelos";
+		Path path = Paths.get(getServletContext().getRealPath("")  + UPLOAD_DIRECTORY);
+		String absolute = path.toString();
+		request.setAttribute("absolute", absolute);
+		//String p1 = path.getName(0).toString();
+		//String p2 = path.subpath(0, 2).toString();
+		/*File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists()) uploadDir.mkdir();
 		
 		for (Part part : request.getParts()) {
 			String fileName = part.getSubmittedFileName();
 		    part.write(uploadPath + File.separator + fileName);
-		}
+		}*/
 		
-		response.sendRedirect("/Alquileres_Autos/prueba.jsp");
+		request.getRequestDispatcher("prueba.jsp").forward(request, response);
 		
 		}catch (Exception e) {response.sendRedirect("/Alquileres_Autos/paginaError.jsp?mensaje="+e.toString());}
 	}

@@ -31,7 +31,16 @@
 			window.location.href = "login.jsp?estado=CERRARSESION";	
 		}
 		
-	}	
+	}
+	function usuarios(){
+			window.location.href = "ABMUsuario.jsp?mode=usu";	
+	}
+	function clientes(){
+		window.location.href = "ABMUsuario.jsp?mode=cli";	
+	}
+	function todos(){
+		window.location.href = "ABMUsuario.jsp";	
+	}
 	</script>
 		
 		<% 	//VALIDACION DE SESION DE USUARIO
@@ -91,10 +100,11 @@
 		<h2>Usuarios</h2>
 
 		
-<form action="" name="myForm" method="post">	
-		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUsuario.jsp?mode=usu')">Buscar usuarios</button>
-		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUsuario.jsp?mode=cli')">Buscar clientes</button>
-		<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMUsuario.jsp')">Buscar todos</button>
+	
+		<button class="btn btn-primary" onclick="javascript: usuarios()"	>Buscar usuarios</button>
+		<button class="btn btn-primary" onclick="javascript: clientes()">Buscar clientes</button>
+		<button class="btn btn-primary" onclick="javascript: todos()">Buscar todos</button>
+<form action="" name="myForm" method="post">
 <div class="container">
   <!-- Linea divisora --> 	<div class="divider mt-2 mb-2 py-1 bg-dark"></div>		<!-- Linea divisora -->	
   
@@ -108,18 +118,18 @@
   <div class="row">
     <div class="col-sm-4" style="background-color:lavender;">
     	<label>Nombre:</label>
-		<input type="text" name="txtNombre" autofocus  class="form-control" value="<%=usuario==null?"":usuario.getNombre() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<input type="text" name="txtNombre" required autofocus  class="form-control" value="<%=usuario==null?"":usuario.getNombre() %>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Apellido:</label>
-		<input type="text" name="txtApellido"  class="form-control" value="<%=usuario==null?"":usuario.getApellido()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<input type="text" name="txtApellido" required class="form-control" value="<%=usuario==null?"":usuario.getApellido()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>CUIL:</label>
 		<input type="text" name="txtCuil"  class="form-control" value="<%=usuario==null?"":usuario.getCuil()%>" <%=mode.equals("nuevo")?"":"readonly" %> ><br>
 		<label>Mail:</label>
-		<input type="email" name="txtEmail"  class="form-control" value="<%=usuario==null?"":usuario.getMail()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<input type="email" name="txtEmail" required class="form-control" value="<%=usuario==null?"":usuario.getMail()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<div style="display:<%=mode.equals("editar")||mode.equals("eliminar")?"none":""  %>;" >
 			<label>Clave:</label>
-			<input type="password" name="txtPassword"  class="form-control" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> ><br>
+			<input type="password" name="txtPassword" required class="form-control" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> ><br>
 			<label>Reingrese la clave:</label>
-			<input type="password" name="txtPassRepited"  class="form-control" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> ><br>
+			<input type="password" name="txtPassRepited" required class="form-control" <%=mode.equals("eliminar")||mode.equals("editar")?"readonly":"" %> ><br>
 		</div>
 		<div style="display:<%=mode.equals("nuevo")||mode.equals("eliminar")?"none":"block"  %>; margin-bottom:20px;">
 			<label>Cambiar Clave</label>
@@ -142,9 +152,9 @@
 		<label>Telefono:</label>
 		<input type="text" name="txtTelefono"  class="form-control" value="<%=usuario==null?"":usuario.getTelefono()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Ciudad</label>
-		<input type="text" name="txtCiudad"  class="form-control" value="<%=usuario==null?"":usuario.getCiudad()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>	
+		<input type="text" name="txtCiudad" required class="form-control" value="<%=usuario==null?"":usuario.getCiudad()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>	
 		<label>Codigo Postal:</label>
-		<input type="text" name="txtCodigo"  class="form-control" value="<%=usuario==null?"":usuario.getCodigoPostal()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
+		<input type="text" name="txtCodigo" required class="form-control" value="<%=usuario==null?"":usuario.getCodigoPostal()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Calle:</label>
 		<input type="text" name="txtCalle"  class="form-control" value="<%=usuario==null?"":usuario.getCalle()%>" <%=mode.equals("eliminar")?"readonly":"" %> ><br>
 		<label>Departamento:</label>

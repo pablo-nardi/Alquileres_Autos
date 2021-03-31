@@ -44,8 +44,6 @@
 			localidades = ll.getLocalidades(Integer.parseInt(idProv));
 			
 		}
-		String pep = "prueba";
-		int pap = 10;
 		%>
 	
 <title>Formulario de Facturacion</title>
@@ -64,22 +62,22 @@
 			<div class="row">
 				<div class="col-sm-4" style="background-color:lavender;">
 					<label>Nombre:</label>
-					<input type="text" name="txtNombre" class="form-control" value="<%=pep%>">
+					<input type="text" name="txtNombre" required class="form-control">
 					<label>Apellido:</label>
-					<input type="text" name="txtApellido" class="form-control" value="<%=pep%>">
+					<input type="text" name="txtApellido" class="form-control" required>
 					<label>CUIL</label>
-					<input type="number" name="txtCuil" class="form-control" value="<%=pap%>">
+					<input type="number" name="txtCuil" class="form-control" required>
 					<label>Mail</label>
-					<input type="email" name="txtEmail" class="form-control">
+					<input type="email" name="txtEmail" required class="form-control">
 					<label>Numero de Celular</label>
-					<input type="number" name="txtTelefono" class="form-control" value="<%=pap%>">					
+					<input type="number" name="txtTelefono" class="form-control" required>					
                     <br>
 					<button class="btn btn-primary">Siguiente</button>
 					<button type="button" class="btn btn-warning" onclick="javascript: cancelarAlquiler()" >Cancelar Alquiler</button>
 			   	</div>
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 					<label>Calle</label>
-					<input type="text" name="txtCalle" class="form-control" value="<%=pep%>">
+					<input type="text" name="txtCalle" class="form-control" required>
 					<label>Numero</label>
 					<input type="text" name="txtNum" class="form-control">
 					<label>Piso (opcional):</label>
@@ -87,9 +85,9 @@
 					<label>Dpto (opcional):</label>
 					<input type="text" name="txtDpto"  class="form-control">
 					<label>Ciudad:</label>
-	  				<input type="text" name="txtCiudad" class="form-control" value="<%=pep%>">
+	  				<input type="text" name="txtCiudad" class="form-control" required>
 	  				<label>Codigo Postal:</label>
-	    			<input type="text" name="Codigo" class="form-control" value="<%=pap%>">
+	    			<input type="text" name="Codigo" class="form-control" required>
 			   	</div>
 			 </div>
 			 </div>

@@ -56,11 +56,11 @@
 		    	<label>Cuil de usuario</label>
 		    	<input type="text" name="txtCuil" class="form-control" value="<%=(String)request.getParameter("id")%>" readonly>
 		   		<label>Contraseña Antigua:</label>
-		   		<input type="password" name="txtPassVieja" class="form-control"><br>
+		   		<input type="password" name="txtPassVieja" required class="form-control"><br>
 		   		<label>Contraseña Nueva:</label>
-				<input type="password" name="txtPassNueva" class="form-control"><br>
+				<input type="password" name="txtPassNueva" required class="form-control"><br>
 		    	<label>Reingrese la Contraseña (Nueva):</label>
-				<input type="password" name="txtPassConfirm" class="form-control"><br>
+				<input type="password" name="txtPassConfirm" required class="form-control"><br>
 				<button class="btn btn-primary" onclick="javascript: cargarFormulario('ValidaPassword')">Cambiar</button>
 		  		<button class="btn btn-outline-primary" onclick="javascript: cargarFormulario('ABMUSuarios/cancelar')" name="">Cancelar</button>
 		    </div>

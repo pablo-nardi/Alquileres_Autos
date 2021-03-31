@@ -40,21 +40,11 @@
     <%
     
     TipoAuto tipo = null;
-    String formActionTipo = "nuevo";
     LinkedList<TipoAuto> tipos = new LinkedList<>();
     TipoAutoLogic tpl = new TipoAutoLogic();
     tipos = tpl.getAll();
     
-    String mode = (String)request.getParameter("mode");
-	if(mode == null){	mode = "nuevo";	}
-	else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("editar")){ 
-		tipo = tpl.getOne(Integer.parseInt(request.getParameter("id")));
-		formActionTipo = "editar";
-	}
-	else if(mode != null && !mode.isEmpty() && !mode.isBlank() && mode.equals("eliminar")){
-		tipo = tpl.getOne(Integer.parseInt(request.getParameter("id")));
-		formActionTipo = "eliminar";
-	}
+
     
     
     %>
@@ -103,28 +93,9 @@
 	              </table>
 	            </div>
 	          </div>
-	          <div class="col-sm-4" style="background-color:lavender;">
-		          <form action="" name="myForm" method="post">			
-					<div class="container"> 
-				  		<div class="row">
-						    <div class="col-sm-12" style="background-color:lavender;">
-						    	<label>id Tipo de Auto:</label>
-								<input type="number" name="txtIdTipo" autofocus readonly  class="form-control" value="<%=tipo==null?"":tipo.getId_Tipo() %>" ><br>
-								<label>Descripcion:</label>
-								<input type="text" name="txtDescripcion" required class="form-control" value="<%=tipo==null?"":tipo.getNombreTipo() %>" <%=mode.equals("eliminar")?"readonly":"" %>><br>
-								<% String txtButton = "No paso el if"; 
-								if(mode.equals("nuevo")){txtButton = "Cargar";}
-								else if(mode.equals("editar")){txtButton = "Editar";}
-								else if(mode.equals("eliminar")){txtButton = "Eliminar";} %>
-								<button class="btn btn-primary" onclick="javascript: cargarFormulario('ABMTipoAuto/<%=formActionTipo  %>')"><%=txtButton%></button>
-				   				<button class="btn btn-outline-primary" name="" onclick="javascript: cargarFormulario('ABMTipoAuto/cancelar')">Cancelar</button>
-				   			</div>
-		   				</div>
-	   				</div>
-	   			</form>
-		   	</div>
-	      </div>
+	         
 	      	    <div class="divider mt-2 mb-2 py-1 bg-dark"></div><!-- Linea divisora -->
+	   </div>
 	   </div>
 	
 	

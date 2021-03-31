@@ -104,10 +104,10 @@
 			   	<div class="col-sm-4" style="background-color:lavender; position:relative; left: 100px;">
 			          		
 							    	<label>Numero de Tarjeta (sin espacios ni guiones):</label>
-									<input type="number" value="<%=user.getNumUltTarjeta()==null?"":user.getNumUltTarjeta() %>" name="txtNumTarjeta"  class="form-control">
+									<input type="number" value="<%=user.getNumUltTarjeta()==null?"":user.getNumUltTarjeta() %>" name="txtNumTarjeta" required class="form-control">
 									
 									<label>Titular de la Tarjeta (como figura en la tarjeta):</label>
-									<input type="text" name="txtTitular" value="<%=user.getNombreUltTarjeta()==null?"":user.getNombreUltTarjeta() %>" class="form-control">
+									<input type="text" name="txtTitular" value="<%=user.getNombreUltTarjeta()==null?"":user.getNombreUltTarjeta() %>" required class="form-control">
 									
 									<%
 												if(user.getVencUltTarjeta()!=null){
@@ -135,7 +135,7 @@
 										</select>
 									</div>		
 									<label>Codigo de Seguridad:</label>
-									<input type="text" name="txtCodigo"  class="form-control">
+									<input type="text" name="txtCodigo" required class="form-control">
 		   			
 			   	</div>
 			 </div>

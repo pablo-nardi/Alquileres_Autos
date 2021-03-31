@@ -17,16 +17,13 @@
 
 </head>
 <body>
-    <h1><%=request.getParameter("pr") %></h1>
-    <form method="post" action="ServletPrueba" enctype="multipart/form-data">
-    Choose a file: <input type="file" name="multiPartServlet" />
-    <input type="submit" value="Upload" />
-	</form>
-	
+    
+    <h1>TItulo</h1>
+   
 		<%
 		String pepe = "IMAGENES/Modelos/";
-	String sCarpAct = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
-	File carpeta = new File(sCarpAct);
+	//String sCarpAct = "/home/pablo/git/Alquileres_Autos/WebContent/IMAGENES/Modelos";
+	File carpeta = new File(request.getAttribute("absolute").toString());
 	String[] listado = carpeta.list();
 	if (listado == null || listado.length == 0) {%>
 		<p>No hay elementos dentro de la carpeta actual</p>
@@ -42,5 +39,9 @@
 	
 	%>
     </ul>
+    
+    <h3>Aca está lo ultimo</h3>
+    <h4><%=request.getAttribute("absolute") %></h4>
+    
 </body>
 </html>

@@ -88,12 +88,17 @@
 		    	<li><a href="ABMPlanDePago.jsp">IR a ABM de Planes de Pago</a></li>
 		    </ul>
 	    </div>
+	    <div>
 	    	<h2>Home del Usuario</h2>
 	    	<ul>
 	    		<li><a href="Usuario.jsp">IR a Pagina de usuario</a></li>
 	    	</ul>
+		</div>
 	    <div>
-	    	
+	    	<h2>Todos los Alquileres</h2>
+	    	<ul>
+	    		<li><a href="Alquileres.jsp">Listado de Alquileres</a></li>
+	    	</ul>
 	    </div>
     </main>
     <p>Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones 

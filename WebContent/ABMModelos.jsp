@@ -95,18 +95,18 @@
   <div class="row">
     <div class="col-sm-4" style="background-color:lavender;">
     	<label>Id Modelo:</label>
-    	<input type="text" name="txtId" value="<%=modelo==null?"":modelo.getIdentificacion() %>" class="form-control" readonly><br>
+    	<input type="text" name="txtId" required value="<%=modelo==null?"":modelo.getIdentificacion() %>" class="form-control" readonly><br>
     	<label>Cantidad Maxima de pasajeros:</label>
-		<input type="number" name="txtCantPasajeros" value="<%=modelo==null?"":modelo.getCantPasajeros()%>"    <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
+		<input type="number" name="txtCantPasajeros" required value="<%=modelo==null?"":modelo.getCantPasajeros()%>"    <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Denominacion:</label>
-		<input type="text" name="txtDenominacion" value="<%=modelo==null?"":modelo.getDenominacion()%>"  <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
+		<input type="text" name="txtDenominacion" required value="<%=modelo==null?"":modelo.getDenominacion()%>"  <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
 		<label>Cantidad de Equipaje Grande:</label>
-		<select name="selectEquiGran" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
+		<select name="selectEquiGran" required <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeGrande()==1?"selected":"" %>>1</option>
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeGrande()==2?"selected":"" %> >2</option>
 		</select><br>
 		<label>Cantidad de Equipaje Chico:</label>
-		<select name="selectEquiChico" <%=mode.equals("eliminar")?"disabled":""%> class="form-control" >
+		<select name="selectEquiChico" required <%=mode.equals("eliminar")?"disabled":""%> class="form-control" >
 			<option value="1" <%=modelo!=null&&modelo.getCantEquipajeChico()==1?"selected":"" %> >1</option>
 			<option value="2" <%=modelo!=null&&modelo.getCantEquipajeChico()==2?"selected":"" %> >2</option>
 			<option value="3" <%=modelo!=null&&modelo.getCantEquipajeChico()==3?"selected":"" %> >3</option>
@@ -116,17 +116,17 @@
 	</div>
     <div class="col-sm-4" style="background-color:orange;">
     	<label>Transmision:</label>
-		<select name="selectTransmision" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
+		<select name="selectTransmision" required <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="manual" <%=modelo!=null&&modelo.getTransmision().equals("manual")?"selected":"" %> >Manual</option>
 			<option value="automatica" <%=modelo!=null&&modelo.getTransmision().equals("automatica")?"selected":"" %> >Automatica</option>
 		</select><br>
 		<label>Aire Acondicionado:</label>
-		<select name="selectAA" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
+		<select name="selectAA" required <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 			<option value="si" <%=modelo!=null&&modelo.getAireAcondicionado().equals("si")?"selected":"" %> >Si</option>
 			<option value="no" <%=modelo!=null&&modelo.getAireAcondicionado().equals("no")?"selected":"" %> >No</option>
 		</select><br>
 		<label>Tipo de Auto:</label>
-		<select name="selectTipo" <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
+		<select name="selectTipo" required <%=mode.equals("eliminar")?"disabled":""%> class="form-control">
 		<%int val = 0; 	for(TipoAuto ta:tiposAutos){++val; String var = Integer.toString(val); String value = Integer.toString(ta.getId_Tipo());%>
 			
 			<option value="<%=value%>" <%=modelo!=null&&val==modelo.getTipoAuto().getId_Tipo()?"selected":""%>><%=ta.getNombreTipo() %></option>
@@ -134,22 +134,23 @@
 		<%}%>
 		</select><br>
 		<label>Precio por día:</label>
-		<input type="number" name="txtPrecioPorDia" value="<%=modelo==null?"":modelo.getPrecioPorDia() %>"   <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
+		<input type="number" name="txtPrecioPorDia" required value="<%=modelo==null?"":modelo.getPrecioPorDia() %>"   <%=mode.equals("eliminar")?"readonly":""%> class="form-control"><br>
     	<label>Ingrese Foto: </label>
-    	<input type="file" name="foto" class="form-control" value="<%=modelo==null?"":modelo.getFotoModelo() %>" <%=mode.equals("eliminar")?"disabled":""%> >
-    </div>
+    	<input type="file" name="foto" required class="form-control" <%=modelo!=null?"hidden":"none" %> value="<%=modelo==null?"":modelo.getFotoModelo() %>" <%=mode.equals("eliminar")?"disabled":""%> >
+		<a class="form-botton-editar" 
+    	href="CambiarFoto.jsp?txtId=<%=modelo==null?"":modelo.getIdentificacion() %>"
+    	style="
+    	display:<%=modelo==null?"none":"block" %>;
+    	width: 200px;">Cambiar Imagen
+    	</a>  
+   </div>
     <div class="col-sm-4" style="background-color:blue; height: 250px;">
     	<label style="font-size: 32px;" ><%=foto %></label>
     	<div style="width:330px; height:170px; background-color: white;">
     	<img alt="No hay foto disponible: " src="<%=modelo==null?"":modelo.getFotoModelo() %>" style="width:320px; height:160px; position: relative; top: 5px; left:5px;" >
     	<input type="hidden" name="fotoAnterior" value="<%=modelo==null?"":modelo.getFotoModelo() %>" >
     	</div>
-    	<a class="form-botton-editar" 
-    	href="CambiarFoto.jsp?txtId=<%=modelo==null?"":modelo.getIdentificacion() %>"
-    	style="margin-top:50px;
-    	display:<%=modelo==null?"none":"block" %>;
-    	width: 200px;">Cambiar Imagen
-    	</a>
+    	
     </div>
    </div>
 	    

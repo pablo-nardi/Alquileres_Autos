@@ -60,7 +60,7 @@
 	
 	<% 	//VALIDACION DE SESION DE USUARIO
 	UsuarioLogic ul = new UsuarioLogic();
-	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "g")){
 		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
 		response.sendRedirect(redirectURL);
 	}

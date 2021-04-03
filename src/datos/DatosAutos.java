@@ -59,14 +59,15 @@ public class DatosAutos {
 	public LinkedList<Auto> getAutosAlt(Date fecRet, Date fecDev)throws SQLException{
 		LinkedList<Auto> autos = new LinkedList<>();
 		Auto auto = null;
-		String consulta = "SELECT DISTINCT au.* FROM autos au inner JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?) AND alq.estado <> 'abierto' AND alq.estado <> 'inspeccion';";
+		String consulta = "SELECT DISTINCT au.* FROM autos au LEFT JOIN alquileres alq on au.patente = alq.patente WHERE au.estado = ? OR (au.estado = ? AND (alq.fecRetiroPrevista > ? OR alq.fecDevPrevista < ?) AND alq.estado <> 'abierto' AND alq.estado <> 'inspeccion') ;";
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(consulta);
 			stmt.setString(1, "disponible");
-			stmt.setString(2, fecDev.toString());
-			stmt.setString(3, fecRet.toString());
+			stmt.setString(2, "disponible");
+			stmt.setString(3, fecDev.toString());
+			stmt.setString(4, fecRet.toString());
 			rs = stmt.executeQuery();
 			if(rs != null ) {
 				while(rs.next()) {

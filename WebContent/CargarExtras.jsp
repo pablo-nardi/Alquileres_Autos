@@ -96,7 +96,7 @@
 				                  <tr>
 				                    <th>Descripcion</th>
 				                    <th>Precio</th>
-									<th>Accion</th>
+									<th>Cantidad</th>
 				                  </tr>
 				                </thead>
 				                <tbody>

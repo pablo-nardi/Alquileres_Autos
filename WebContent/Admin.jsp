@@ -63,7 +63,14 @@
 	</nav>
 	<% 	
 	UsuarioLogic ul = new UsuarioLogic();
-	if(!ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+	
+	if(ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+		//se deja pasar
+	}
+	else if(ul.validarSesion((Usuario)session.getAttribute("usuario"), "u")){
+		String redirectURL = "Usuario.jsp";
+		response.sendRedirect(redirectURL);
+	}else{
 		String redirectURL = "login.jsp?estado=Usuario incorrecto o inexistente";
 		response.sendRedirect(redirectURL);
 	}

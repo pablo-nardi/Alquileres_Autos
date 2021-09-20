@@ -64,7 +64,7 @@
 			localidades = ll.getLocalidades(id);
 		}
 		
-		session.invalidate();
+		//session.invalidate();
 		%>
 </head>
 

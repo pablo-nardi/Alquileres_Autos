@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page errorPage="paginaErrordesdeJSP.jsp" %>
+<%@	page import="java.util.*"%>
+<%@ page import="entidades.Usuario" %>
+<%@ page import="entidades.*" %>
+<%@ page import="logic.*" %>
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -39,8 +45,20 @@
 			session.invalidate();
 			estado = "Sesion cerrada exitosamente";
 		}	
+	}else{
+		//VALIDACION DE SESION DE USUARIO
+		UsuarioLogic ul = new UsuarioLogic();
+		if(ul.validarSesion((Usuario)session.getAttribute("usuario"), "a")){
+			String redirectURL = "Admin.jsp";
+			response.sendRedirect(redirectURL);
+		}else if(ul.validarSesion((Usuario)session.getAttribute("usuario"), "u")){
+			String redirectURL = "Usuario.jsp";
+			response.sendRedirect(redirectURL);
+		}
+		
+		
 	}
-	
+	 
 	%>
 
 </head>

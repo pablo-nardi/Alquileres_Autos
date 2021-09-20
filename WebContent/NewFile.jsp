@@ -11,8 +11,12 @@
 </head>
 <body>
 	<p> hola </p>
-	<form action="ServletPrueba" method="POST">
+	<form action="ServelPruebaEncrypt" method="POST">
+		<input type="text" name="txtCodif" class="form-control">
 		<button>siguiente</button>
+		
+		
+		
 	</form>
 </body>
 </html>
